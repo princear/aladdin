@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, BackHandler, Alert, ImageBackground } from 'react-native';
 import { BLACK, EEFD, GREY_6C, LIGHT_BLUE, WHITE } from '../../styles/color';
-import { HOME_HEADING, SPLASH, BLUE_BOX_ARROW,MOBILE,USER_PROFILE,LOCK } from '../../../assets/icon';
+import { HOME_HEADING, LOGO_ALLADIN, BLUE_BOX_ARROW,MOBILE,USER_PROFILE,LOCK } from '../../../assets/icon';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FREDOKA_ONE_REGULAR, MONTSERRAT_BOLD, MONTSERRAT_REGULAR } from '../../styles/typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -93,7 +93,7 @@ export default function Login(props) {
   return (
     <ImageBackground style={{ flex: 1, width: '100%', height: '100%', }} resizeMode='cover' source={require('../../../assets/images/loginbackground.png')} >
       <View style={{alignItems:'center', justifyContent:'center', paddingTop:hp(14)}}>
-      <Image resizeMode='contain' source={SPLASH} style={{height:wp(50), width:wp(50),}}/>
+      <Image resizeMode='contain' source={LOGO_ALLADIN} style={{height:wp(50), width:wp(50),}}/>
       </View>
       <View>
 
