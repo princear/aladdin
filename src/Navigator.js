@@ -32,8 +32,13 @@ function StackNavigator({ navigation, route }) {
       />
    
       <Stack.Screen
-        name="Home"
+        name="Login"
         component={Login}
+        options={{ headerShown: false, animationEnabled: false }}
+      />
+         <Stack.Screen
+        name="Home"
+        component={Home}
         options={{ headerShown: false, animationEnabled: false }}
       />
        <Stack.Screen

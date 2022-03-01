@@ -89,9 +89,9 @@ export default function BookingServices(props) {
                             </View>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text style={styles.rightHeaderTextWrapper}>Status :</Text>
-                                <View style={styles.statusWrapper}>
+                                <TouchableOpacity onPress={() => props.navigation.navigate('CustomerServices')} style={styles.statusWrapper}>
                                     <Text style={[styles.rightSubHeadingwrapper, { color: WHITE }]}>{item.Status}</Text>
-                                </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ flexDirection: 'row', marginTop: hp(2) }}>
                                 <TouchableOpacity onPress={() => setModalServices(true)} style={styles.editButtonWrapper}>

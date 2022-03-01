@@ -189,7 +189,7 @@ export default function Home(props) {
           numColumns={3}
           renderItem={({ item, index }) => (
             <View style={{ justifyContent: 'center', marginLeft: wp(2), marginTop: hp(1) }}>
-              <TouchableOpacity style={{ height: hp(16), width: wp(30), backgroundColor: item.color, alignItems: 'center', borderRadius: 4, justifyContent: 'center' }}>
+              <TouchableOpacity onPress={() => props.navigation.navigate('BookingServices')} style={{ height: hp(16), width: wp(30), backgroundColor: item.color, alignItems: 'center', borderRadius: 4, justifyContent: 'center' }}>
                 <Image source={item.image} resizeMode='contain' style={{ height: hp(5), width: wp(10), }} />
                 <Text style={{ color: '#fff', fontSize: 15, fontFamily: MONTSERRAT_BOLD, marginTop: hp(2) }}>{item.number}</Text>
               </TouchableOpacity>
@@ -228,7 +228,7 @@ export default function Home(props) {
                 </View>
                 <View style={{flexDirection:'row', alignItems:'flex-end',marginTop:hp(1)}}>
 
-                <TouchableOpacity style={{backgroundColor:'#9066e6',marginLeft:wp(2.5),borderRadius:2,paddingVertical:wp(1),width:wp(25),justifyContent:'center',alignItems:'center'}}>
+                <TouchableOpacity onPress={() => props.navigation.navigate('Booking')} style={{backgroundColor:'#9066e6',marginLeft:wp(2.5),borderRadius:2,paddingVertical:wp(1),width:wp(25),justifyContent:'center',alignItems:'center'}}>
                   <Text style={{color: WHITE, fontSize:11,fontFamily:MONTSERRAT_BOLD}}>Approved</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{backgroundColor:WHITE ,marginLeft:wp(1),borderRadius:2,borderColor:'#c2c2c2', borderWidth:1,paddingVertical:wp(1),width:wp(28),justifyContent:'center',alignItems:'center'}}>

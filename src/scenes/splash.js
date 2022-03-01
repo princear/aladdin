@@ -23,7 +23,7 @@ export default function SplashScreen(props) {
               redirectTo('Home');
             }
           } catch (e) {
-            props.navigation.navigate('Home');
+            props.navigation.navigate('Login');
           }
         }, 1500);
       };

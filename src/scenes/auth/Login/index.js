@@ -133,7 +133,7 @@ export default function Login(props) {
         <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize: 15, color: '#9066e6'}}>Forgot Password</Text>
         </View>
 
-        <TouchableOpacity style={{paddingVertical:hp(2), backgroundColor:'#9066e6', marginHorizontal:wp(5), justifyContent:'center', alignItems:'center', marginTop:hp(4)}}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={{paddingVertical:hp(2), backgroundColor:'#9066e6', marginHorizontal:wp(5), justifyContent:'center', alignItems:'center', marginTop:hp(4)}}>
           <Text style={{color: WHITE, fontFamily: MONTSERRAT_BOLD, fontSize: 15}}>Login</Text>
         </TouchableOpacity>
     </ImageBackground>
