@@ -110,7 +110,7 @@ export default function BookingServices(props) {
             />
 
             <Modal animationType="slide"
-                transparent={false}
+                transparent={true}
                 visible={modalServices}
                 onRequestClose={() => {
                     setModalServices(false);
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     editButtonWrapper: { backgroundColor: '#23a2b7', height: hp(3.5), width: wp(7), justifyContent: 'center', alignItems: 'center', borderRadius: 4 },
     editButtonImage: { height: hp(3.5), width: wp(6) },
     viewButtonWrapper: { marginLeft: wp(3), backgroundColor: '#2ea749', height: hp(3.5), width: wp(7), justifyContent: 'center', alignItems: 'center', borderRadius: 4 },
-    modalWrapper: {flex: 1,backgroundColor: '#00000040',justifyContent: 'center', alignItems: 'center'},
+    modalWrapper: {flex: 1,backgroundColor: '#00000040', alignItems: 'center', paddingTop:hp(9)},
     modalCont: {width: wp(90),backgroundColor: WHITE,justifyContent: 'center',borderRadius: 6,paddingVertical: hp(1)},
     headerAligner2: { flexDirection: 'row', alignItems: 'center', },
     modalHeadingCenter: { color: BLACK, textAlign: 'center', fontSize: 14, fontFamily: MONTSERRAT_BOLD },

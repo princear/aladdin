@@ -11,7 +11,7 @@ import { onLogin } from '../../../redux/Action/LoginAction';
 import Input from '../../../component/common/input';
 
 
-export default function Login(props) {
+export default function ForgetScreen(props) {
 
   const dispatch = useDispatch();
 
@@ -129,9 +129,9 @@ export default function Login(props) {
             style={{ width: wp(80), marginLeft: wp(4) }}
           />
         </View>
-        <TouchableOpacity onPress={() => props.navigation.nvigate('ForgetScreen')} style={{justifyContent:'flex-end', marginRight:wp(5), alignItems:'flex-end', marginTop:hp(2)}}>
+        <View style={{justifyContent:'flex-end', marginRight:wp(5), alignItems:'flex-end', marginTop:hp(2)}}>
         <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize: 15, color: '#9066e6'}}>Forgot Password</Text>
-        </TouchableOpacity>
+        </View>
 
         <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={{paddingVertical:hp(2), backgroundColor:'#9066e6', marginHorizontal:wp(5), justifyContent:'center', alignItems:'center', marginTop:hp(4)}}>
           <Text style={{color: WHITE, fontFamily: MONTSERRAT_BOLD, fontSize: 15}}>Login</Text>

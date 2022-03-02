@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {SPLASH } from '../assets/icon';
+import {SPLASH,SPLASH_BACKGROUND } from '../assets/icon';
 import { WHITE } from './styles/color';
 
 
@@ -35,13 +35,14 @@ export default function SplashScreen(props) {
 
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={SPLASH_BACKGROUND} style={styles.container}>
+
         <Image resizeMode='contain' source={SPLASH} style={{height:'40%', width:'40%'}}/>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#9066e6' },
+  container: { flex:1, justifyContent: 'center', alignItems: 'center', },
   containerText: { fontSize: 18 },
 });

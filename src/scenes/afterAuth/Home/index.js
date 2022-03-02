@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, BackHandler, FlatList,
 import { BLACK, GREY_6C, LIGHT_BLUE, WHITE } from '../../styles/color';
 import { HOME_HEADING, SPLASH, BLUE_BOX_ARROW, BAR, SEARCH,CLOCK,DATE } from '../../../assets/icon';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { MONTSERRAT_BOLD, MONTSERRAT_REGULAR } from '../../styles/typography';
+import { MONTSERRAT_BLACK, MONTSERRAT_BOLD, MONTSERRAT_REGULAR } from '../../styles/typography';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker'
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -218,7 +218,7 @@ export default function Home(props) {
                 <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize:12,color: BLACK}}>{item.number}</Text>
             </View>
             <View style={{width:wp(58),paddingHorizontal:wp(1)}}>
-            <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize:10,color: BLACK, textAlign:'justify'}}>{item.content}</Text>
+            <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize:10,color: BLACK,paddingLeft:wp(1),lineHeight:15}}>{item.content}</Text>
               <View style={{marginTop:hp(1), flexDirection:'row', alignItems:'center'}}>
                 <Image source={CLOCK} resizeMode='contain' style={{height:hp(3), width:wp(6)}}/>
                 <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize:10,color: '#c2c2c2',}}> {item.date}</Text>

@@ -19,6 +19,7 @@ import Booking from './scenes/afterAuth/Booking';
 import BookingServices from './scenes/afterAuth/BookingServices';
 import CustomerServices from './scenes/afterAuth/Customer';
 import Login from './scenes/auth/Login';
+import ForgetScreen from './scenes/auth/ForgetScreen';
 
 const Stack = createStackNavigator();
 
@@ -30,33 +31,39 @@ function StackNavigator({ navigation, route }) {
         component={SplashScreen}
         options={{ headerShown: false, animationEnabled: false }}
       />
-   
+
       <Stack.Screen
         name="Login"
         component={Login}
         options={{ headerShown: false, animationEnabled: false }}
       />
-         <Stack.Screen
+      <Stack.Screen
+        name="ForgetScreen"
+        component={ForgetScreen}
+        options={{ headerShown: false, animationEnabled: false }}
+      />
+
+      <Stack.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false, animationEnabled: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Booking"
         component={Booking}
         options={{ headerShown: false, animationEnabled: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="BookingServices"
         component={BookingServices}
         options={{ headerShown: false, animationEnabled: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="CustomerServices"
         component={CustomerServices}
         options={{ headerShown: false, animationEnabled: false }}
       />
-    
+
     </Stack.Navigator>
   );
 }
