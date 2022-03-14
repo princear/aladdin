@@ -20,7 +20,10 @@ export const EMAIL = require('./images/Email.png');
 export const CONTACT = require('./images/contactno.png');
 export const LOGIN_BACKGROUND = require('./images/loginbackground.png');
 export const LOGO_ALLADIN = require('./images/LogoAlladin.png');
-export const SPLASH_BACKGROUND = require('./images/Splashscreenbackground.png')
+export const SPLASH_BACKGROUND = require('./images/Splashscreenbackground.png');
+export const FORGET_IMAGE = require('./images/forget.png');
+export const OTP = require('./images/OTP.png');
+
 
 
 

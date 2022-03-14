@@ -20,6 +20,7 @@ import BookingServices from './scenes/afterAuth/BookingServices';
 import CustomerServices from './scenes/afterAuth/Customer';
 import Login from './scenes/auth/Login';
 import ForgetScreen from './scenes/auth/ForgetScreen';
+import OtpScreen from './scenes/auth/OtpScreen';
 
 const Stack = createStackNavigator();
 
@@ -42,7 +43,11 @@ function StackNavigator({ navigation, route }) {
         component={ForgetScreen}
         options={{ headerShown: false, animationEnabled: false }}
       />
-
+      <Stack.Screen
+        name="OtpScreen"
+        component={OtpScreen}
+        options={{ headerShown: false, animationEnabled: false }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}

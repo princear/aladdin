@@ -129,7 +129,7 @@ export default function Login(props) {
             style={{ width: wp(80), marginLeft: wp(4) }}
           />
         </View>
-        <TouchableOpacity onPress={() => props.navigation.nvigate('ForgetScreen')} style={{justifyContent:'flex-end', marginRight:wp(5), alignItems:'flex-end', marginTop:hp(2)}}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ForgetScreen')} style={{justifyContent:'flex-end', marginRight:wp(5), alignItems:'flex-end', marginTop:hp(2)}}>
         <Text style={{fontFamily: MONTSERRAT_REGULAR, fontSize: 15, color: '#9066e6'}}>Forgot Password</Text>
         </TouchableOpacity>
 
