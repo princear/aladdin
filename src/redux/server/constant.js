@@ -1,4 +1,3 @@
-export const REGISTERUSER = 'api/register';
-export const LOGINUSER = 'api/login';
+export const LOGINUSER = 'service-provider-login';
 
 
