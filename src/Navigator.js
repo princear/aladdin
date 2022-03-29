@@ -50,7 +50,7 @@ function StackNavigator({ navigation, route }) {
       />
       <Stack.Screen
         name="Home"
-        component={Home}
+        component={MyDrawer}
         options={{ headerShown: false, animationEnabled: false }}
       />
       <Stack.Screen
@@ -75,34 +75,49 @@ function StackNavigator({ navigation, route }) {
 
 
 
-// const Drawer = createDrawerNavigator();
-// function MyDrawer() {
-//   return (
-//     <Drawer.Navigator>
-//       <Drawer.Screen name="Feed" component={Feed} />
-//       <Drawer.Screen name="Article" component={Article} />
-//     </Drawer.Navigator>
-//   );
-// }
+const Drawer = createDrawerNavigator();
 
-// function MyDrawer({ navigation, route }) {
+function MyDrawer({ navigation, route }) {
 
-//   return (
-//     <Drawer.Navigator defaultStatus="closed" screenOptions={{
-//       drawerPosition: 'right',
-//       headerShown: false,
-//       drawerActiveBackgroundColor: "#FAFAFC",
-//     }}
-//       initialRouteName="Home"
-//       drawerContent={props => <DrawerContent {...props} />}
-//     >
-//       <Drawer.Screen name="Home" component={Home} />
-//       {/* <Drawer.Screen name="Home" component={MainNavigation1} /> */}
+  return (
+    <Drawer.Navigator defaultStatus="closed"
+      // screenOptions={{
+      //   drawerStyle: {
+      //     backgroundColor: '#fff',
+      //     width: wp(100),
+      //   },
+      //   swipeEdgeWidth:0,
+      //   drawerPosition: "right",
+      //   headerShown: false,
+      //   drawerActiveBackgroundColor: "#FAFAFC",
+      //   unmountOnBlur: true
 
-//     </Drawer.Navigator>
-//   );
+      // }}
+      screenOptions={{
+        drawerPosition: 'right',
+        headerShown: false,
+        drawerActiveBackgroundColor: "#FAFAFC",
+        drawerActiveTintColor: '#fff',
+        drawerStyle: {
+          backgroundColor: '#fff',
+          width: wp(100),
+        },
+      }}
 
-// }
+      initialRouteName="Home"
+      drawerContent={props => <DrawerContent {...props} />}
+    >
+
+      <Drawer.Screen name="Home" component={Home} options={{
+        headerShown: false,
+        animationEnabled: false,
+        swipeEnabled: true,
+      }} />
+      {/* <Drawer.Screen name="Register" component={Register} /> */}
+    </Drawer.Navigator>
+  );
+
+}
 
 
 

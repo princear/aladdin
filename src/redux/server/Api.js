@@ -1,24 +1,24 @@
-const baseUrl = 'https://aard24.com/backend/';
+const baseUrl = 'http://3.26.216.78/api/';
 
 export default function API(variables, method, apiMethod, Authorization, formdata) {
   var init =
     apiMethod === 'GET'
       ? {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: Authorization ? 'token ' + Authorization : '',
-          },
-        }
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: Authorization ? 'token ' + Authorization : '',
+        },
+      }
       : formdata == true
-      ? {
+        ? {
           method: apiMethod,
           headers: {
             Authorization: Authorization ? 'token ' + Authorization : '',
           },
           body: variables,
         }
-      : {
+        : {
           method: apiMethod,
           headers: {
             'Content-Type': 'application/json',
