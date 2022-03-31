@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 
 import LOADERDATA from './LoaderReducer';
-import USERLOGIN from './LoginReducer';
+import UserReducers from './LoginReducer';
+import COUNTBOOKINGREDUCER from './BookingReducer';
+
 
 
 export default combineReducers({
   LOADERDATA,
-  USERLOGIN,
+  UserReducers,
+  COUNTBOOKINGREDUCER
 });

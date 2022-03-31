@@ -7,7 +7,7 @@ import { FREDOKA_ONE_REGULAR, MONTSERRAT_BOLD, MONTSERRAT_REGULAR } from '../../
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { handleValidations } from '../../../validations/validate';
 import { useDispatch, useSelector } from 'react-redux';
-import { onLogin } from '../../../redux/Action/LoginAction';
+import { onLogin, UserLogin } from '../../../redux/Action/LoginAction';
 import Input from '../../../component/common/input';
 import { useNavigation } from '@react-navigation/native';
 
@@ -31,8 +31,8 @@ export default function Login(props) {
   };
 
 
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState('ravinsan015@gmail.com');
 
   let [inbuiltstate, setInbuiltstate] = useState({
     email: '',
@@ -56,8 +56,7 @@ export default function Login(props) {
     }
 
     else {
-      dispatch(onLogin(email, password, navigation))
-      // dispatch(onLogin({ email: email, password: password, navigation }));
+      dispatch(UserLogin({ email: email, password: password }, navigation))
 
     }
   }

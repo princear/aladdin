@@ -393,11 +393,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				CFB9F5A04448444E870E279A /* FredokaOne-Regular.ttf in Resources */,
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				C76F2A68D1864AD892E6D01E /* Montserrat-Black.ttf in Resources */,
 				4C4952EC1B254794B075E80C /* Montserrat-BlackItalic.ttf in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				BCF035E55B3341878190A87A /* Montserrat-Bold.ttf in Resources */,
 				88BB5E11D1B749508BA027AA /* Montserrat-BoldItalic.ttf in Resources */,
 				46E0662BE35148C09CDE1DA6 /* Montserrat-ExtraBold.ttf in Resources */,

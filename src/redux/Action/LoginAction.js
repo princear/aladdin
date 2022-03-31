@@ -1,68 +1,183 @@
-import { Alert, } from 'react-native';
-import API from '../server/Api';
-import { LOGINUSER } from '../server/constant';
-import { LOGIN } from '../Constant/constants';
-import loaderData from './LoaderAction';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { USER_LOGIN, GET_TOKEN, REMOVE_TOKEN, PROFILE_LOGIN, UPDATE_PROFILE_LOGIN } from "../Constant/constants";
+import { logistical } from '../../logistical'
+import AsyncStorage from "@react-native-community/async-storage";
+import { Alert, ToastAndroid } from "react-native";
 
 
+export const RemoveToken = (data, navigation) => dispatch => {
 
-export function loginData(data) {
-  return {
-    type: LOGIN,
-    loginData: data,
-  };
+  return new Promise(async (resolve, reject) => {
+
+    dispatch({
+      type: REMOVE_TOKEN,
+      Token: data
+    })
+
+    // navigation.navigate('AuthCheck');
+  })
 }
 
-export function onLogin(email, password, navigation) {
-  console.log('navigation', navigation)
-  return async (dispatch) => {
-    dispatch(loaderData(true));
-    let loginDetail = {
-      email: email,
-      password: password
-    }
-    console.log(loginDetail)
-    API(loginDetail, LOGINUSER, 'POST', '')
-      .then((resp) => {
-        console.log('response', JSON.stringify(resp.data));
-        dispatch(loaderData(false));
-        if (resp.data.status === 1 && resp.data.message === 'loggedin') {
-          AsyncStorage.setItem('token', JSON.stringify(resp.data.token));
 
-          dispatch(loginData(resp.data.user));
-          navigation.navigate('Home')
-        }
-        // else if (resp.data.error === 'invalid_credentials') {
-        //   Alert.alert(
-        //     'Unauthorized user',
-        //     'Do you want to register user',
-        //     [
-        //       {
-        //         text: 'OK'
-        //       },
-        //       {
-        //         text: 'cancel',
-        //         onPress: () => {
-        //           props.navigation.push('Login');
-        //         },
-        //       },
-        //     ],
-        //     {
-        //       cancelable: false,
-        //     },
-        //   );
-        // }
-        else {
-          console.log('======>', resp.message)
-          Alert.alert('', resp.response[0]);
-        }
-      })
-      .catch((error) => {
-        dispatch(loaderData(false));
-        console.log(error);
+export const UserLogin = (data, navigation) => dispatch => {
+
+  dispatch({
+    type: 'LOADING',
+    payload: true
+  });
+
+  console.log("login detail>>>>>>>>>>", data);
+  return new Promise(async (resolve, reject) => {
+
+    const response = await logistical.post('/service-provider-login', data);
+
+    if (response.status == '1' && response.message == 'loggedin') {
+
+      AsyncStorage.setItem("login", JSON.stringify(response.data.token));
+
+      dispatch({
+        type: USER_LOGIN,
+        Userdata: response.data,
       });
-  }
-}
 
 
+      dispatch({
+        type: GET_TOKEN,
+        Token: response.data.token,
+      });
+
+      //   Alert.alert(response.response[0])
+      resolve(response);
+
+      // navigation.navigate('AuthCheck');
+
+
+
+      navigation.navigate('Home');
+
+      dispatch({
+
+        type: 'LOADING',
+        payload: false
+
+      });
+    }
+
+    else if (response.status == '0' && response.message == 'invalid_credentials') {
+
+      Alert.alert(response.response[0])
+      dispatch({
+
+        type: 'LOADING',
+        payload: false
+
+      });
+    }
+
+    else {
+      // Alert.alert(response.message)
+      Alert.alert(response.response[0])
+      dispatch({
+
+        type: 'LOADING',
+        payload: false
+
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
+    }
+  });
+};
+
+export const ProfileData = (data, navigation) => dispatch => {
+
+  return new Promise(async (resolve, reject) => {
+
+    const loginDataaa = await AsyncStorage.getItem('loginData');
+
+    const response = await logistical.get('/get-profile' + '/' + loginDataaa, data);
+
+    if (response.status == '1') {
+
+      dispatch({
+        type: PROFILE_LOGIN,
+        profile: response.data.user,
+      });
+
+      resolve(response);
+    }
+
+    else {
+      Alert.alert(response.response[0])
+      dispatch({
+        type: 'LOADING',
+        payload: false
+
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
+    }
+  });
+};
+
+
+export const UpdateProfileData = (data, navigation) => dispatch => {
+  dispatch({
+    type: 'LOADING',
+    payload: true
+
+  });
+  return new Promise(async (resolve, reject) => {
+
+    dispatch({
+      type: 'LOADING',
+      payload: false
+
+    });
+
+    //  const form = new FormData();
+
+    //  form.append('image', {
+    //    uri: "file:///...",
+    //    type: 'image/jpg',
+    //    name: 'image.jpg',
+    //  });
+
+    //  fetch('https://example.com/api/upload', {
+    //    method: 'POST',
+    //    body: form
+    //  });
+
+
+    const response = await logistical.post('/update-profile', data);
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', response)
+
+    if (response.status == '1' && response.message == 'Successfully Response') {
+      // dispatch({
+      //   type: UPDATE_PROFILE_LOGIN,
+      //   updateProfile: response.data.user,
+      // });
+
+      dispatch(ProfileData())
+      // Alert.alert(response.response[0])
+      ToastAndroid.showWithGravity(
+        'Profile pic updated successfully!',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+      resolve(response);
+
+    }
+
+    else {
+      Alert.alert(response.response[0])
+      dispatch({
+        type: 'LOADING',
+        payload: false
+
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
+    }
+  });
+};
