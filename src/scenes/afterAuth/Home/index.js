@@ -110,7 +110,6 @@ export default function Home({ props, navigation }) {
   const dispatch = useDispatch();
 
   const bookingCount = useSelector((state) => state.COUNTBOOKINGREDUCER);
-  console.log('===>', bookingCount.countData)
   useEffect(() => {
     dispatch(onCountBooking())
   }, [])
@@ -217,7 +216,7 @@ export default function Home({ props, navigation }) {
                     backgroundColor: item.status === 'Pending' ? '#f2ac00' : item.status == 'Approved' ? '#23a2b7' : item.status == 'In Progress' ? '#157dfc' : item.status === 'Completed' ? '#2ea749' : item.status === 'Cancelled' ? '#da3348' : item.status === 'Total' ? '#343a40' : null,
                     alignItems: 'center', borderRadius: 4, justifyContent: 'center'
                   }}>
-                  <Image source={item.image} resizeMode='contain' style={{ height: hp(5), width: wp(10), }} />
+                  <Image source={require('../../../assets/images/Booking.png')} resizeMode='contain' style={{ height: hp(5), width: wp(10), }} />
                   <Text style={{ color: '#fff', fontSize: 15, fontFamily: MONTSERRAT_BOLD, marginTop: hp(2) }}>{item.count}</Text>
                 </TouchableOpacity>
                 <Text style={{ fontFamily: MONTSERRAT_BOLD, fontSize: 10, color: '#000', textAlign: 'center' }}>{item.status}</Text>
@@ -255,7 +254,7 @@ export default function Home({ props, navigation }) {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginTop: hp(1) }}>
 
-                      <TouchableOpacity onPress={() => props.navigation.navigate('Booking')} style={{ backgroundColor: '#9066e6', marginLeft: wp(2.5), borderRadius: 2, paddingVertical: wp(1), width: wp(25), justifyContent: 'center', alignItems: 'center' }}>
+                      <TouchableOpacity onPress={() => navigation.navigate('Booking')} style={{ backgroundColor: '#9066e6', marginLeft: wp(2.5), borderRadius: 2, paddingVertical: wp(1), width: wp(25), justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: WHITE, fontSize: 11, fontFamily: MONTSERRAT_BOLD }}>Approved</Text>
                       </TouchableOpacity>
                       <TouchableOpacity style={{ backgroundColor: WHITE, marginLeft: wp(1), borderRadius: 2, borderColor: '#c2c2c2', borderWidth: 1, paddingVertical: wp(1), width: wp(28), justifyContent: 'center', alignItems: 'center' }}>

@@ -21,6 +21,7 @@ import CustomerServices from './scenes/afterAuth/Customer';
 import Login from './scenes/auth/Login';
 import ForgetScreen from './scenes/auth/ForgetScreen';
 import OtpScreen from './scenes/auth/OtpScreen';
+import BookingListDetail from './scenes/afterAuth/BookingListDetail.js';
 
 const Stack = createStackNavigator();
 
@@ -68,6 +69,13 @@ function StackNavigator({ navigation, route }) {
         component={CustomerServices}
         options={{ headerShown: false, animationEnabled: false }}
       />
+      <Stack.Screen
+        name="BookingListDetail"
+        component={BookingListDetail}
+        options={{ headerShown: false, animationEnabled: false }}
+      />
+
+
 
     </Stack.Navigator>
   );
