@@ -4,7 +4,7 @@ import { COUNT, BOOKINGLIST, BOOKING_LIST_ID } from "../Constant/constants";
 const initialstate = {
     countData: [],
     bookingListData: [],
-    particularList: '',
+    particularList: [],
 
     loading: false,
 }

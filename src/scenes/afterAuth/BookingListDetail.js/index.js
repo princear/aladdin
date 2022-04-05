@@ -17,17 +17,17 @@ export default function BookingListDetail({ route, navigation }) {
     const [email, setEmail] = useState('');
 
 
-    //  const Pendinglist = useSelector((state) => state.COUNTBOOKINGREDUCER.particularList);
+    const Pendinglist = useSelector((state) => state.COUNTBOOKINGREDUCER.particularList);
+    console.log('booking_idQQQQQQQQQQQ', Pendinglist[0].customer_details)
+
     //console.log('data', data)
     useEffect(() => {
         const booking_id = route.params.bookingId;
 
-
-        console.log('booking_idQQQQQQQQQQQ', booking_id, Pendinglist
-        )
+        console.log('booking_id', booking_id)
         dispatch(particularBookingId(booking_id))
 
-        //setEmail(Pendinglist.customer_details.email);
+        // setEmail(Pendinglist[0].customer_details.email);
     }, [])
 
 
@@ -52,7 +52,7 @@ export default function BookingListDetail({ route, navigation }) {
                     <View style={styles.flexWrapper}>
                         <Image source={require('../../../assets/images/mail.png')} resizeMode='contain' style={styles.mailImage} />
                         <Text style={styles.subHeading}>{email}</Text>
-                        {/* <Text style={styles.subHeading}>{data.customer_details.email}</Text> */}
+                        <Text style={styles.subHeading}>{Pendinglist[0] == '' ? Pendinglist[0].customer_details.email : null}</Text>
                     </View>
                 </View>
                 <View style={styles.topRightWRapper}>
@@ -60,11 +60,12 @@ export default function BookingListDetail({ route, navigation }) {
                     <View style={styles.flexWrapper}>
                         <Image source={require('../../../assets/images/mobile.png')} resizeMode='contain' style={styles.mailImage} />
 
-                        {/* <Text style={styles.subHeading}>{data.customer_details.formatted_mobile}</Text> */}
+                        {/* <Text style={styles.subHeading}>{Pendinglist[0].customer_details.formatted_mobile}</Text> */}
                     </View>
                 </View>
             </View>
             <View style={styles.topWrapper}>
+
 
                 <View style={styles.topLeftWRapper}>
                     <Text style={styles.heading}>Booking Date</Text>

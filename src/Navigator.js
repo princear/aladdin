@@ -22,6 +22,7 @@ import Login from './scenes/auth/Login';
 import ForgetScreen from './scenes/auth/ForgetScreen';
 import OtpScreen from './scenes/auth/OtpScreen';
 import BookingListDetail from './scenes/afterAuth/BookingListDetail.js';
+import EditPage from './component/editpage';
 
 const Stack = createStackNavigator();
 
@@ -74,6 +75,12 @@ function StackNavigator({ navigation, route }) {
         component={BookingListDetail}
         options={{ headerShown: false, animationEnabled: false }}
       />
+      <Stack.Screen
+        name="EditPage"
+        component={EditPage}
+        options={{ headerShown: false, animationEnabled: false }}
+      />
+
 
 
 

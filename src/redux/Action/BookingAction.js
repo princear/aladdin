@@ -107,7 +107,7 @@ export const onALlBooking = (data, navigation) => dispatch => {
     });
 };
 
-export const particularBookingId = (b_id, data, navigation) => dispatch => {
+export const particularBookingId = (data, navigation) => dispatch => {
 
     dispatch({
         type: 'LOADING',
@@ -117,12 +117,12 @@ export const particularBookingId = (b_id, data, navigation) => dispatch => {
 
         // console.log('b_Id', b_id)
 
-        const response = await logistical.get('/get-provider-product-booking-details/' + b_id);
-        // console.log('respomsne=%%%%%%%%%%%%%%%%%%%%%%=====>', response)
+        const response = await logistical.get('/get-provider-product-booking-details/' + data);
+        console.log('respomsne=%%%%%%%%%%%%%%%%%%%%%%=====>', response)
 
         if (response.status == '1') {
 
-            //  console.log('respomsne======>', response.data)
+            console.log('respomsne======>', response.data)
 
             dispatch({
                 type: BOOKING_LIST_ID,
