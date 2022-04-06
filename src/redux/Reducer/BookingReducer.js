@@ -1,11 +1,14 @@
-import { COUNT, BOOKINGLIST, BOOKING_LIST_ID } from "../Constant/constants";
+import { COUNT, BOOKINGLIST, BOOKING_LIST_ID, EDIT_BOOKING, CANCEL_BOOKING, DELETE_BOOKING, RECENT_BOOKINGS } from "../Constant/constants";
 
 
 const initialstate = {
     countData: [],
     bookingListData: [],
     particularList: [],
-
+    editBookingData: [],
+    cancelBookingData: [],
+    deleteBookingData: '',
+    recentBookingData: [],
     loading: false,
 }
 
@@ -23,6 +26,17 @@ const COUNTBOOKINGREDUCER = (state = initialstate, action) => {
 
         case BOOKING_LIST_ID:
             return { ...state, particularList: action.particularListData };
+
+        case EDIT_BOOKING:
+            return { ...state, editBookingData: action.editBookingData };
+
+        case CANCEL_BOOKING:
+            return { ...state, cancelBookingData: action.cancelBookingData };
+        case DELETE_BOOKING:
+            return { ...state, deleteBookingData: action.deleteBookingData };
+
+        case RECENT_BOOKINGS:
+            return { ...state, recentBookingData: action.recentBookingData };
         case 'LOADING':
 
             if (action.payload) {

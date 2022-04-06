@@ -18,5 +18,10 @@ export const GET_SERVICES = 'GET_SERVICES';
 export const COMPANY_LIST = 'COMPANY_LIST';
 export const BOOKINGLIST = 'BOOKINGLIST';
 export const BOOKING_LIST_ID = 'BOOKING_LIST_ID';
+export const EDIT_BOOKING = 'EDIT_BOOKING';
+export const CANCEL_BOOKING = 'CANCEL_BOOKING';
+export const DELETE_BOOKING = 'DELETE_BOOKING';
+export const RECENT_BOOKINGS = 'RECENT_BOOKINGS';
+
 
 

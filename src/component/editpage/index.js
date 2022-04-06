@@ -8,6 +8,9 @@ import RNPickerSelect from 'react-native-picker-select';
 import moment from "moment";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { BLACK, WHITE } from '../../scenes/styles/color';
+import { editBooking, cancelBooking } from '../../redux/Action/BookingAction';
+
+
 export default function EditPage({ route, navigation }) {
 
 
@@ -28,21 +31,27 @@ export default function EditPage({ route, navigation }) {
         showMode('date');
     };
 
-    const [state, setState] = useState('completed')
+    const [state, setState] = useState('Select status')
     const state_list = [
+        { label: 'Select status', value: 'Select status' },
         { label: 'pending', value: 'pending' },
         { label: 'completed', value: 'completed' },
         { label: 'in progress', value: 'in progress' },
-        { label: 'canceled', value: 'canceled' },
+        // { label: 'canceled', value: 'canceled' },
+        { label: 'approved', value: 'approved' },
 
     ];
+    const bookingid = route.params.b_id;
+
+    const Pendinglist = useSelector((state) => state.COUNTBOOKINGREDUCER.particularList);
+
 
 
     return (
         <View style={styles.container}>
             <View style={styles.headerWrapper}>
                 <View style={styles.headerAligner}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
                     </TouchableOpacity>
                     <Text style={styles.headerCenterText}>Edit page </Text>
@@ -53,22 +62,22 @@ export default function EditPage({ route, navigation }) {
                 <Text style={styles.headingTextWrapp}>Name</Text>
                 <View style={styles.emailWrapper}>
                     <Image source={require('../../assets/images/registartionUser.png')} resizeMode='contain' style={styles.userImage} />
-                    <Text style={styles.rightText}>Loreum Ipsum</Text>
+                    <Text style={styles.rightText}>{Pendinglist[0] ?.customer_details ?.name}</Text>
                 </View>
                 <Text style={styles.headingSecondTextWrapp}>Email</Text>
                 <View style={styles.emailWrapper}>
                     <Image source={require('../../assets/images/mail.png')} resizeMode='contain' style={styles.userImage} />
-                    <Text style={styles.rightText}>Loreum@gmail.com</Text>
+                    <Text style={styles.rightText}>{Pendinglist[0] ?.customer_details ?.email}</Text>
                 </View>
                 <Text style={styles.headingSecondTextWrapp}>Mobile</Text>
                 <View style={styles.emailWrapper}>
                     <Image source={require('../../assets/images/mobile.png')} resizeMode='contain' style={styles.userImage} />
-                    <Text style={styles.rightText}>+91 - 9876543210</Text>
+                    <Text style={styles.rightText}>{Pendinglist[0] ?.customer_details ?.formatted_mobile}</Text>
                 </View>
 
-                <Text style={[styles.headingSecondTextWrapp, { marginTop: hp(6) }]}>Booking Date</Text>
+                {/* <Text style={[styles.headingSecondTextWrapp, { marginTop: hp(6) }]}>Booking Date</Text> */}
 
-                <TouchableOpacity onPress={showDatepicker} style={styles.bookingDateWrapper}>
+                {/* <TouchableOpacity onPress={showDatepicker} style={styles.bookingDateWrapper}>
 
                     <View>
                         <Text style={styles.bookingText}>{moment(date).format("DD-MM-YYYY ")}</Text>
@@ -83,7 +92,7 @@ export default function EditPage({ route, navigation }) {
                         display="default"
                         onChange={onChange}
                     />
-                )}
+                )} */}
 
 
                 <Text style={[styles.headingSecondTextWrapp]}>Booking Status</Text>
@@ -120,7 +129,7 @@ export default function EditPage({ route, navigation }) {
                 </View>
 
                 <View style={styles.productHeading}>
-                    <Text style={styles.productText}>{'data.ServiceDetail.name'} </Text>
+                    <Text style={styles.productText}>{Pendinglist[0] ?.ServiceDetail ?.name} </Text>
                     {/* <View style={styles.servicesWrapper}>
                         <Text style={styles.servicesTextWrapper}>Services</Text>
                     </View> */}
@@ -133,18 +142,19 @@ export default function EditPage({ route, navigation }) {
                         <Text style={styles.deleteCrossWrapp}>X</Text>
                         <Text style={styles.deleteTextWrapp}>Delete Booking</Text>
                     </View>
-                    <View style={styles.editWrapper}>
+                    <TouchableOpacity style={styles.editWrapper} onPress={() => dispatch(cancelBooking({ booking_id: route.params.b_id, status: 'canceled' }, navigation))}>
                         <Image source={require('../../assets/images/whiteclose.png')} resizeMode='contain' style={{ height: hp(2), width: wp(2) }} />
-                        {/* <Text style={[styles.deleteCrossWrapp, { color: '#fff' }]}>X</Text> */}
-
                         <Text style={[styles.editTextWrapp, { color: '#fff' }]}>Cancel</Text>
-                    </View>
-                    <View style={[styles.editWrapper, { backgroundColor: '#2ea749' }]}>
+                    </TouchableOpacity>
+
+                    {/* <Text> {state}</Text> */}
+                    <TouchableOpacity style={[styles.editWrapper, { backgroundColor: '#2ea749' }]}
+                        onPress={() => dispatch(editBooking({ status: state, booking_id: bookingid, }, navigation))} >
                         {/* <Text style={[styles.deleteCrossWrapp, { color: '#fff' }]}>X</Text> */}
                         <Image source={require('../../assets/images/right.png')} resizeMode='contain' style={{ height: hp(2), width: wp(3) }} />
 
                         <Text style={[styles.editTextWrapp, { color: '#fff' }]}>Submit</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
             </View>

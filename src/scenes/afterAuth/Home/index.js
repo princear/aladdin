@@ -9,7 +9,7 @@ import DatePicker from 'react-native-date-picker'
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import { useDispatch, useSelector } from 'react-redux';
-import { onCountBooking } from '../../../redux/Action/BookingAction';
+import { onCountBooking, RecentBookings } from '../../../redux/Action/BookingAction';
 import { RemoveToken } from '../../../redux/Action/LoginAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -110,8 +110,15 @@ export default function Home({ props, navigation }) {
   const dispatch = useDispatch();
 
   const bookingCount = useSelector((state) => state.COUNTBOOKINGREDUCER);
+  const recentBookings = useSelector((state) => state.COUNTBOOKINGREDUCER.recentBookingData);
+
+  console.log('recentBookings', recentBookings)
+
+
   useEffect(() => {
-    dispatch(onCountBooking())
+    dispatch(onCountBooking());
+
+
   }, [])
 
   const onChange = (event, selectedDate) => {
@@ -161,8 +168,9 @@ export default function Home({ props, navigation }) {
           </TouchableOpacity>
           <Text style={{ fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD }}>DashBoard</Text>
         </View>
-        <TouchableOpacity>
-          <Image source={SEARCH} resizeMode='contain' style={{ height: hp(4), width: wp(12) }} />
+        <TouchableOpacity onPress={() => Logout()}>
+          <Text style={{ paddingRight: wp(2), color: '#fff' }}>Logout</Text>
+          {/* <Image source={SEARCH} resizeMode='contain' style={{ height: hp(4), width: wp(12) }} /> */}
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={{ paddingBottom: hp(2) }}>
@@ -177,7 +185,7 @@ export default function Home({ props, navigation }) {
         <TouchableOpacity onPress={showDatepicker2} style={{ marginTop: hp(3), backgroundColor: WHITE, marginHorizontal: wp(5), paddingVertical: hp(1.5), elevation: 2 }}>
           <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 14, paddingLeft: wp(3), color: '#c2c2c2' }}>{moment(date2).format("DD-MM-YYYY ")}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => Logout()} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#9066e6', width: wp(50), borderRadius: 20, paddingVertical: hp(1.2), marginVertical: hp(2), alignSelf: 'center' }}>
+        <TouchableOpacity onPress={() => dispatch(RecentBookings({ dateFrom: moment(date).format("YYYY-MM-DD "), dateTo: moment(date2).format("YYYY-MM-DD ") }, navigation))} style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: '#9066e6', width: wp(50), borderRadius: 20, paddingVertical: hp(1.2), marginVertical: hp(2), alignSelf: 'center' }}>
           <Text style={{ fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: WHITE }}>Apply</Text>
         </TouchableOpacity>
 
@@ -201,7 +209,7 @@ export default function Home({ props, navigation }) {
         )}
 
         <View style={{ marginLeft: wp(1) }}>
-          <Text style={{ fontSize: 14, marginLeft: wp(3), fontFamily: MONTSERRAT_BOLD, color: '#000', marginVertical: hp(2) }}>Total Booking : 0</Text>
+          <Text style={{ fontSize: 14, marginLeft: wp(3), fontFamily: MONTSERRAT_BOLD, color: '#000', marginVertical: hp(2) }}>Total Booking : {bookingCount ?.countData[6] ?.count}</Text>
           <FlatList
             // data={bookings}
             data={bookingCount.countData}
@@ -210,10 +218,12 @@ export default function Home({ props, navigation }) {
             numColumns={3}
             renderItem={({ item, index }) => (
               <View style={{ justifyContent: 'center', marginLeft: wp(2), marginTop: hp(1) }}>
-                <TouchableOpacity onPress={() =>
-                  props.navigation.navigate('BookingServices')} style={{
+                <TouchableOpacity
+                  // onPress={() =>
+                  //   props.navigation.navigate('BookingServices')} 
+                  style={{
                     height: hp(16), width: wp(30),
-                    backgroundColor: item.status === 'Pending' ? '#f2ac00' : item.status == 'Approved' ? '#23a2b7' : item.status == 'In Progress' ? '#157dfc' : item.status === 'Completed' ? '#2ea749' : item.status === 'Cancelled' ? '#da3348' : item.status === 'Total' ? '#343a40' : null,
+                    backgroundColor: item.status === 'Pending' ? '#f2ac00' : item.status == 'Approved' ? '#23a2b7' : item.status == 'In Progress' ? '#157dfc' : item.status === 'Completed' ? '#2ea749' : item.status === 'Cancelled' ? '#da3348' : item.status === 'Total' ? '#343a40' : item.status === 'Blank Status' ? '#c2c2c2' : null,
                     alignItems: 'center', borderRadius: 4, justifyContent: 'center'
                   }}>
                   <Image source={require('../../../assets/images/Booking.png')} resizeMode='contain' style={{ height: hp(5), width: wp(10), }} />
@@ -232,34 +242,34 @@ export default function Home({ props, navigation }) {
             <Text style={{ fontSize: 14, marginLeft: wp(3), fontFamily: MONTSERRAT_BOLD, color: '#000', marginTop: hp(4) }}>Recent Booking</Text>
 
             <FlatList
-              data={listing}
+              data={recentBookings.data}
               keyExtractor={(item, index) => index}
               // horizontal={false}
               numColumns={1}
               renderItem={({ item, index }) => (
                 <View style={{ flexDirection: 'row', elevation: 2, backgroundColor: WHITE, width: wp(94), paddingVertical: hp(2), marginTop: hp(2), marginHorizontal: wp(3), borderRadius: 4 }}>
                   <View style={{ width: wp(35), alignItems: 'center', justifyContent: 'center', borderRightWidth: 1, borderRightColor: '#c2c2c2' }}>
-                    <Image source={item.image} resizeMode='contain' style={{ width: wp(30), height: wp(15) }} />
-                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK }}>{item.email}</Text>
-                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK }}>{item.number}</Text>
+                    <Image source={require('../../../assets/images/user.jpg')} resizeMode='contain' style={{ width: wp(30), height: wp(15) }} />
+                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK }}>{item.customer_email}</Text>
+                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK }}>{item.customer_phone_number}</Text>
                   </View>
                   <View style={{ width: wp(58), paddingHorizontal: wp(1) }}>
-                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: BLACK, paddingLeft: wp(1), lineHeight: 15 }}>{item.content}</Text>
+                    <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: BLACK, paddingLeft: wp(1), lineHeight: 15 }}>{item.service_name}</Text>
                     <View style={{ marginTop: hp(1), flexDirection: 'row', alignItems: 'center' }}>
-                      <Image source={CLOCK} resizeMode='contain' style={{ height: hp(3), width: wp(6) }} />
-                      <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: '#c2c2c2', }}> {item.date}</Text>
+                      {/* <Image source={CLOCK} resizeMode='contain' style={{ height: hp(3), width: wp(6) }} />
+                      <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: '#c2c2c2', }}> {item.date}</Text> */}
                       <Image source={DATE} resizeMode='contain' style={{ height: hp(3), width: wp(6), marginLeft: wp(1) }} />
-                      <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: '#c2c2c2', }}> {item.time}</Text>
+                      <Text style={{ fontFamily: MONTSERRAT_REGULAR, fontSize: 10, color: '#c2c2c2', }}> {item.date}</Text>
 
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginTop: hp(1) }}>
 
                       <TouchableOpacity onPress={() => navigation.navigate('Booking')} style={{ backgroundColor: '#9066e6', marginLeft: wp(2.5), borderRadius: 2, paddingVertical: wp(1), width: wp(25), justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: WHITE, fontSize: 11, fontFamily: MONTSERRAT_BOLD }}>Approved</Text>
+                        <Text style={{ color: WHITE, fontSize: 11, fontFamily: MONTSERRAT_BOLD }}>{item.status}</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ backgroundColor: WHITE, marginLeft: wp(1), borderRadius: 2, borderColor: '#c2c2c2', borderWidth: 1, paddingVertical: wp(1), width: wp(28), justifyContent: 'center', alignItems: 'center' }}>
+                      {/* <TouchableOpacity style={{ backgroundColor: WHITE, marginLeft: wp(1), borderRadius: 2, borderColor: '#c2c2c2', borderWidth: 1, paddingVertical: wp(1), width: wp(28), justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: '#000', fontSize: 11, fontFamily: MONTSERRAT_BOLD }}>Send Reminder</Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </View>
                 </View>

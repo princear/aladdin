@@ -1,33 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
-import { MONTSERRAT_BOLD, MONTSERRAT_REGULAR } from '../../styles/typography';
+import { MONTSERRAT_BOLD } from '../../styles/typography';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ARROW_WHITE, DOWN_ARROW } from '../../../assets/icon';
-import { BLACK, WHITE } from '../../styles/color';
-import RNPickerSelect from 'react-native-picker-select';
-import moment from "moment";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { useDispatch, useSelector } from 'react-redux';
-import { particularBookingId } from '../../../redux/Action/BookingAction';
+import { particularBookingId, cancelBooking, deleteBooking } from '../../../redux/Action/BookingAction';
 
 export default function BookingListDetail({ route, navigation }) {
 
 
     const dispatch = useDispatch();
-    const [email, setEmail] = useState('');
 
 
     const Pendinglist = useSelector((state) => state.COUNTBOOKINGREDUCER.particularList);
-    console.log('booking_idQQQQQQQQQQQ', Pendinglist[0].customer_details)
 
-    //console.log('data', data)
     useEffect(() => {
         const booking_id = route.params.bookingId;
 
-        console.log('booking_id', booking_id)
         dispatch(particularBookingId(booking_id))
 
-        // setEmail(Pendinglist[0].customer_details.email);
     }, [])
 
 
@@ -36,13 +27,12 @@ export default function BookingListDetail({ route, navigation }) {
         <View style={styles.container}>
             <View style={styles.headerWrapper}>
                 <View style={styles.headerAligner}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
                     </TouchableOpacity>
                     <Text style={styles.headerCenterText}>Booking Detail</Text>
                 </View>
             </View>
-            {/* {data.length >= 0 ? <> */}
 
 
             <View style={styles.topWrapper}>
@@ -51,8 +41,7 @@ export default function BookingListDetail({ route, navigation }) {
                     <Text style={styles.heading}>Email</Text>
                     <View style={styles.flexWrapper}>
                         <Image source={require('../../../assets/images/mail.png')} resizeMode='contain' style={styles.mailImage} />
-                        <Text style={styles.subHeading}>{email}</Text>
-                        <Text style={styles.subHeading}>{Pendinglist[0] == '' ? Pendinglist[0].customer_details.email : null}</Text>
+                        <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.email}</Text>
                     </View>
                 </View>
                 <View style={styles.topRightWRapper}>
@@ -60,7 +49,7 @@ export default function BookingListDetail({ route, navigation }) {
                     <View style={styles.flexWrapper}>
                         <Image source={require('../../../assets/images/mobile.png')} resizeMode='contain' style={styles.mailImage} />
 
-                        {/* <Text style={styles.subHeading}>{Pendinglist[0].customer_details.formatted_mobile}</Text> */}
+                        <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.formatted_mobile}</Text>
                     </View>
                 </View>
             </View>
@@ -71,18 +60,22 @@ export default function BookingListDetail({ route, navigation }) {
                     <Text style={styles.heading}>Booking Date</Text>
                     <View style={styles.flexWrapper}>
                         <Image source={require('../../../assets/images/date.png')} resizeMode='contain' style={styles.mailImage} />
-                        {/* <Text style={styles.dateHeading}>{data.BookingDetail.date}</Text> */}
+                        <Text style={styles.dateHeading}>{Pendinglist[0] ?.date}</Text>
                     </View>
                 </View>
                 <View style={styles.topRightWRapper}>
                     <Text style={styles.heading}>Booking Status</Text>
-                    <View style={styles.cancellWrapper}>
-                        {/* <Text style={[styles.cancelHeading, {
-                            color: data.BookingDetail.status === 'pending' ? '#f2ac00' :
-                                data.BookingDetail.status === 'in progress' ? '#157dfc' : data.BookingDetail.status === 'complete' ? '#2ea749'
-                                    : data.BookingDetail.status === 'canceled'
+                    <View style={[styles.cancellWrapper, {
+                        borderColor: Pendinglist[0] ?.status === 'pending' ? '#f2ac00' :
+                            Pendinglist[0] ?.status === 'in progress' ? '#157dfc' : Pendinglist[0] ?.status === 'complete' ? '#2ea749'
+                                : Pendinglist[0] ?.status === 'canceled'
+                                    ? '#da3348' : null}]}>
+                        <Text style={[styles.cancelHeading, {
+                            color: Pendinglist[0] ?.status === 'pending' ? '#f2ac00' :
+                                Pendinglist[0] ?.status === 'in progress' ? '#157dfc' : Pendinglist[0] ?.status === 'complete' ? '#2ea749'
+                                    : Pendinglist[0] ?.status === 'canceled'
                                         ? '#da3348' : null
-                        }]}>{data.BookingDetail.status}</Text> */}
+                        }]}>{Pendinglist[0] ?.status}</Text>
                     </View>
                 </View>
             </View>
@@ -93,30 +86,30 @@ export default function BookingListDetail({ route, navigation }) {
             </View>
 
             <View style={styles.productHeading}>
-                {/* <Text style={styles.productText}>{data.ServiceDetail.name} </Text> */}
+                <Text style={styles.productText}>{Pendinglist[0] ?.ServiceDetail ?.name} </Text>
                 <View style={styles.servicesWrapper}>
                     <Text style={styles.servicesTextWrapper}>Services</Text>
                 </View>
             </View>
             <View style={styles.AddressWrapper}>
                 <Text style={styles.addressHeading}>Address Details</Text>
-                <Text style={styles.addressSubHeading}>fafaggshs v</Text>
+                <Text style={styles.addressSubHeading}>{Pendinglist[0] ?.additional_notes}</Text>
             </View>
 
             <View style={styles.editDeleteWRapper}>
-                <View style={styles.editWrapper}>
+                <TouchableOpacity onPress={() => navigation.navigate('EditPage', {
+                    b_id: route.params.bookingId
+                })} style={styles.editWrapper}>
+                    <Image source={require('../../../assets/images/editbooking.png')} resizeMode='contain' style={{ height: hp(2), width: wp(5) }} />
                     <Text style={styles.editTextWrapp}>Edit</Text>
-                </View>
-                <View style={styles.deleteWrapper}>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.deleteWrapper}
+
+                    onPress={() => dispatch(deleteBooking(route.params.bookingId, navigation))}>
                     <Text style={styles.deleteCrossWrapp}>X</Text>
                     <Text style={styles.deleteTextWrapp}>Delete Booking</Text>
-                </View>
+                </TouchableOpacity>
             </View>
-
-
-            {/* </> 
-                : null
-            } */}
 
         </View>
     );
@@ -173,7 +166,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         marginTop: hp(.5),
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingVertical: hp(.5)
     },
     cancelHeading: {
         fontSize: 10,
@@ -246,12 +240,14 @@ const styles = StyleSheet.create({
         paddingLeft: wp(1)
     },
     editWrapper: {
+        flexDirection: 'row',
         borderWidth: 1,
         borderColor: '#9066e6',
         width: wp(20),
         borderRadius: 6,
         marginTop: hp(2),
         alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: hp(.3)
     },
     editDeleteWRapper: {
@@ -263,6 +259,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#9066e6',
         fontFamily: 'Montserrat-Regular',
+        paddingLeft: wp(1),
     },
     deleteWrapper: {
         borderWidth: 1,

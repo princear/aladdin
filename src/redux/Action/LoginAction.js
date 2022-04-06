@@ -133,30 +133,10 @@ export const UpdateProfileData = (data, navigation) => dispatch => {
       payload: false
 
     });
-
-    //  const form = new FormData();
-
-    //  form.append('image', {
-    //    uri: "file:///...",
-    //    type: 'image/jpg',
-    //    name: 'image.jpg',
-    //  });
-
-    //  fetch('https://example.com/api/upload', {
-    //    method: 'POST',
-    //    body: form
-    //  });
-
-
     const response = await logistical.post('/update-profile', data);
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', response)
-
     if (response.status == '1' && response.message == 'Successfully Response') {
-      // dispatch({
-      //   type: UPDATE_PROFILE_LOGIN,
-      //   updateProfile: response.data.user,
-      // });
+
 
       dispatch(ProfileData())
       // Alert.alert(response.response[0])

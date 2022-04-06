@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onALlBooking } from '../../../redux/Action/BookingAction';
 
 export default function Booking({ props, navigation }) {
-    const [services, setServices] = useState('');
     const [date, setDate] = useState(new Date(1598051730000));
     const [show, setShow] = useState(false);
 
@@ -34,18 +33,10 @@ export default function Booking({ props, navigation }) {
         { label: 'completed', value: 'completed' },
         { label: 'in progress', value: 'in progress' },
         { label: 'canceled', value: 'canceled' },
+        { label: 'approved', value: 'approved' },
 
     ];
 
-    const [booking, setBooking] = useState([
-        {
-            id: 1,
-            name: 'nitika',
-            date: '15 March',
-            name: 'OPPO A12 (Black, 32 GB (3GB RAM))',
-            status: 'Cancel'
-        }
-    ])
 
     const dispatch = useDispatch();
     const bookingList = useSelector((state) => state.COUNTBOOKINGREDUCER.bookingListData);
@@ -58,57 +49,13 @@ export default function Booking({ props, navigation }) {
         <View style={styles.container}>
             <View style={styles.headerWrapper}>
                 <View style={styles.headerAligner}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
                     </TouchableOpacity>
                     <Text style={styles.headerCenterText}>Booking</Text>
                 </View>
             </View>
 
-            {/* <View style={styles.pickerWrapper}>
-                <RNPickerSelect
-                    placeholder={{ label: "Select", value: '' }}
-                    onValueChange={(value) => { setServices(value); }}
-                    // onValueChange={(value) => {setSignIn({...signin, services: value}); seterror3('')}}
-                    // value={signin.services}
-                    items={[
-                        { label: 'Pending', value: 'Pending' },
-                        { label: 'Approved', value: 'Approved' },
-                        { label: 'Cancel', value: 'Cancel' },
-                    ]}
-                    style={styles.pickerStyle}
-                />
-            </View> */}
-            {/* <View style={styles.pickerWrapper}>
-                <RNPickerSelect
-                    placeholder={{ label: "Select Customer: View All", value: '' }}
-                    onValueChange={(value) => { setServices(value); }}
-                    items={[
-                        { label: 'Pending', value: 'Pending' },
-                        { label: 'Approved', value: 'Approved' },
-                        { label: 'Cancel', value: 'Cancel' },
-                    ]}
-                    style={styles.pickerStyle}
-                />
-            </View> */}
-            {/* <View style={styles.pickerWrapper}>
-                <View style={styles.pickWrapp}>
-                    <RNPickerSelect
-                        placeholder={{ label: "Filter Status: View All", value: '' }}
-                        onValueChange={(value) => { setServices(value); }}
-                        items={[
-                            { label: 'Pending', value: 'Pending' },
-                            { label: 'Approved', value: 'Approved' },
-                            { label: 'Cancel', value: 'Cancel' },
-                        ]}
-                        style={styles.pickerStyle}
-                    />
-                    <View >
-                        <Image source={require('../../../assets/images/Downarrow.png')} resizeMode='contain' style={styles.downArrowImage} />
-                    </View>
-                </View>
-
-            </View> */}
 
             <TouchableOpacity style={{ backgroundColor: '#fff', marginTop: hp(4), elevation: 3, paddingVertical: hp(1.7), marginHorizontal: wp(5) }}>
                 <RNPickerSelect
@@ -222,7 +169,7 @@ export default function Booking({ props, navigation }) {
                                     </TouchableOpacity> : null}
                                 </>
                             )}
-                        /> : state === 'complete' ?
+                        /> : state === 'completed' ?
                             <FlatList
                                 key={'_'}
                                 keyExtractor={item => "_" + item.id}
@@ -295,7 +242,43 @@ export default function Booking({ props, navigation }) {
                                             </TouchableOpacity> : null}
                                         </>
                                     )}
-                                /> : null
+                                /> : state === 'approved' ?
+                                    <FlatList
+                                        key={'_'}
+                                        keyExtractor={item => "_" + item.id}
+                                        data={bookingList.data}
+                                        horizontal={false}
+                                        renderItem={({ item, index }) => (
+                                            <>
+                                                {item.status === state ? <TouchableOpacity
+                                                    onPress={() => navigation.navigate('BookingListDetail', {
+                                                        bookingId: item.id
+                                                    })}
+                                                    style={styles.bookingWrapper}>
+
+                                                    <View style={styles.leftImageWrapper}>
+                                                        <View style={styles.imagebackgroundwrappper}>
+                                                            <Image source={require('../../../assets/images/userProfile.png')} style={styles.imageBox} resizeMode='contain' />
+                                                        </View>
+                                                        <View style={styles.bookingTopWrapper}>
+                                                            <Text style={styles.bookingLeftText}>Booking #{item.id}</Text>
+                                                            <Text style={styles.bookingBottomText}>{item.service_name}</Text>
+                                                        </View>
+                                                        <View style={{ justifyContent: 'flex-start', marginTop: -hp(4) }}>
+                                                            <Text style={styles.bookingLeftText}>{item.date
+                                                            }</Text>
+                                                        </View>
+                                                    </View>
+
+                                                    <View style={[styles.approvedWrapper, { backgroundColor: '#157dfc' }]}>
+                                                        <Text style={styles.approvedText}>
+                                                            {item.status === state ? item.status : null}
+                                                        </Text>
+                                                    </View>
+                                                </TouchableOpacity> : null}
+                                            </>
+                                        )}
+                                    /> : null
 
             }
 
