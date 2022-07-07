@@ -1,5 +1,5 @@
 
-import { GET_TOKEN, USER_LOGIN, REMOVE_TOKEN, PROFILE_LOGIN, UPDATE_PROFILE_LOGIN } from "../Constant/constants";
+import { GET_TOKEN, USER_LOGIN, REMOVE_TOKEN, PROFILE_LOGIN, FORGET } from "../Constant/constants";
 
 
 const initialstate = {
@@ -7,13 +7,14 @@ const initialstate = {
     Token: '',
     loading: false,
     profile: [],
-    updateProfile: ''
+    updateProfile: '',
+    forgetdata: '',
 }
 
-const UserReducers = (state = initialstate, action) => {
+const UserReducers = ( state = initialstate, action ) => {
 
-    console.log('>>>>>>>>>>>>>>>>Token from reducer.', action.type, action.payload);
-    switch (action.type) {
+    console.log( '>>>>>>>>>>>>>>>>Token from reducer.', action.type, action.payload );
+    switch ( action.type ) {
 
         case GET_TOKEN:
 
@@ -23,10 +24,17 @@ const UserReducers = (state = initialstate, action) => {
 
             return { ...state, Token: action.Token }
 
+        case FORGET:
+
+            return { ...state, forgetdata: action.forgetdata };
+
+        case PROFILE_LOGIN:
+            return { ...state, profile: action.profile }
+
 
         case 'LOADING':
 
-            if (action.payload) {
+            if ( action.payload ) {
 
                 return {
                     ...state,

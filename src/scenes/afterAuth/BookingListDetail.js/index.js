@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator, Alert, ScrollView } from 'react-native';
 import { MONTSERRAT_BOLD } from '../../styles/typography';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { ARROW_WHITE, DOWN_ARROW } from '../../../assets/icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { particularBookingId, cancelBooking, deleteBooking } from '../../../redux/Action/BookingAction';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { request, PERMISSIONS } from 'react-native-permissions';
+import Lightbox from 'react-native-lightbox';
+import { useTranslation } from 'react-i18next';
 
 export default function BookingListDetail({ route, navigation }) {
 
 
     const dispatch = useDispatch();
 
+    // const mapRef = React.createRef();
 
     const Pendinglist = useSelector((state) => state.COUNTBOOKINGREDUCER.particularList);
+    const { loading } = useSelector(state => state.UserReducers);
+    
+    const[t] = useTranslation();
 
     useEffect(() => {
         const booking_id = route.params.bookingId;
@@ -21,7 +29,147 @@ export default function BookingListDetail({ route, navigation }) {
 
     }, [])
 
+    const deltebooking = () => {
+        Alert.alert(
+            'Delete Booking',
+            'Are you sure you want to delete booking', [{
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel'
+            }, {
+                text: 'OK',
+                onPress: () => dispatch(deleteBooking(route.params.bookingId, navigation))
+            },], {
+                cancelable: false
+            }
+        )
 
+
+    }
+
+    const [defaultRating, setDefaultRating] = useState(1);
+    const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);
+    const starImagFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png';
+    const starImgCorner = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png';
+
+
+    let total = 0;
+
+    Pendinglist[0] && Pendinglist[0] ?.ratings.forEach(item => {
+        total += parseInt(item.rating)
+    });
+
+    var totalLength = Pendinglist[0] ?.ratings.length;
+    var no_Of_Rating = total;
+
+    var ratingResult = Math.round(no_Of_Rating / totalLength);
+
+
+
+
+    const CustomRating = () => {
+        return (
+            <View style={styles.customRatingBar}>
+
+
+
+                {
+                    maxRating.map((item, key) => {
+                        return (
+                            <View
+                                activeOpacity={0.5}
+                                key={item}
+                            // onPress={() => rating( item )}
+                            >
+                                <Image style={styles.starImgStyle}
+                                    source={item <= ratingResult ? { uri: starImagFilled } : { uri: starImgCorner }} />
+                            </View>
+                        )
+                    })
+                }
+            </View>
+        )
+    }
+    const [userLocation, setUserLocation] = useState(false)
+    const [selectlocation, setSelectLocation] = useState('')
+    const [selectlonguitude, setSelectlonguitude] = useState('')
+
+
+    const [state, setstate] = useState(
+        {
+            coordinate: {
+                latitude: Pendinglist[0] ?.customer_details ?.latitude ? Pendinglist[0] ?.customer_details ?.latitude : null,
+                longitude: Pendinglist[0] ?.customer_details ?.latitude ? Pendinglist[0] ?.customer_details ?.longitude : null,
+                // latitude: 28.58364,
+                // longitude: 77.3147,
+            },
+            marginBottom: 1
+        }
+    )
+
+    // useEffect( () => {
+    //     // handleUserLocation();
+    //     console.log( 'abc ' )
+    //     function getUserLocation () {
+    //         console.log( 'xyz ' )
+
+    //         // requestLocationPermission()
+    //         // handleUserLocation();
+
+    //     }
+    //     getUserLocation();
+    // }, [selectlocation, selectlonguitude] )
+
+    const handleUserLocation = () => {
+
+        const latitude = userLocation.latitude;
+        const longitude = userLocation.longitude;
+        setstate({ latitude, longitude });
+        console.log('mapRef', mapRef)
+        mapRef.current.animateToRegion({
+            latitude: Number(selectlocation),
+            longitude: Number(selectlonguitude),
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1
+        }, 1000)
+
+    }
+
+    // ==================GET CURRENT POSITION =============================
+    async function requestLocationPermission() {
+        console.log('lakalak')
+        var response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)
+
+        if (response == 'granted') {
+            await Geolocation.getCurrentPosition(
+                ({ coords }) => {
+                    console.log('coords', coords)
+                    setUserLocation(coords)
+
+                },
+                (error) => {
+                    console.log('error', error)
+                    // Alert.alert( error.code, error.message );
+                },
+                {
+                    enableHighAccuracy: true, timeout: 20000, maximumAge: 10000
+                }
+            )
+        }
+    }
+
+    const renderScene = (route, navigator) => {
+        const Component = route.component;
+
+        return (
+            <Component navigator={navigator} route={route} {...route.passProps} />
+        );
+    };
+
+    const uri = 'http://knittingisawesome.com/wp-content/uploads/2012/12/cat-wearing-a-reindeer-hat1.jpg'
+    const longPress = (uri) => {
+        CameraRoll.saveToCameraRoll(uri)
+    }
 
     return (
         <View style={styles.container}>
@@ -30,87 +178,300 @@ export default function BookingListDetail({ route, navigation }) {
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
                     </TouchableOpacity>
-                    <Text style={styles.headerCenterText}>Booking Detail</Text>
+                    <Text style={styles.headerCenterText}>{t('placeholders.rang.Booking_detail')}</Text>
                 </View>
             </View>
+            {(loading) &&
+                <View style={{ flex: 1, justifyContent: 'center', position: 'absolute', top: '40%', left: '40%' }}>
+
+                    <ActivityIndicator
 
 
-            <View style={styles.topWrapper}>
+                        size="large"
+                        style={{
+                            //  backgroundColor: "rgba(144,102,230,.8)",
+                            height: 80,
+                            width: 80,
+                            zIndex: 999,
 
-                <View style={styles.topLeftWRapper}>
-                    <Text style={styles.heading}>Email</Text>
-                    <View style={styles.flexWrapper}>
-                        <Image source={require('../../../assets/images/mail.png')} resizeMode='contain' style={styles.mailImage} />
-                        <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.email}</Text>
+                            borderRadius: 15
+
+                        }}
+
+                        color="rgba(144,102,230,.8)"
+                    />
+                </View>}
+            <ScrollView contentContainerStyle={{ paddingBottom: hp(6) }}>
+                <View style={styles.topWrapper}>
+
+
+
+
+
+                    <View style={styles.topLeftWRapper}>
+                        <Text style={styles.heading}>{t('placeholders.bookingList.email')}</Text>
+                        <View style={styles.flexWrapper}>
+                            <Image source={require('../../../assets/images/mail.png')} resizeMode='contain' style={styles.mailImage} />
+                            <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.email}</Text>
+                        </View>
+                    </View>
+                    <View style={styles.topRightWRapper}>
+                        <Text style={styles.heading}>{t('placeholders.bookingList.mobile')}</Text>
+                        <View style={styles.flexWrapper}>
+                            <Image source={require('../../../assets/images/mobile.png')} resizeMode='contain' style={styles.mailImage} />
+
+                            <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.formatted_mobile}</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.topRightWRapper}>
-                    <Text style={styles.heading}>Mobile</Text>
-                    <View style={styles.flexWrapper}>
-                        <Image source={require('../../../assets/images/mobile.png')} resizeMode='contain' style={styles.mailImage} />
+                <View style={styles.topWrapper}>
 
-                        <Text style={styles.subHeading}>{Pendinglist[0] ?.customer_details ?.formatted_mobile}</Text>
+                    <View style={styles.topLeftWRapper}>
+                        <Text style={styles.heading}>{t('placeholders.bookingList.booking_date')}</Text>
+                        <View style={styles.flexWrapper}>
+                            <Image source={require('../../../assets/images/date.png')} resizeMode='contain' style={styles.mailImage} />
+                            <Text style={styles.dateHeading}>{Pendinglist[0] ?.date}</Text>
+                        </View>
                     </View>
-                </View>
-            </View>
-            <View style={styles.topWrapper}>
-
-
-                <View style={styles.topLeftWRapper}>
-                    <Text style={styles.heading}>Booking Date</Text>
-                    <View style={styles.flexWrapper}>
-                        <Image source={require('../../../assets/images/date.png')} resizeMode='contain' style={styles.mailImage} />
-                        <Text style={styles.dateHeading}>{Pendinglist[0] ?.date}</Text>
-                    </View>
-                </View>
-                <View style={styles.topRightWRapper}>
-                    <Text style={styles.heading}>Booking Status</Text>
-                    <View style={[styles.cancellWrapper, {
-                        borderColor: Pendinglist[0] ?.status === 'pending' ? '#f2ac00' :
-                            Pendinglist[0] ?.status === 'in progress' ? '#157dfc' : Pendinglist[0] ?.status === 'complete' ? '#2ea749'
-                                : Pendinglist[0] ?.status === 'canceled'
-                                    ? '#da3348' : null}]}>
-                        <Text style={[styles.cancelHeading, {
-                            color: Pendinglist[0] ?.status === 'pending' ? '#f2ac00' :
-                                Pendinglist[0] ?.status === 'in progress' ? '#157dfc' : Pendinglist[0] ?.status === 'complete' ? '#2ea749'
-                                    : Pendinglist[0] ?.status === 'canceled'
+                    <View style={styles.topRightWRapper}>
+                        <Text style={styles.heading}>{t('placeholders.bookingList.booking_status')}</Text>
+                        <View style={[styles.cancellWrapper, {
+                            borderColor: Pendinglist[0] ?.status === 'Pending' ? '#f2ac00' :
+                                Pendinglist[0] ?.status === 'In Progress' ? '#157dfc' : Pendinglist[0] ?.status === 'Completed' ? '#2ea749'
+                                    : Pendinglist[0] ?.status === 'Cancelled'
                                         ? '#da3348' : null
-                        }]}>{Pendinglist[0] ?.status}</Text>
+                        }]}>
+                            <Text style={[styles.cancelHeading, {
+                                color: Pendinglist[0] ?.status === 'Pending' ? '#f2ac00' :
+                                    Pendinglist[0] ?.status === 'In Progress' ? '#157dfc' : Pendinglist[0] ?.status === 'Completed' ? '#2ea749'
+                                        : Pendinglist[0] ?.status === 'Cancelled'
+                                            ? '#da3348' : null
+                            }]}>{Pendinglist[0] ?.status}</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
 
 
-            <View style={styles.serviesHeading}>
-                <Text style={styles.servicesText}>#    Services Name</Text>
-            </View>
 
-            <View style={styles.productHeading}>
-                <Text style={styles.productText}>{Pendinglist[0] ?.ServiceDetail ?.name} </Text>
-                <View style={styles.servicesWrapper}>
-                    <Text style={styles.servicesTextWrapper}>Services</Text>
+
+
+
+                <View style={styles.serviesHeading}>
+                    <Text style={styles.servicesText}>#    {t('placeholders.rang.serve_name')}</Text>
                 </View>
-            </View>
-            <View style={styles.AddressWrapper}>
-                <Text style={styles.addressHeading}>Address Details</Text>
-                <Text style={styles.addressSubHeading}>{Pendinglist[0] ?.additional_notes}</Text>
-            </View>
 
-            <View style={styles.editDeleteWRapper}>
-                <TouchableOpacity onPress={() => navigation.navigate('EditPage', {
-                    b_id: route.params.bookingId
-                })} style={styles.editWrapper}>
-                    <Image source={require('../../../assets/images/editbooking.png')} resizeMode='contain' style={{ height: hp(2), width: wp(5) }} />
-                    <Text style={styles.editTextWrapp}>Edit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.deleteWrapper}
+                <View style={styles.productHeading}>
+                    <Text style={styles.productText}>{Pendinglist[0] ?.ServiceDetail ?.name} </Text>
+                    <View style={styles.servicesWrapper}>
+                        <Text style={styles.servicesTextWrapper}>{t('placeholders.rang.service')}</Text>
+                    </View>
+                </View>
 
-                    onPress={() => dispatch(deleteBooking(route.params.bookingId, navigation))}>
-                    <Text style={styles.deleteCrossWrapp}>X</Text>
-                    <Text style={styles.deleteTextWrapp}>Delete Booking</Text>
-                </TouchableOpacity>
-            </View>
 
+
+                <View style={{ marginHorizontal: wp(5), marginTop: hp(30), flexDirection: 'row', }}>
+
+
+                    {
+                        Pendinglist[0] ?.attributes.length > 0 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ fontSize: 14, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0] ?.attributes[0] ?.name}</Text>
+                            </View> : null
+                    }
+
+                    {
+                        Pendinglist[0] ?.attributes ?.length > 1 ?
+                            <View>
+                                <Text style={{ fontSize: 14, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0] ?.attributes[1] ?.name}</Text>
+                            </View> : null
+                    }
+
+
+                </View>
+
+                <View style={{ marginHorizontal: wp(5), marginTop: hp(2), flexDirection: 'row', }}>
+
+                    {
+                        Pendinglist[0] ?.attribute_values.length > 0 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ marginTop: hp(1), fontSize: 12, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0].attribute_values[0].name}</Text>
+
+                            </View> : null
+                    }
+
+
+                    {
+                        Pendinglist[0] ?.attribute_values.length > 1 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ marginTop: hp(1), fontSize: 12, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0].attribute_values[1].name}</Text>
+
+                            </View> : null
+                    }
+
+
+                </View>
+                <View style={{ marginHorizontal: wp(5), marginTop: hp(2), flexDirection: 'row', }}>
+
+                    {
+                        Pendinglist[0] ?.attributes.length > 3 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ fontSize: 14, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0] ?.attributes[3] ?.name}</Text>
+                            </View> : null
+                    }
+
+
+                    {
+                        Pendinglist[0] ?.attributes.length > 4 ?
+                            <View>
+                                <Text style={{ fontSize: 14, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0] ?.attributes[4] ?.name}</Text>
+                            </View> : null
+                    }
+
+
+                </View>
+                <View style={{ marginHorizontal: wp(5), marginTop: hp(1), flexDirection: 'row' }}>
+
+
+
+                    {
+                        Pendinglist[0] && Pendinglist[0].attribute_values.length > 3 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ marginTop: hp(2), fontSize: 12, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0].attribute_values[3].name}</Text>
+
+                            </View> : null
+                    }
+
+                    {
+                        Pendinglist[0] && Pendinglist[0].attribute_values.length > 4 ?
+                            <View style={{ width: wp(50) }}>
+                                <Text style={{ marginTop: hp(2), fontSize: 12, color: '#000', fontFamily: 'Montserrat-Medium' }}>{Pendinglist[0].attribute_values[4].name}</Text>
+
+                            </View> : null
+                    }
+                </View>
+
+
+                <View style={styles.containerWrapper}>
+
+                    <MapView
+                        // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                        style={[styles.map, { marginBottom: state.marginBottom }]}
+                        showsUserLocation={true}
+                        showsMyLocationButton={true}
+                        initialRegion={{
+                            latitude: 28.58364,
+                            longitude: 77.3147,
+                            // latitude: 37.78825,
+                            // longitude: -122.4324,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+
+                        }}
+                        // ref={mapRef}
+                        // onRegionChange={handleUserLocation()}
+                        onRegionChangeComplete={(region) => setstate({
+                            coordinate: region
+                        })}
+                        onMapReady={() => { setstate({ marginBottom: 0 }) }}
+                    >
+
+
+
+                        <Marker
+                            coordinate={{
+                                latitude: 28.58364,
+                                longitude: 77.3147,
+                                // latitude: Number( userLocation.latitude ),
+                                // longitude: Number( userLocation.longitude ),
+
+                            }}
+                            onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
+
+                        ></Marker>
+
+
+                    </MapView>
+                </View >
+
+
+
+
+                <View style={{ marginHorizontal: wp(5), marginTop: hp(2) }}>
+                    <Text style={{
+                        fontSize: 14,
+                        color: '#000',
+                        fontFamily: 'Montserrat-Medium',
+                    }}>{t('placeholders.rang.uploadedimages')}</Text>
+
+                    {/* <Lightbox underlayColor="white">
+                        <Image
+                            style={{
+                                flex: 1,
+                                height: 150,
+                            }}
+                            resizeMode="contain"
+                            source={{ uri: 'https://www.yayomg.com/wp-content/uploads/2014/04/yayomg-pig-wearing-party-hat.jpg' }}
+                        />
+                    </Lightbox> */}
+                    {
+                        Pendinglist[0] && Pendinglist[0].ServiceUploadImage && Pendinglist[0].ServiceUploadImage.length > 0 && Pendinglist[0].ServiceUploadImage.map((item) => {
+                            return (
+                                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+
+                                    <Lightbox underlayColor="white"
+                                        style={{ width: wp(50) }}>
+                                        <Image
+                                            style={{
+                                                flex: 1,
+                                                height: hp(20),
+
+                                            }}
+                                            resizeMode="contain"
+                                            source={{ uri: item.upload_image_url }}
+                                        />
+                                    </Lightbox>
+                                    <Text style={{ marginLeft: wp(2), fontSize: 14 }}>{item.description}</Text>
+                                </View>
+                            )
+                        })
+                    }
+                </View>
+
+                <View style={styles.AddressWrapper}>
+                    <Text style={styles.addressHeading}>{t('placeholders.rang.address_detail')}</Text>
+                    <Text style={styles.addressSubHeading}>{Pendinglist[0] ?.address ?.address_one}</Text>
+                </View>
+
+
+
+                {/* <Lightbox longPressCallback={() => longPress( uri )}>
+                    <Image
+                        style={{ height: 300 }}
+                        source={{ uri }}
+                    />
+                </Lightbox> */}
+
+
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: wp(5), marginVertical: hp(1.5) }}>
+                    <CustomRating />
+
+                </View>
+
+                <View style={styles.editDeleteWRapper}>
+                    <TouchableOpacity onPress={() => navigation.navigate('EditPage', {
+                        b_id: route.params.bookingId
+                    })} style={styles.editWrapper}>
+                        <Image source={require('../../../assets/images/editbooking.png')} resizeMode='contain' style={{ height: hp(2), width: wp(5) }} />
+                        <Text style={styles.editTextWrapp}>{t('placeholders.rang.edit')}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.deleteWrapper}
+
+                        onPress={() => deltebooking()}>
+                        <Text style={styles.deleteCrossWrapp}>X</Text>
+                        <Text style={styles.deleteTextWrapp}>{t('placeholders.rang.delete')}</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     );
 }
@@ -284,6 +645,31 @@ const styles = StyleSheet.create({
         color: 'red',
         fontFamily: 'Montserrat-Regular',
         paddingLeft: wp(2)
+    },
+    containerWrapper: {
+        ...StyleSheet.absoluteFillObject,
+        height: hp(20),
+        // height: 400,
+        // width: 400,
+        // alignItems: 'center',
+        marginTop: hp(45),
+
+        // marginTop: 50,
+    },
+    map: {
+        // flex: 1,
+        ...StyleSheet.absoluteFillObject,
+    },
+    customRatingBar: {
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        marginTop: 15,
+        // marginHorizontal: wp( 2 )
+    },
+    starImgStyle: {
+        width: 20,
+        height: 20,
+        resizeMode: 'cover'
     }
 
 });

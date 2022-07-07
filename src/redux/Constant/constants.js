@@ -22,6 +22,8 @@ export const EDIT_BOOKING = 'EDIT_BOOKING';
 export const CANCEL_BOOKING = 'CANCEL_BOOKING';
 export const DELETE_BOOKING = 'DELETE_BOOKING';
 export const RECENT_BOOKINGS = 'RECENT_BOOKINGS';
-
-
+export const FORGET = 'FORGET';
+export const PROFILE_LOGIN = 'PROFILE_LOGIN';
+export const LANGUGAE = "LANGUGAE";
+export const SET_LANGUGAE = "SET_LANGUGAE";
 

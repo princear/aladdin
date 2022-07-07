@@ -1,27 +1,27 @@
 import logError from 'react-native/Libraries/Utilities/logError';
 import { Globals } from '../config'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const getApiKey = async () => {
 
-    return await AsyncStorage.getItem('login');
+    return await AsyncStorage.getItem( 'login' );
 
 };
 
 class Logistical {
 
-    post(path, data = null) {
-        return this.send(path, 'POST', data)
+    post ( path, data = null ) {
+        return this.send( path, 'POST', data )
     }
 
-    get(path, data = null) {
-        return this.sendget(path, 'GET', data)
+    get ( path, data = null ) {
+        return this.sendget( path, 'GET', data )
     }
 
-    sendget = async (url, method, data) => {
+    sendget = async ( url, method, data ) => {
 
         const login = await getApiKey();
-        let token = JSON.parse(login);
+        let token = JSON.parse( login );
         authtoken = "Bearer " + token;
         let uri = `${Globals.baseUrl}${url}`;
         // console.log('>>>>>>>>>>>login%%%%%%%%%%%%%%%%%%%%%%%%%5',uri,data,authtoken);
@@ -36,37 +36,37 @@ class Logistical {
 
         };
 
-        return new Promise((resolve, reject) => {
+        return new Promise( ( resolve, reject ) => {
 
-            fetch(uri, { method, headers })
-                .then(response => response.json())
-                .then(responseJson => {
+            fetch( uri, { method, headers } )
+                .then( response => response.json() )
+                .then( responseJson => {
 
                     // console.log('??????????????? ===>',responseJson);
-                    resolve(responseJson);
+                    resolve( responseJson );
 
-                })
-                .catch(error => {
-                    logError(error);
-                    console.log('error', error)
-                    reject(new Error('Something go wrong'));
-                });
+                } )
+                .catch( error => {
+                    logError( error );
+                    console.log( 'error', error )
+                    reject( new Error( 'Something go wrong' ) );
+                } );
 
 
 
-        });
+        } );
 
     }
 
 
-    send = async (url, method, data) => {
+    send = async ( url, method, data ) => {
 
         const login = await getApiKey();
-        let token = JSON.parse(login);
+        let token = JSON.parse( login );
         authtoken = "Bearer " + token;
 
         let uri = `${Globals.baseUrl}${url}`;
-        console.log('>>>>>>>>>>>', uri, data);
+        console.log( '>>>>>>>>>>>', uri, data );
 
         const headers = {
 
@@ -80,27 +80,27 @@ class Logistical {
 
         };
 
-        return new Promise((resolve, reject) => {
+        return new Promise( ( resolve, reject ) => {
 
-            fetch(uri, { method, headers, body: JSON.stringify(data) })
-                .then(response => response.json())
-                .then(responseJson => {
+            fetch( uri, { method, headers, body: JSON.stringify( data ) } )
+                .then( response => response.json() )
+                .then( responseJson => {
 
-                    console.log('???????????????', responseJson);
-                    resolve(responseJson);
+                    console.log( '???????????????', responseJson );
+                    resolve( responseJson );
 
-                })
-                .catch(error => {
+                } )
+                .catch( error => {
 
-                    logError(error);
-                    console.log('error', error);
+                    logError( error );
+                    console.log( 'error', error );
 
-                    reject(new Error('Something go wrong'));
-                });
+                    reject( new Error( 'Something go wrong' ) );
+                } );
 
 
 
-        });
+        } );
 
     }
 
