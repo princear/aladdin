@@ -5,225 +5,225 @@ import { Alert, ToastAndroid } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 
 
-export const RemoveToken = ( data, navigation ) => dispatch => {
+export const RemoveToken = (data, navigation) => dispatch => {
 
-  return new Promise( async ( resolve, reject ) => {
+  return new Promise(async (resolve, reject) => {
 
-    dispatch( {
+    dispatch({
       type: REMOVE_TOKEN,
       Token: data
-    } )
+    })
 
     // navigation.navigate('AuthCheck');
-  } )
+  })
 }
 
 
-export const UserLogin = ( data, navigation ) => dispatch => {
+export const UserLogin = (data, navigation) => dispatch => {
 
-  dispatch( {
+  dispatch({
     type: 'LOADING',
     payload: true
-  } );
+  });
 
-  console.log( "login detail>>>>>>>>>>", data );
-  return new Promise( async ( resolve, reject ) => {
+  console.log("login detail>>>>>>>>>>", data);
+  return new Promise(async (resolve, reject) => {
 
-    const response = await logistical.post( '/service-provider-login', data );
+    const response = await logistical.post('/service-provider-login', data);
 
-    if ( response.status == '1' && response.message == 'loggedin' ) {
+    if (response.status == '1' && response.message == 'loggedin') {
 
-      AsyncStorage.setItem( "login", JSON.stringify( response.data.token ) );
-      AsyncStorage.setItem( "loginId", JSON.stringify( response.data.user.id ) );
+      AsyncStorage.setItem("login", JSON.stringify(response.data.token));
+      AsyncStorage.setItem("loginId", JSON.stringify(response.data.user.id));
 
-      dispatch( {
+      dispatch({
         type: USER_LOGIN,
         Userdata: response.data,
-      } );
+      });
 
 
-      dispatch( {
+      dispatch({
         type: GET_TOKEN,
         Token: response.data.token,
-      } );
+      });
 
       //   Alert.alert(response.response[0])
-      resolve( response );
+      resolve(response);
 
       // navigation.navigate('AuthCheck');
 
 
 
-      navigation.navigate( 'Home' );
-      navigation.dispatch( DrawerActions.closeDrawer() )
+      navigation.navigate('Home');
+      navigation.dispatch(DrawerActions.closeDrawer())
 
-      dispatch( {
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
+      });
     }
 
-    else if ( response.status == '0' && response.message == 'invalid_credentials' ) {
+    else if (response.status == '0' && response.message == 'invalid_credentials') {
 
-      Alert.alert( response.response[0] )
-      dispatch( {
+      Alert.alert(response.response[0])
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
+      });
     }
 
     else {
       // Alert.alert(response.message)
-      Alert.alert( response.response[0] )
-      dispatch( {
+      Alert.alert(response.response[0])
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
-      console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-      reject( response );
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
     }
-  } );
+  });
 };
 
-export const ProfileData = ( data, navigation ) => dispatch => {
-  dispatch( {
+export const ProfileData = (data, navigation) => dispatch => {
+  dispatch({
     type: 'LOADING',
     payload: true
-  } );
+  });
 
-  return new Promise( async ( resolve, reject ) => {
+  return new Promise(async (resolve, reject) => {
 
-    const loginId = await AsyncStorage.getItem( 'loginId' );
+    const loginId = await AsyncStorage.getItem('loginId');
 
-    const response = await logistical.get( '/get-provider-profile' + '/' + loginId, data );
+    const response = await logistical.get('/get-provider-profile' + '/' + loginId, data);
 
-    if ( response.status == '1' ) {
+    if (response.status == '1') {
 
-      dispatch( {
+      dispatch({
         type: PROFILE_LOGIN,
         profile: response.data.user,
-      } );
-      resolve( response );
-      dispatch( {
+      });
+      resolve(response);
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
+      });
 
 
     }
 
     else {
-      Alert.alert( response.response[0] )
-      dispatch( {
+      Alert.alert(response.response[0])
+      dispatch({
         type: 'LOADING',
         payload: false
 
-      } );
-      console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-      reject( response );
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
     }
-  } );
+  });
 };
 
 
-export const UpdateProfileData = ( data, navigation ) => dispatch => {
-  dispatch( {
+export const UpdateProfileData = (data, navigation) => dispatch => {
+  dispatch({
     type: 'LOADING',
     payload: true
 
-  } );
-  return new Promise( async ( resolve, reject ) => {
+  });
+  return new Promise(async (resolve, reject) => {
 
-    dispatch( {
+    dispatch({
       type: 'LOADING',
       payload: false
 
-    } );
-    const response = await logistical.post( '/update-provider-profile', data );
+    });
+    const response = await logistical.post('/update-provider-profile', data);
 
-    console.log( '====================================>', response )
-    if ( response.status == '1' && response.message == 'Successfully Response' ) {
+    console.log('====================================>', response)
+    if (response.status == '1' && response.message == 'Successfully Response') {
 
 
-      dispatch( ProfileData() )
+      dispatch(ProfileData())
       // Alert.alert(response.response[0])
       ToastAndroid.showWithGravity(
         'Data updated successfully!',
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
-      resolve( response );
+      resolve(response);
 
     }
 
     else {
-      Alert.alert( response.response[0] )
-      dispatch( {
+      Alert.alert(response.response[0])
+      dispatch({
         type: 'LOADING',
         payload: false
 
-      } );
-      console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-      reject( response );
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
     }
-  } );
+  });
 };
 
 
-export const ForgetPassword = ( data, navigation ) => dispatch => {
+export const ForgetPassword = (data, navigation) => dispatch => {
 
-  dispatch( {
+  dispatch({
     type: 'LOADING',
     payload: true
-  } );
+  });
 
-  console.log( "login detail>>>>>>>>>>", data );
-  return new Promise( async ( resolve, reject ) => {
+  console.log("login detail>>>>>>>>>>", data);
+  return new Promise(async (resolve, reject) => {
 
-    const response = await logistical.post( '/forget-password', data );
+    const response = await logistical.post('/forget-password', data);
 
-    if ( response.status == '1' && response.message == 'Successfully Response' ) {
+    if (response.status == '1' && response.message == 'Successfully Response') {
 
-      dispatch( {
+      dispatch({
         type: FORGET,
         forgetdata: response.data,
-      } );
+      });
 
-      resolve( response );
+      resolve(response);
 
 
-      Alert.alert( response.response[0] )
-      navigation.navigate( 'Login' );
+      Alert.alert(response.response[0])
+      navigation.navigate('Login');
 
-      dispatch( {
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
+      });
     }
 
     else {
       // Alert.alert(response.message)
-      Alert.alert( response.response[0] )
-      dispatch( {
+      Alert.alert(response.response[0])
+      dispatch({
 
         type: 'LOADING',
         payload: false
 
-      } );
-      console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-      reject( response );
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+      reject(response);
     }
-  } );
+  });
 };
 
 

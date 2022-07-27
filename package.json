@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "build:ios": "react-native bundle --minify --entry-file index.js --platform ios --dev false --bundle-output ./ios/main.jsbundle --assets-dest ./ios",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -27,10 +28,10 @@
     "moment": "^2.29.1",
     "react": "17.0.2",
     "react-i18next": "^11.18.0",
-    "react-native": "^0.67.2",
+    "react-native": "^0.66.0",
     "react-native-countdown-component": "^2.7.1",
     "react-native-date-picker": "^4.1.5",
-    "react-native-gesture-handler": "^2.2.0",
+    "react-native-gesture-handler": "^2.5.0",
     "react-native-image-base64": "^0.1.4",
     "react-native-image-crop-picker": "^0.38.0",
     "react-native-lightbox": "^0.8.1",
@@ -38,7 +39,7 @@
     "react-native-onesignal": "^4.3.11",
     "react-native-permissions": "^3.4.0",
     "react-native-picker-select": "^8.0.4",
-    "react-native-reanimated": "^2.4.1",
+    "react-native-reanimated": "^2.2.4",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.12.0",
@@ -59,5 +60,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }
