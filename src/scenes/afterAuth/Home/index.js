@@ -276,7 +276,7 @@ export default function Home({ props, navigation }) {
                 <View
                   style={{
                     height: hp(16), width: wp(30),
-                    backgroundColor: item.status === 'Pending' ? '#f2ac00' : item.status == 'Approved' ? '#23a2b7' : item.status == 'In Progress' ? '#157dfc' : item.status === 'Completed' ? '#2ea749' : item.status === 'Cancelled' ? '#da3348' : item.status === 'Total' ? '#343a40' : item.status === 'Blank Status' ? '#c2c2c2' : null,
+                    backgroundColor: item.status_en === 'Pending' ? '#f2ac00' : item.status_en == 'Approved' ? '#23a2b7' : item.status_en == 'In Progress' ? '#157dfc' : item.status_en === 'Completed' ? '#2ea749' : item.status_en === 'Cancelled' ? '#da3348' : item.status_en === 'Total' ? '#343a40' : item.status_en === 'Blank Status' ? '#c2c2c2' : null,
                     alignItems: 'center', borderRadius: 4, justifyContent: 'center'
                   }}>
                   <Image source={require('../../../assets/images/Booking.png')} resizeMode='contain' style={styles.bookingImage} />

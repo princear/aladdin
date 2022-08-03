@@ -1,7 +1,7 @@
 // const baseUrl = 'http://3.26.216.78/api/';
-const baseUrl = 'http://3.25.135.48/api';
+const baseUrl = 'https://aladdin.com.iq/api';
 
-export default function API ( variables, method, apiMethod, Authorization, formdata ) {
+export default function API(variables, method, apiMethod, Authorization, formdata) {
   var init =
     apiMethod === 'GET'
       ? {
@@ -26,26 +26,26 @@ export default function API ( variables, method, apiMethod, Authorization, formd
             Authorization: Authorization ? 'token ' + Authorization : '',
             Accept: 'application/json',
           },
-          body: JSON.stringify( variables ),
+          body: JSON.stringify(variables),
         };
-  console.log( 'Hitting=>', baseUrl + method, init, variables );
-  return fetch( baseUrl + method, init )
-    .then( ( res ) =>
-      res.json().then( ( data ) => {
+  console.log('Hitting=>', baseUrl + method, init, variables);
+  return fetch(baseUrl + method, init)
+    .then((res) =>
+      res.json().then((data) => {
         var apiData = {
           status: res.status,
           data: data,
         };
         // console.log('data->', JSON.stringify(data));
         return apiData;
-      } ),
+      }),
     )
-    .catch( ( err ) => {
-      console.log( 'API ERR ->', err );
+    .catch((err) => {
+      console.log('API ERR ->', err);
       var apiData = {
         status: 900,
         data: 'Server not responding. Please try again after some times.',
       };
       return apiData;
-    } );
+    });
 }

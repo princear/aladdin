@@ -459,12 +459,7 @@ const styles = StyleSheet.create({
     errorHeading: { marginLeft: wp(6), color: "red", textAlign: 'left', fontFamily: 'Montserrat-Medium' },
     mobileImage: { height: hp(3.5), width: wp(7.5) },
     updateWrapper: { marginHorizontal: wp(5), marginTop: hp(3), paddingVertical: hp(2), backgroundColor: '#9066e6', justifyContent: 'center', alignItems: 'center', marginBottom: hp(12) },
-    modalWrapper: {
-        flex: 1,
-        // backgroundColor: 'red',
-        backgroundColor: '#00000040',
-        alignItems: 'center', justifyContent: 'center'
-    },
+    modalWrapper: { flex: 1, backgroundColor: '#00000040', alignItems: 'center', justifyContent: 'center' },
     modalCont: { width: wp(90), backgroundColor: '#fff', justifyContent: 'center', borderRadius: 6, paddingVertical: hp(1) },
     panel: {
         padding: 20,

@@ -10,7 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function LanguageScreen({ props, navigation }) {
     const [radioSelected, setradioSelected] = useState('1')
     const [currentLanguage, setLanguage] = useState('');
-    const [checkstatus, setCheckstatus] = useState('false');
+    const [checkstatus, setCheckstatus] = useState('en');
     const { loading } = useSelector(state => state.UserReducers);
 
     const [type, setType] = useState();
@@ -58,7 +58,7 @@ export default function LanguageScreen({ props, navigation }) {
     useEffect(() => {
         dispatch(AllLangugae())
     }, [])
-    async function checkStatus() {
+    async function UpdatecheckStatus() {
         const status = await AsyncStorage.getItem('long');
         console.log('=======dddd=======>', status)
         setCheckstatus(status);
@@ -70,8 +70,9 @@ export default function LanguageScreen({ props, navigation }) {
 
     console.log(checkstatus)
     useEffect(() => {
-        checkStatus()
+        UpdatecheckStatus()
     }, [])
+
 
     const languageList = [
         {
@@ -148,8 +149,9 @@ export default function LanguageScreen({ props, navigation }) {
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
                                             }}>
+
                                                 {
-                                                    checkstatus == item.language_code ?
+                                                    checkstatus === item.language_code ?
                                                         <View style={{
                                                             height: 12,
                                                             width: 12,
