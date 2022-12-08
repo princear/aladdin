@@ -1,126 +1,125 @@
 {
-    "home" :{
+    "home": {
         "title": "heading"
     },
-    "auth":{
-        "login":"login",
-        "create":"Create",
-        "password":"Password",
-        "eightDigit":"Your password must include 8 digits",
-        "confir_password":"Confirm Password",
-        "bothpassword":"Both Password must be same",
-        "createpassword":"Create Password",
-        "forgotPassword":"Forgot Password",
-        "mobileNumber":"Enter your mobile number to get",
-        "otpVerified":"OTP for verification.",
-        "enterMobileNumber":"Enter Mobile Number",
-        "request_otp":"Request OTP",
-        "Otp_verification":"OTP Verification",
-        "time_password":"We will send you one time password ",
-        "thisNumber":"on this mobilenumber",
-        "otpENter":"Enter your OTP number",
-        "resendOtp":" Resend Otp",
-        "verify_oto":"Verify OTP",
-        "number":"Mobile Number",
-        "update":"Update",
-        "enter_email":"Enter your email",
-        "number_add":"Add Your number (Iraq only)"
+    "auth": {
+        "login": "Login",
+        "create": "Create",
+        "password": "Password",
+        "eightDigit": "Your password must include 8 digits",
+        "confir_password": "Confirm Password",
+        "bothpassword": "Both Password must be same",
+        "createpassword": "Create Password",
+        "forgotPassword": "Forgot Password",
+        "mobileNumber": "Enter your mobile number to get",
+        "otpVerified": "OTP for verification.",
+        "enterMobileNumber": "Enter Mobile Number",
+        "request_otp": "Request OTP",
+        "Otp_verification": "OTP Verification",
+        "time_password": "We will send you one time password ",
+        "thisNumber": "on this mobilenumber",
+        "otpENter": "Enter your OTP number",
+        "resendOtp": " Resend Otp",
+        "verify_oto": "Verify OTP",
+        "number": "Mobile Number",
+        "update": "Update",
+        "enter_email": "Enter your email",
+        "number_add": "Add Your number (Iraq only)"
     },
-    "homePage":{
-        "heading":"Shop Online",
-        "seeMoreText":"See More",
-        "serachHeading":"Find Your Product",
-        "serviceHeading":"Select Maintenance Service",
-        "serviceFirst":"Lorem Ipsum is simply dummy text",
-        "servicePrinting":"of the printing",
-        "dashbpard":"DashBoard",
-        "total_booking":"Total Booking",
-        "homeservices":"Home Services"
+    "homePage": {
+        "heading": "Shop Online",
+        "seeMoreText": "See More",
+        "serachHeading": "Find Your Product",
+        "serviceHeading": "Select Maintenance Service",
+        "serviceFirst": "Lorem Ipsum is simply dummy text",
+        "servicePrinting": "of the printing",
+        "dashbpard": "Dashboard",
+        "total_booking": "Total Booking",
+        "homeservices": "Home Services"
     },
-    "address":{
-        "addAddress":"Add Address",
-        "newAddress":"New Address",
-        "enterThe_address":"Enter the address"
+    "address": {
+        "addAddress": "Add Address",
+        "newAddress": "New Address",
+        "enterThe_address": "Enter the address"
     },
-    "checkout":{
-        "textCheckout":"CheckOut"
+    "checkout": {
+        "textCheckout": "CheckOut"
     },
-    "order":{
-        "place_order":"Place Order",
-        "bookNow":"Book Now",
-        "pending":"Pending"
+    "order": {
+        "place_order": "Place Order",
+        "bookNow": "Book Now",
+        "pending": "Pending"
     },
-    "cart":{
-        "cartHeading":"Add to cart",
-        "Name":"Name",
-        "quantity":"Quantity",
-        "price":"Price",
-        "remove":"Remove",
-        "location":"Location",
-        "service_provider":"Select service provider",
-        "no_data":"No data available",
-        "email":"E-Mail"
+    "cart": {
+        "cartHeading": "Add to cart",
+        "Name": "Name",
+        "quantity": "Quantity",
+        "price": "Price",
+        "remove": "Remove",
+        "location": "Location",
+        "service_provider": "Select service provider",
+        "no_data": "No data available",
+        "email": "E-Mail"
     },
-    "bookingList":{
-        "listing":"BookingList",
-        "productListing":"Product BookingList",
-        "email":"Email",
-        "mobile":"Mobile",
-        "booking_date":"Booking Date",
-        "booking_status":"Booking Status",
-        "cancel":"Cancel",
-        "image_uploaded":"Images uploaded & Description",
-        "item":"Item",
-        "unit_price":"Unit Price",
-        "Qty":"Qty",
-        "amount":"Amount",
-        "method_payment":"Payment Method",
-        "servie_total":"Service Total",
-        "status_payment":"Payment Status",
-        "message":"Address",
-        "rate_us":"Please Rate Us",
-        "submit":"Submit",
-        "booking":"Booking"
+    "bookingList": {
+        "listing": "BookingList",
+        "productListing": "Product BookingList",
+        "email": "Email",
+        "mobile": "Mobile",
+        "booking_date": "Booking Date",
+        "booking_status": "Booking Status",
+        "cancel": "Cancel",
+        "image_uploaded": "Images uploaded & Description",
+        "item": "Item",
+        "unit_price": "Unit Price",
+        "Qty": "Qty",
+        "amount": "Amount",
+        "method_payment": "Payment Method",
+        "servie_total": "Service Total",
+        "status_payment": "Payment Status",
+        "message": "Address",
+        "rate_us": "Please Rate Us",
+        "submit": "Submit",
+        "booking": "Booking"
     },
-    "profile":{
-        "profileHeading":"Profile",
-        "upload":"Upload Photo",
-        "choose_picture":"Choose Your Profile Picture",
-        "take_photo":"Take Photo",
-        "choose_librray":"Choose From Library"
+    "profile": {
+        "profileHeading": "Profile",
+        "upload": "Upload Photo",
+        "choose_picture": "Choose Your Profile Picture",
+        "take_photo": "Take Photo",
+        "choose_librray": "Choose From Library"
     },
-    "language":{
-        "chose_language":"Choose Langugae",
-        "prefered_language":"Choose Your Preferred Language",
-        "select_language":"Please Select Your Language"
+    "language": {
+        "chose_language": "Choose Langugae",
+        "prefered_language": "Choose Your Preferred Language",
+        "select_language": "Please Select Your Language"
     },
-    "settings":{
-        "settings":"Settings",
-        "logout":"Logout",
-        "servicelist":"Services Booking List",
-        "rate_alladin":"Rate Aladdin",
-        "about_alladin":"About Aladdin services",
-        "seting_email":"Email us",
-        "shoppingOrder":"My Shopping Order",
-        "language":"Change language",
-        "our_price":"Our Prices",
-        "completed_request":"Completed Requests"
-
+    "settings": {
+        "settings": "Settings",
+        "logout": "Logout",
+        "servicelist": "Services Booking List",
+        "rate_alladin": "Rate Aladdin",
+        "about_alladin": "About Aladdin services",
+        "seting_email": "Email us",
+        "shoppingOrder": "My Shopping Order",
+        "language": "Change language",
+        "our_price": "Our Prices",
+        "completed_request": "Completed Requests"
     },
-    "rang":{
-        "date_range":"Date Rag",
-        "apply":"Apply",
-        "recent_booking":"Recent Booking",
-        "scrren_password":"Enter the email with your account and we'll send an code to reset your password",
-        "send":"Send",
-        "menu":"Menu",
-        "Booking_detail":"Booking Detail",
-        "serve_name":"Services Name",
-        "service":"Services",
-        "uploadedimages":"User Upload images",
-        "address_detail":"Address Details",
-        "edit":"Edit",
-        "delete":"Delete Booking",
-        "edit_page":"Edit page "
+    "rang": {
+        "date_range": "Date Range",
+        "apply": "Apply",
+        "recent_booking": "Recent Booking",
+        "scrren_password": "Enter the email with your account and we'll send an code to reset your password",
+        "send": "Send",
+        "menu": "Menu",
+        "Booking_detail": "Booking Detail",
+        "serve_name": "Services Name",
+        "service": "Services",
+        "uploadedimages": "User Upload images",
+        "address_detail": "Address Details",
+        "edit": "Edit",
+        "delete": "Delete Booking",
+        "edit_page": "Edit page "
     }
 }

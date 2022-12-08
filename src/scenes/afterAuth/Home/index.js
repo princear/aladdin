@@ -114,10 +114,18 @@ export default function Home({ props, navigation }) {
   const { loading } = useSelector(state => state.UserReducers);
   const [t, i18n] = useTranslation();
   const [checkstatus, setCheckstatus] = useState('false');
+
+
   useEffect(() => {
-    dispatch(onCountBooking());
+    dispatch(onCountBooking(navigation));
 
   }, [])
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
+    };
+  }, []);
 
   async function checkStatus() {
     const status = await AsyncStorage.getItem('long');
@@ -132,7 +140,7 @@ export default function Home({ props, navigation }) {
   console.log(checkstatus)
   useEffect(() => {
     checkStatus()
-  }, [])
+  }, [bookingCount ?.countData])
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -164,31 +172,12 @@ export default function Home({ props, navigation }) {
   function handleBackButtonClick() {
     // navigation.isFocused() helps to exit the app on this component rather than in whole app.
     if (navigation.isFocused()) {
-      Alert.alert(
-        '',
-        'Are you sure you want to quit the app?',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {
-            text: 'OK',
-            onPress: () => BackHandler.exitApp(),
-          },
-        ],
-        { cancelable: false },
-      );
+      BackHandler.exitApp();
+
       return true;
     }
   }
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick);
-    };
-  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -293,7 +282,7 @@ export default function Home({ props, navigation }) {
 
             {
               recentBookings.data &&
-              <Text style={styles.recentBookingText}>{t('placeholders.rang.recent_booking')}</Text>
+              <Text style={styles.recentBookingText}>{t('placeholders.rang.recent_booking')}: {recentBookings ?.data ?.length}</Text>
             }
 
             <FlatList

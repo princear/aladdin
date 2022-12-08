@@ -36,7 +36,7 @@ export default function ForgetScreen({ props, navigation }) {
     }
   }
 
-  const[t] = useTranslation();
+  const [t] = useTranslation();
 
 
 
@@ -65,6 +65,9 @@ export default function ForgetScreen({ props, navigation }) {
               color="rgba(144,102,230,.8)"
             />
           </View>}
+        <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginRight: wp(3), marginTop: hp(1), alignItems: 'flex-end' }}>
+          <Image source={require('../../../assets/images/Delete.png')} style={{ height: hp(4), width: wp(8) }} />
+        </TouchableOpacity>
         <View style={styles.logoContainer}>
           <Image resizeMode='contain' source={FORGET_IMAGE} style={styles.logoImage} />
         </View>

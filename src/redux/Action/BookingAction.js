@@ -1,192 +1,196 @@
 import { Alert, } from 'react-native';
 import { COUNT, BOOKINGLIST, BOOKING_LIST_ID, EDIT_BOOKING, CANCEL_BOOKING, DELETE_BOOKING, RECENT_BOOKINGS } from '../Constant/constants';
 import { logistical } from '../../logistical';
+import { RemoveToken } from './LoginAction';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export const onCountBooking = ( data, navigation ) => dispatch => {
+export const onCountBooking = (navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
-    return new Promise( async ( resolve, reject ) => {
+    });
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.get( '/get-count-provider-bookings', data );
+        const response = await logistical.get('/get-count-provider-bookings');
 
-        if ( response.status == '1' ) {
-            dispatch( onALlBooking() )
-            dispatch( {
+        if (response.status == 1) {
+            dispatch(onALlBooking())
+            dispatch({
                 type: COUNT,
                 countData: response.data.data,
-            } );
-            // dispatch( {
-            //     type: BOOKINGLIST,
-            //     bookingListData: response.data.bookings,
-            // } );
+            });
 
-            resolve( response );
-            dispatch( {
+            resolve(response);
+            dispatch({
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' ) {
+        else if (response.status == 0 && response.message == 'unauthenticated') {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
 
 
 
-export const onALlBooking = ( data, navigation ) => dispatch => {
+export const onALlBooking = (navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
-    return new Promise( async ( resolve, reject ) => {
+    });
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.get( '/get-provider-booking-details', data );
+        const response = await logistical.get('/get-provider-booking-details');
 
-        if ( response.status == '1' ) {
-            dispatch( {
+        if (response.status == 1) {
+            dispatch({
                 type: BOOKINGLIST,
                 bookingListData: response.data.bookings,
-            } );
+            });
 
-            resolve( response );
-            dispatch( {
+            resolve(response);
+            dispatch({
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' ) {
+        else if (response.status == 0 && response.message == 'unauthenticated') {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
-
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
 
-export const particularBookingId = ( data, navigation ) => dispatch => {
+export const particularBookingId = (data, navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
-    return new Promise( async ( resolve, reject ) => {
+    });
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.get( '/get-provider-product-booking-details/' + data );
+        const response = await logistical.get('/get-provider-product-booking-details/' + data);
 
-        if ( response.status == '1' ) {
+        if (response.status == 1) {
 
 
-            dispatch( {
+            dispatch({
                 type: BOOKING_LIST_ID,
                 particularListData: response.data,
-            } );
+            });
 
-            resolve( response );
-            dispatch( {
+            resolve(response);
+            dispatch({
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' ) {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+        else if (response.status == 0 && response.message == 'unauthenticated') {
+
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
 
-export const editBooking = ( data, navigation ) => dispatch => {
+export const editBooking = (data, navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
-    return new Promise( async ( resolve, reject ) => {
+    });
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.post( '/get-provider-status-change', data );
-        console.log( 'response', response )
+        const response = await logistical.post('/get-provider-status-change', data);
+        console.log('response', response)
 
-        if ( response.status == '1' && response.message == 'Your Booking Status is Successfully Changed' ) {
+        if (response.status == 1 && response.message == 'Your Booking Status is Successfully Changed') {
 
-            dispatch( onALlBooking( response.data ) )
-            dispatch( {
+            dispatch(onALlBooking(response.data))
+            dispatch({
                 type: EDIT_BOOKING,
                 editBookingData: response.data,
-            } );
-            dispatch( onCountBooking() )
+            });
+            dispatch(onCountBooking())
 
 
-            resolve( response );
+            resolve(response);
 
-            navigation.navigate( 'Home' )
+            navigation.navigate('Booking')
 
             // Alert.alert(
             //     'Status Changed',
@@ -203,136 +207,162 @@ export const editBooking = ( data, navigation ) => dispatch => {
             // )
             // navigation.navigate('Home');
 
-            dispatch( {
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' && response.message == 'invalid_credentials' ) {
+        else if (response.status == 0 && response.message == 'invalid_credentials') {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.response[0])
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
+        else if (response.status == 0 && response.message == 'unauthenticated') {
+
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
+
+                type: 'LOADING',
+                payload: false
+
+            });
+        }
+
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
 
 
-export const cancelBooking = ( data, navigation ) => dispatch => {
+export const cancelBooking = (data, navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
+    });
 
-    console.log( "cancellll booking >>>>>>>>>>", data );
-    return new Promise( async ( resolve, reject ) => {
+    console.log("cancellll booking >>>>>>>>>>", data);
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.post( '/get-provider-booking-canceled', data );
-        console.log( 'response', response )
+        const response = await logistical.post('/get-provider-booking-canceled', data);
+        console.log('response', response)
 
-        if ( response.status == '1' ) {
+        if (response.status == 1) {
 
-            dispatch( onALlBooking() )
+            dispatch(onALlBooking())
 
-            dispatch( {
+            dispatch({
                 type: CANCEL_BOOKING,
                 cancelBookingData: response.data,
-            } );
+            });
 
-            dispatch( onCountBooking() )
+            dispatch(onCountBooking())
 
 
             Alert.alert(
                 'Cancel Booking',
                 'Press ok to confirm', [{
                     text: 'Cancel',
-                    onPress: () => console.log( 'Cancel Pressed' ),
+                    onPress: () => console.log('Cancel Pressed'),
                     style: 'cancel'
                 }, {
                     text: 'OK',
-                    onPress: () => navigation.navigate( 'Home' )
+                    onPress: () => navigation.navigate('Home')
                 },], {
-                cancelable: false
-            }
+                    cancelable: false
+                }
             )
-            resolve( response );
+            resolve(response);
             // navigation.navigate('Home');
 
-            dispatch( {
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' && response.message == 'invalid_credentials' ) {
+        else if (response.status == 0 && response.message == 'invalid_credentials') {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.response[0])
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
+        else if (response.status == 0 && response.message == 'unauthenticated') {
+
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
+
+                type: 'LOADING',
+                payload: false
+
+            });
+        }
+
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
-export const deleteBooking = ( data, navigation ) => dispatch => {
+export const deleteBooking = (data, navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
+    });
 
-    console.log( "cancellll booking >>>>>>>>>>", data );
-    return new Promise( async ( resolve, reject ) => {
+    console.log("cancellll booking >>>>>>>>>>", data);
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.get( '/booking-delete/' + data );
-        console.log( 'response', response )
+        const response = await logistical.get('/booking-delete/' + data);
+        console.log('response', response)
 
-        if ( response.status == '1' ) {
+        if (response.status == '1') {
 
             // const abvc = () => {
-            dispatch( {
+            dispatch({
                 type: DELETE_BOOKING,
                 deleteBookingData: response.data,
-            } );
-            navigation.navigate( 'Home' )
+            });
+            navigation.navigate('Home')
             // }
 
 
@@ -350,87 +380,87 @@ export const deleteBooking = ( data, navigation ) => dispatch => {
             //     cancelable: false
             // }
             // )
-            resolve( response );
+            resolve(response);
             // navigation.navigate('Home');
 
-            dispatch( {
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };
 
 
-export const RecentBookings = ( data, navigation ) => dispatch => {
+export const RecentBookings = (data, navigation) => dispatch => {
 
-    dispatch( {
+    dispatch({
         type: 'LOADING',
         payload: true
-    } );
+    });
 
-    console.log( "recenttt booking >>>>>>>>>>", data );
-    return new Promise( async ( resolve, reject ) => {
+    console.log("recenttt booking >>>>>>>>>>", data);
+    return new Promise(async (resolve, reject) => {
 
-        const response = await logistical.post( '/get-filter-bookings', data );
-        console.log( 'response', response )
+        const response = await logistical.post('/get-filter-bookings', data);
+        console.log('response', response)
 
-        if ( response.status == '1' ) {
+        if (response.status == 1) {
 
-            console.log( 'hjhjeshjshjsjs' )
-            dispatch( {
+            dispatch({
                 type: RECENT_BOOKINGS,
                 recentBookingData: response.data.bookings,
-            } );
+            });
 
-            resolve( response );
+            resolve(response);
             // navigation.navigate('Home');
 
-            dispatch( {
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
-        else if ( response.status == '0' ) {
+        else if (response.status == 0 && response.message == 'unauthenticated') {
 
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert('Session expired Please login again..')
+            dispatch(RemoveToken('null'));
+            AsyncStorage.removeItem('login')
+            navigation.navigate('Login')
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
+            });
         }
 
         else {
-            // Alert.alert(response.message)
-            Alert.alert( response.response[0] )
-            dispatch( {
+            Alert.alert(response.message)
+            dispatch({
 
                 type: 'LOADING',
                 payload: false
 
-            } );
-            console.log( 'errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>' )
-            reject( response );
+            });
+            console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>')
+            reject(response);
         }
-    } );
+    });
 };

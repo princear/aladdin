@@ -9,7 +9,7 @@ import { Alert, ActivityIndicator, StyleSheet, View, Text, Image, TouchableOpaci
 
 import { MONTSERRAT_BOLD, MONTSERRAT_MEDIUM, MONTSERRAT_REGULAR } from '../scenes/styles/typography';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { ProfileData, RemoveToken } from '../redux/Action/LoginAction';
+import { RemoveToken } from '../redux/Action/LoginAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { DrawerActions } from '@react-navigation/native';
@@ -17,54 +17,51 @@ import { useTranslation } from 'react-i18next';
 
 
 
-const DrawerContent = ( { props, navigation } ) => {
+const DrawerContent = ({ props, navigation }) => {
 
 
   const dispatch = useDispatch();
   const Logout = () => {
 
 
-    dispatch( RemoveToken( 'null' ) )
+    dispatch(RemoveToken('null'))
 
-    AsyncStorage.removeItem( 'login' );
-    navigation.navigate( 'Login' );
+    AsyncStorage.removeItem('login');
+    navigation.navigate('Login');
   }
 
-  const [active, setActive] = useState( 'Dashboard' );
+  const [active, setActive] = useState('Dashboard');
 
-  useEffect( () => {
 
-    dispatch( ProfileData() )
-  }, [] )
 
-  const { loading } = useSelector( state => state.UserReducers );
+  const { loading } = useSelector(state => state.UserReducers);
 
 
   const dashboardBack = () => {
-    setActive( 'Dashboard' );
-    navigation.navigate( 'Home' );
-    navigation.dispatch( DrawerActions.closeDrawer() )
+    setActive('Dashboard');
+    navigation.navigate('Home');
+    navigation.dispatch(DrawerActions.closeDrawer())
   }
 
   const bookingBack = () => {
-    setActive( 'Bookings' ), navigation.navigate( 'Booking' ),
-      navigation.dispatch( DrawerActions.closeDrawer() )
+    setActive('Bookings'), navigation.navigate('Booking'),
+      navigation.dispatch(DrawerActions.closeDrawer())
   }
   const profileBack = () => {
-    setActive( 'Profile' ),
-      navigation.navigate( 'ProfileScreen' ),
-      navigation.dispatch( DrawerActions.closeDrawer() )
+    setActive('Profile'),
+      navigation.navigate('ProfileScreen'),
+      navigation.dispatch(DrawerActions.closeDrawer())
   }
   const langugaeBack = () => {
-    setActive( 'Language' ),
-    navigation.navigate( 'LanguageScreen' ),
-    navigation.dispatch( DrawerActions.closeDrawer() )
+    setActive('Language'),
+      navigation.navigate('LanguageScreen'),
+      navigation.dispatch(DrawerActions.closeDrawer())
   }
-  const[t] = useTranslation();
+  const [t] = useTranslation();
 
   return (
     <View style={styles.drawerContainer}>
-      {( loading ) &&
+      {(loading) &&
         <View style={{ flex: 1, justifyContent: 'center', position: 'absolute', top: '40%', left: '40%' }}>
 
           <ActivityIndicator
@@ -88,13 +85,13 @@ const DrawerContent = ( { props, navigation } ) => {
 
         <View style={styles.menuWrapper}>
           <Text style={styles.leftTextWrapper}>{t('placeholders.rang.menu')}</Text>
-          <TouchableOpacity onPress={() => navigation.dispatch( DrawerActions.closeDrawer() )}>
-            <Image source={require( '../assets/images/closeingray.png' )} resizeMode='contain' style={styles.rightImageWrapper} />
+          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.closeDrawer())}>
+            <Image source={require('../assets/images/closeingray.png')} resizeMode='contain' style={styles.rightImageWrapper} />
 
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => dashboardBack()} style={[styles.dashboardWrapper, { backgroundColor: active === 'Dashboard' ? '#9066e6' : '#fff' }]}>
-          <Image source={require( '../assets/images/dashboard.png' )} resizeMode='contain' style={styles.dashboardImage} />
+          <Image source={require('../assets/images/dashboard.png')} resizeMode='contain' style={styles.dashboardImage} />
           <Text style={styles.dashboardText}>{t('placeholders.homePage.dashbpard')}</Text>
         </TouchableOpacity>
 
@@ -111,10 +108,10 @@ const DrawerContent = ( { props, navigation } ) => {
           onPress={() => bookingBack()}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={require( '../assets/images/Bookings.png' )} resizeMode='contain' style={styles.bookingImage} />
+            <Image source={require('../assets/images/Bookings.png')} resizeMode='contain' style={styles.bookingImage} />
             <Text style={styles.bookingText}>{t('placeholders.bookingList.booking')}</Text>
           </View>
-          <Image source={require( '../assets/images/rightArrow.png' )} resizeMode='contain' style={styles.bookingImage} />
+          <Image source={require('../assets/images/rightArrow.png')} resizeMode='contain' style={styles.bookingImage} />
 
 
         </TouchableOpacity>
@@ -123,10 +120,10 @@ const DrawerContent = ( { props, navigation } ) => {
           onPress={() => profileBack()}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={require( '../assets/images/CustomerFordashboard.png' )} resizeMode='contain' style={styles.bookingImage} />
+            <Image source={require('../assets/images/CustomerFordashboard.png')} resizeMode='contain' style={styles.bookingImage} />
             <Text style={styles.bookingText}>{t('placeholders.profile.profileHeading')}</Text>
           </View>
-          <Image source={require( '../assets/images/rightArrow.png' )} resizeMode='contain' style={styles.bookingImage} />
+          <Image source={require('../assets/images/rightArrow.png')} resizeMode='contain' style={styles.bookingImage} />
 
 
         </TouchableOpacity>
@@ -135,19 +132,19 @@ const DrawerContent = ( { props, navigation } ) => {
           onPress={() => langugaeBack()}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={require( '../assets/images/play.png' )} resizeMode='contain' style={styles.bookingImage} />
+            <Image source={require('../assets/images/play.png')} resizeMode='contain' style={styles.bookingImage} />
             <Text style={styles.bookingText}>{t('placeholders.settings.language')} </Text>
           </View>
-          <Image source={require( '../assets/images/rightArrow.png' )} resizeMode='contain' style={styles.bookingImage} />
+          <Image source={require('../assets/images/rightArrow.png')} resizeMode='contain' style={styles.bookingImage} />
 
 
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.bookingWrapper, { backgroundColor: active === 'Logout' ? '#9066e6' : '#fff' }]} onPress={() => { setActive( 'Logout' ), Logout() }}>
+        <TouchableOpacity style={[styles.bookingWrapper, { backgroundColor: active === 'Logout' ? '#9066e6' : '#fff' }]} onPress={() => { setActive('Logout'), Logout() }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={require( '../assets/images/logout.png' )} resizeMode='contain' style={styles.bookingImage} />
+            <Image source={require('../assets/images/logout.png')} resizeMode='contain' style={styles.bookingImage} />
             <Text style={styles.bookingText}>{t('placeholders.settings.logout')}</Text>
           </View>
-          <Image source={require( '../assets/images/rightArrow.png' )} resizeMode='contain' style={styles.bookingImage} />
+          <Image source={require('../assets/images/rightArrow.png')} resizeMode='contain' style={styles.bookingImage} />
 
 
         </TouchableOpacity>
@@ -158,41 +155,41 @@ const DrawerContent = ( { props, navigation } ) => {
 
 export default DrawerContent;
 
-const styles = StyleSheet.create( {
+const styles = StyleSheet.create({
   drawerContainer: { flex: 1, backgroundColor: '#fff' },
   menuWrapper: {
-    flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: wp( 5 ), marginTop: hp( 2 )
+    flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: wp(5), marginTop: hp(2)
   },
   leftTextWrapper: {
-    fontSize: 14, color: '#000', fontFamily: MONTSERRAT_REGULAR
+    fontSize: 14, color: '#000', fontFamily: MONTSERRAT_BOLD
   },
   rightImageWrapper: {
-    height: hp( 4 ),
-    width: wp( 8 )
+    height: hp(4),
+    width: wp(8)
   },
   dashboardImage: {
-    height: hp( 6 ),
-    width: wp( 7 )
+    height: hp(6),
+    width: wp(7)
   },
   dashboardWrapper: {
     backgroundColor: '#9066e6',
-    paddingVertical: hp( 1 ),
-    paddingHorizontal: wp( 5 ),
+    paddingVertical: hp(1),
+    paddingHorizontal: wp(5),
     flexDirection: 'row',
-    marginTop: hp( 2 ),
+    marginTop: hp(2),
     alignItems: 'center'
   },
   dashboardText: {
     fontFamily: MONTSERRAT_MEDIUM,
     color: '#c2c2c2',
     fontSize: 14,
-    paddingLeft: wp( 3 )
+    paddingLeft: wp(3)
   },
   bookingWrapper: {
-    marginTop: hp( 2 ),
+    marginTop: hp(2),
     alignItems: 'center',
-    paddingHorizontal: wp( 4 ),
-    paddingVertical: hp( 2 ),
+    paddingHorizontal: wp(4),
+    paddingVertical: hp(2),
     backgroundColor: '#fff',
     justifyContent: 'space-between',
     flexDirection: 'row'
@@ -201,12 +198,12 @@ const styles = StyleSheet.create( {
     fontFamily: MONTSERRAT_MEDIUM,
     color: '#c2c2c2',
     fontSize: 13,
-    paddingLeft: wp( 2 )
+    paddingLeft: wp(2)
   },
   bookingImage: {
-    height: hp( 3 ),
-    width: wp( 8 ),
+    height: hp(3),
+    width: wp(8),
 
   }
 
-} );
+});

@@ -3,6 +3,7 @@ import { logistical } from '../../logistical'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert, ToastAndroid } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
+import { onCountBooking } from "./BookingAction";
 
 
 export const RemoveToken = (data, navigation) => dispatch => {
@@ -56,7 +57,8 @@ export const UserLogin = (data, navigation) => dispatch => {
 
       navigation.navigate('Home');
       navigation.dispatch(DrawerActions.closeDrawer())
-
+      dispatch(onCountBooking(navigation));
+      dispatch(ProfileData())
       dispatch({
 
         type: 'LOADING',
@@ -91,7 +93,7 @@ export const UserLogin = (data, navigation) => dispatch => {
   });
 };
 
-export const ProfileData = (data, navigation) => dispatch => {
+export const ProfileData = (navigation) => dispatch => {
   dispatch({
     type: 'LOADING',
     payload: true
@@ -101,7 +103,7 @@ export const ProfileData = (data, navigation) => dispatch => {
 
     const loginId = await AsyncStorage.getItem('loginId');
 
-    const response = await logistical.get('/get-provider-profile' + '/' + loginId, data);
+    const response = await logistical.get('/get-provider-profile' + '/' + loginId);
 
     if (response.status == '1') {
 
@@ -119,9 +121,23 @@ export const ProfileData = (data, navigation) => dispatch => {
 
 
     }
+    else if (response.status == 0 && response.message == 'unauthenticated') {
+
+      Alert.alert('Session expired Please login again..')
+      dispatch(RemoveToken('null'));
+      AsyncStorage.removeItem('login')
+      navigation.navigate('Login')
+      dispatch({
+
+        type: 'LOADING',
+        payload: false
+
+      });
+    }
+
 
     else {
-      Alert.alert(response.response[0])
+      Alert.alert(response.message)
       dispatch({
         type: 'LOADING',
         payload: false
