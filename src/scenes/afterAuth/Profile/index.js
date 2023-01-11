@@ -102,20 +102,11 @@ export default function ProfileScreen(props) {
             type: imagePath.mime,
             // // type: "image/jpeg",
             // name:'imagename',
-            filename: 'image/jpeg',
+            name: 'image/jpeg',
+            // filename: 'image/jpeg',
             // type: 'image/jpeg',
           });
     }
-    // imagePath && imagePath.forEach((item, i) => {
-    //     formdata.append("image", {
-    //         // uri: item.path,
-    //         uri: Platform.OS === 'ios' ? `file:///${item.path}` : item.path,
-    //         name: item.filename || item.path.split('/').pop(),
-
-    //         type: item.type,
-    //         // name: item.filename || `filename${i}.jpg`,
-    //     });
-    // });
 
     axios.defaults.baseURL = 'https://aladdin.com.iq/api/';
 
@@ -289,7 +280,7 @@ export default function ProfileScreen(props) {
           <View style={styles.centerImageWrapper}>
             {imagePath ? (
               <Image
-                source={{uri: imagePath[0].path}}
+                source={{uri: imagePath.path}}
                 resizeMode="contain"
                 style={styles.centerImage}
               />
@@ -570,7 +561,7 @@ const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#f7f5f1'},
   headerWrapper: {
     backgroundColor: '#9066e6',
-    marginTop: Platform.OS == 'ios' ? -hp(5) : hp(0),
+    marginTop: Platform.OS == 'ios' ? -hp(2.5) : hp(0),
     paddingVertical: hp(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -585,13 +576,13 @@ const styles = StyleSheet.create({
   },
   headerHeading: {fontSize: 14, color: '#fff', fontFamily: 'Montserrat-Bold'},
   centerImageWrapper: {
-    height: Platform.OS == 'ios' ? hp(12) : 100,
+    height: Platform.OS == 'ios' ? 100 : 100,
     zIndex: 99999,
     position: 'relative',
     marginTop: hp('5'),
     justifyContent: 'center',
     alignSelf: 'center',
-    width: Platform.OS == 'ios' ? wp(27) : 100,
+    width: Platform.OS == 'ios' ? 100 : 100,
     borderRadius: hp(50),
     borderWidth: 3,
     borderColor: '#9066e6',
@@ -602,8 +593,8 @@ const styles = StyleSheet.create({
     borderRadius: hp(50),
   },
   centerImage2: {
-    height: Platform.OS == 'ios' ? hp(10.6) : 95,
-    width: Platform.OS == 'ios' ? wp(25) : 95,
+    height: Platform.OS == 'ios' ? 95 : 95,
+    width: Platform.OS == 'ios' ? 95 : 95,
     borderRadius: hp(50),
   },
   cameraButtonWrapper: {
@@ -611,6 +602,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -7,
     top: 0,
+    // height: 95,
+    // width: 95,
     height: hp(5),
     width: wp(10),
     borderRadius: 50,

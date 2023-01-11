@@ -24,6 +24,11 @@ export const DELETE_BOOKING = 'DELETE_BOOKING';
 export const RECENT_BOOKINGS = 'RECENT_BOOKINGS';
 export const FORGET = 'FORGET';
 export const PROFILE_LOGIN = 'PROFILE_LOGIN';
-export const LANGUGAE = "LANGUGAE";
-export const SET_LANGUGAE = "SET_LANGUGAE";
-
+export const LANGUGAE = 'LANGUGAE';
+export const SET_LANGUGAE = 'SET_LANGUGAE';
+export const NOTIFY = 'NOTIFY';
+export const CREATE_NOTIFY = 'CREATE_NOTIFY';
+export const COUNT_NOTI = 'COUNT_NOTI';
+export const SERVICES = 'SERVICES';
+export const LOCATIONS = 'LOCATIONS';
+export const SENDOTP = 'SENDOTP';

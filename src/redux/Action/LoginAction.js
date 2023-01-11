@@ -165,7 +165,7 @@ export const UpdateProfileData = (data, navigation) => dispatch => {
     });
     const response = await logistical.post('/update-provider-profile', data);
 
-    console.log('====================================>', response)
+    // console.log('====================================>', response)
     if (response.status == '1' && response.message == 'Successfully Response') {
 
 

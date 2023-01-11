@@ -1,11 +1,14 @@
 import * as React from 'react';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import SplashScreen from './scenes/splash';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import Home from './scenes/afterAuth/Home';
 import DrawerContent from './navigation/DrawerContent';
@@ -19,117 +22,144 @@ import OtpScreen from './scenes/auth/OtpScreen';
 import BookingListDetail from './scenes/afterAuth/BookingListDetail.js';
 import EditPage from './component/editpage';
 import ProfileScreen from './scenes/afterAuth/Profile';
-import { I18nextProvider } from "react-i18next";
+import {I18nextProvider} from 'react-i18next';
 
 import i18n from '../src/i18n/index';
 import LanguageScreen from '../src/scenes/afterAuth/LanguageScreen';
+import Registation from './scenes/auth/Registration';
+import SelectServices from './component/selectServices';
+import SelectArea from './component/selectArea';
+import OtpScreenShow from './scenes/afterAuth/OtpScreen';
+import VerifyNumberScreen from './scenes/auth/VerifyNumber';
 const Stack = createStackNavigator();
 
-function StackNavigator ( { navigation, route } ) {
+function StackNavigator({navigation, route}) {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
 
       <Stack.Screen
         name="Login"
         component={Login}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="ForgetScreen"
         component={ForgetScreen}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="Home"
         component={MyDrawer}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="Booking"
         component={Booking}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="BookingServices"
         component={BookingServices}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="CustomerServices"
         component={CustomerServices}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="BookingListDetail"
         component={BookingListDetail}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="EditPage"
         component={EditPage}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
       <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{headerShown: false, animationEnabled: false}}
       />
-     <Stack.Screen name="LanguageScreen" component={LanguageScreen}
-     options={{ headerShown: false, animationEnabled: false }} />
+      <Stack.Screen
+        name="SelectServices"
+        component={SelectServices}
+        options={{headerShown: false, animationEnabled: false}}
+      />
+      <Stack.Screen
+        name="SelectArea"
+        component={SelectArea}
+        options={{headerShown: false, animationEnabled: false}}
+      />
+      <Stack.Screen
+        name="OtpScreen"
+        component={OtpScreenShow}
+        options={{headerShown: false, animationEnabled: false}}
+      />
+      <Stack.Screen
+        name="VerifyNumberScreen"
+        component={VerifyNumberScreen}
+        options={{headerShown: false, animationEnabled: false}}
+      />
 
-
+      <Stack.Screen
+        name="LanguageScreen"
+        component={LanguageScreen}
+        options={{headerShown: false, animationEnabled: false}}
+      />
+      <Stack.Screen
+        name="Registation"
+        component={Registation}
+        options={{headerShown: false, animationEnabled: false}}
+      />
     </Stack.Navigator>
   );
 }
 
-
-
 const Drawer = createDrawerNavigator();
 
-function MyDrawer ( { navigation, route } ) {
-
+function MyDrawer({navigation, route}) {
   return (
-    <Drawer.Navigator defaultStatus="closed"
-
+    <Drawer.Navigator
+      defaultStatus="closed"
       screenOptions={{
         drawerPosition: 'left',
         headerShown: false,
-        drawerActiveBackgroundColor: "#FAFAFC",
+        drawerActiveBackgroundColor: '#FAFAFC',
         drawerActiveTintColor: '#000',
         drawerStyle: {
           backgroundColor: '#fff',
-          width: wp( 70 ),
+          width: wp(70),
         },
       }}
       initialRouteName="Home"
-      drawerContent={props => <DrawerContent {...props} />}
-    >
-
-      <Drawer.Screen name="Home" component={Home} options={{
-        headerShown: false,
-        animationEnabled: false,
-        swipeEnabled: false,
-      }} />
+      drawerContent={props => <DrawerContent {...props} />}>
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+          swipeEnabled: false,
+        }}
+      />
       {/* <Drawer.Screen name="Register" component={Register} /> */}
     </Drawer.Navigator>
   );
-
 }
 
-
-
-export default function AuthToHome () {
+export default function AuthToHome() {
   return (
     <I18nextProvider i18n={i18n}>
-
-    <NavigationContainer independent={true}>
-      <StackNavigator />
-    </NavigationContainer>
+      <NavigationContainer independent={true}>
+        <StackNavigator />
+      </NavigationContainer>
     </I18nextProvider>
   );
 }

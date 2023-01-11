@@ -1,0 +1,126 @@
+{
+    "home" :{
+        "title": "heading"
+    },
+    "auth":{
+        "login":"چوونە ژوورەوە",
+        "create":"دروستکردن",
+        "password":"نهێنوشە",
+        "eightDigit":"تێپەڕەوشەکەت دەبێت 8 ڕەنووس بێت",
+        "confir_password":"تێپەڕە وشە پشتڕاست بکەرەوە",
+        "bothpassword":"دەبێت هەردوو تێپەڕەوشەکان هەمان شت بن ",
+        "createpassword":"تێپەڕەوشە دروست بکە",
+        "forgotPassword":"وشەی تێپەرم بیرچوەتەوە",
+        "mobileNumber":"ژمارەی مۆبایلەکەت داخڵ بکە بۆ  بەدەستیهینان",
+        "otpVerified":"پشتڕاستکردنەوەی otp.",
+        "enterMobileNumber":"ژمارەی مۆبایلەکە دابنێ",
+        "request_otp":"داوای کۆدی نهێنی بکە",
+        "Otp_verification":"کۆدی پشتڕاستکردنەوە",
+        "time_password":"وشەی نهێنی یەک جاریت بۆ دەنێرین ",
+        "thisNumber":"لەسەر ئەم ژمارە مۆبایلە",
+        "otpENter":"کۆدەکە داخڵ بکە",
+        "resendOtp":" کۆدەکە بنێرەوە",
+        "verify_oto":"کۆدەکە بسەلمێنە",
+        "number":"ژمارەی مۆبایل",
+        "update":"نوێکردنەوە",
+        "enter_email":"ئیمێلەکەت داخڵ بکە",
+        "number_add":"Add Your number (Iraq only)"
+    },
+    "homePage":{
+        "heading":"ئۆنلاین بازاڕبکە",
+        "seeMoreText":"زیاتر ببینە",
+        "serachHeading":"بەرهەمی خۆت بدۆزەرەوە",
+        "serviceHeading":"خزمەتگوزاریی چاکسازی هەڵبژێرە",
+        "serviceFirst":"Lorem Ipsum is simply dummy text",
+        "servicePrinting":"of the printing",
+        "dashbpard":"داشبۆرد",
+        "total_booking":"کۆی حیجزکردنەکان",
+        "homeservices":"خزمەتگوزارییەکانی ماڵەوە"
+    },
+    "address":{
+        "addAddress":"ناونیشان زیادکە",
+        "newAddress":"ناونیشانی تازە",
+        "enterThe_address":"تکایە ناونیشان داخڵ بکە"
+    },
+    "checkout":{
+        "textCheckout":"پارەدان"
+    },
+    "order":{
+        "place_order":"داوای بکە",
+        "bookNow":"ئێستا ناوت تۆمارکە",
+        "pending":"معلق"
+    },
+    "cart":{
+        "cartHeading":"زیادی بکە بۆ نسەبەتە",
+        "Name":"ناو",
+        "quantity":"بڕ",
+        "price":"نرخ",
+        "remove":"سڕینەوە",
+        "location":"شوێن",
+        "service_provider":"دابینکەری خزمەتگوزاری هەڵبژێرە",
+        "no_data":"هیچ داتایەک نییە",
+        "email":"ئیمێڵ"
+    },
+    "bookingList":{
+        "listing":"لیستی تۆمارکردن",
+        "productListing":"لیستی تۆمارکردن بەرهەم",
+        "email":"ئیمێڵ",
+        "mobile":"ژمارەی مۆبایل",
+        "booking_date":"بەرواری تۆمارکردن",
+        "booking_status":"دۆخی تۆمارکردن",
+        "cancel":"پوچەڵی بکەرەوە",
+        "image_uploaded":"وێنە و وەسفی نیردراو",
+        "item":"العنصر",
+        "unit_price":"یەکەی نرخ",
+        "Qty":"بڕبڕ",
+        "amount":"تێکڕای بڕ",
+        "method_payment":"شێوازی پارەدان",
+        "servie_total":"کۆی گشتی خزمەتگوزاری",
+        "status_payment":"دۆخی پارەدان",
+        "message":"ناونیشان زیادکە",
+        "rate_us":"تکایە هەلمانبسەنگێنە",
+        "submit":"ناردن",
+        "booking":"تۆمارکردن"
+    },
+    "profile":{
+        "profileHeading":"پرۆفایلی کەسی",
+        "upload":"وێنە بەرزبکەرەوە",
+        "choose_picture":"وێنەی پرۆفایلی خۆت هەڵبژێرە",
+        "take_photo":"وێنەیەک بگرە",
+        "choose_librray":"لە وێنەکانت هڵی بژێڕە"
+    },
+    "language":{
+        "chose_language":"زمان هەڵبژێرە",
+        "prefered_language":"زمانی دڵخوازت هەڵبژێرە",
+        "select_language":"تکایە زمانی خۆت هەڵبژێرە"
+    },
+    "settings":{
+        "settings":"ڕێکخستن",
+        "logout":"چوونەدەرەوە",
+        "servicelist":"لیستی حیخزکردنی خزمەتگوزاری",
+        "rate_alladin":"عەلادین هەڵبسەنگێنە",
+        "about_alladin":"دەربارەی خزمەتگوزارییەکانی عەلادین",
+        "seting_email":"ئیمێڵمان بۆ بنێرە",
+        "shoppingOrder":"داواکاریی بازاڕکردنم",
+        "language":"زمان بگۆڕە",
+        "our_price":"نرخەکانمان",
+        "completed_request":"داواکاری تەواو کراوە"
+
+    },
+    "rang":{
+        "date_range":" بەرواری RAG",
+        "apply":"داواکاری پێشکەش بکە",
+        "recent_booking":"حجزی دواجار",
+        "scrren_password":"ئیمەیڵەکە لەگەڵ ئەکاونتەکەت دابنێ و ئێمە کۆدێک دەنێرین بۆ نوێکردنەوەی وشەی نهێنی",
+        "send":"ناردن",
+        "menu":"مینیو",
+        "Booking_detail":"Booking Detail",
+        "serve_name":"Services Name",
+        "service":"Services",
+        "uploadedimages":"User Upload images",
+        "address_detail":"Address Details",
+        "edit":"Edit",
+        "delete":"Delete Booking",
+        "edit_page":"Edit page "
+    }
+}
