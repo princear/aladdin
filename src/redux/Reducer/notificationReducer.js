@@ -1,4 +1,9 @@
-import {NOTIFY, CREATE_NOTIFY, RATING} from '../Constant/constants';
+import {
+  NOTIFY,
+  CREATE_NOTIFY,
+  RATING,
+  AVERAGE_RATING,
+} from '../Constant/constants';
 
 const initialstate = {
   notiData: [],
@@ -6,6 +11,7 @@ const initialstate = {
   loading: false,
   selectnotifyData: [],
   ratingBooking: [],
+  averageratingBooking: [],
 };
 
 const notificationReducer = (state = initialstate, action) => {
@@ -16,6 +22,8 @@ const notificationReducer = (state = initialstate, action) => {
       return {...state, selectnotifyData: action.selectnotifyData};
     case RATING:
       return {...state, ratingBooking: action.ratingBooking};
+    case AVERAGE_RATING:
+      return {...state, averageratingBooking: action.averageratingBooking};
     // case COUNT_NOTI:
     //   return {
     //     ...state,

@@ -26,7 +26,10 @@ import {request, PERMISSIONS} from 'react-native-permissions';
 import Lightbox from 'react-native-lightbox';
 import {useTranslation} from 'react-i18next';
 import {Rating, AirbnbRating} from 'react-native-ratings';
-import {RatingServices} from '../../../redux/Action/notificationAction';
+import {
+  AvaerageRatingService,
+  RatingServices,
+} from '../../../redux/Action/notificationAction';
 
 export default function BookingListDetail({route, navigation}) {
   const dispatch = useDispatch();
@@ -36,8 +39,12 @@ export default function BookingListDetail({route, navigation}) {
   const Pendinglist = useSelector(
     state => state.COUNTBOOKINGREDUCER.particularList,
   );
+  const averageRating = useSelector(
+    state => state.notificationReducer.averageratingBooking,
+  );
+  console.log('averageRating', averageRating);
 
-  console.log('Pendinglist', Pendinglist);
+  // console.log('Pendinglist', Pendinglist);
   const {loading} = useSelector(state => state.UserReducers);
 
   const [t] = useTranslation();
@@ -46,6 +53,12 @@ export default function BookingListDetail({route, navigation}) {
     const booking_id = route.params.bookingId;
 
     dispatch(particularBookingId(booking_id, navigation));
+    dispatch(
+      AvaerageRatingService(
+        {service_id: Pendinglist[0]?.ServiceDetail?.id},
+        navigation,
+      ),
+    );
   }, []);
 
   const deltebooking = () => {
@@ -266,13 +279,14 @@ export default function BookingListDetail({route, navigation}) {
           <View
             style={{
               backgroundColor: '#fff',
-              height: hp(14.5),
+              height: 96,
               paddingLeft: wp(3),
               paddingTop: hp(1),
               borderRadius: 4,
-              width: wp(56),
-              marginTop: hp(2),
-              marginLeft: wp(5),
+              width: wp(59),
+              marginTop: hp(3),
+              marginLeft: wp(3),
+              // backgroundColor: 'red',
             }}>
             <Text
               style={{
@@ -286,24 +300,36 @@ export default function BookingListDetail({route, navigation}) {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between',
+                // justifyContent: 'space-between',
                 alignItems: 'center',
-                marginTop: hp(3),
-                marginRight: wp(2),
+                marginTop: hp(1),
+                // marginRight: wp(2),
               }}>
+              <Rating
+                readonly
+                imageSize={23}
+                // tintColor={'#dfdfdf'}
+                minValue={0}
+                startingValue={averageRating == null ? 0 : averageRating}
+                // showRating
+                // onFinishRating={rating => ratingdisplay(rating)}
+                style={{paddingVertical: 10}}
+              />
               <Text
                 style={{
                   color: '#000',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontFamily: 'Montserrat-Regular',
-                  paddingTop: hp(2),
+                  paddingLeft: wp(4),
+                  // paddingTop: hp(2),
                 }}>
-                200 review
+                ({averageRating == '' ? 0 : averageRating})
               </Text>
 
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <CustomRating />
-              </View>
+              {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
+              {/* <CustomRating /> */}
+
+              {/* </View> */}
             </View>
           </View>
         </View>
@@ -706,7 +732,7 @@ export default function BookingListDetail({route, navigation}) {
               tintColor={'#dfdfdf'}
               minValue={0}
               startingValue={
-                Pendinglist[0]?.ratings[0]?.rating == null
+                Pendinglist[0]?.ratings == ''
                   ? 0
                   : Pendinglist[0]?.ratings[0]?.rating
               }

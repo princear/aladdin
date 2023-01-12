@@ -33,3 +33,4 @@ export const SERVICES = 'SERVICES';
 export const LOCATIONS = 'LOCATIONS';
 export const SENDOTP = 'SENDOTP';
 export const RATING = 'RATING';
+export const AVERAGE_RATING = 'AVERAGE_RATING';
