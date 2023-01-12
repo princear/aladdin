@@ -26,6 +26,7 @@ import {request, PERMISSIONS} from 'react-native-permissions';
 import Lightbox from 'react-native-lightbox';
 import {useTranslation} from 'react-i18next';
 import {Rating, AirbnbRating} from 'react-native-ratings';
+import {RatingServices} from '../../../redux/Action/notificationAction';
 
 export default function BookingListDetail({route, navigation}) {
   const dispatch = useDispatch();
@@ -189,6 +190,21 @@ export default function BookingListDetail({route, navigation}) {
   const ratingdisplay = rating => {
     setShowRating(rating);
   };
+  const ratingCompleted = () => {
+    console.log('enter the function');
+    dispatch(
+      RatingServices(
+        {
+          booking_id: Pendinglist[0].id.toString(),
+          company_id: Pendinglist[0]?.company_id.toString(),
+          service_id: Pendinglist[0].ServiceDetail.id.toString(),
+          rating: showRating.toString(),
+          review: '',
+        },
+        navigation,
+      ),
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -263,8 +279,9 @@ export default function BookingListDetail({route, navigation}) {
                 color: '#000',
                 fontSize: 15,
                 fontFamily: 'Montserrat-Bold',
+                paddingTop: hp(1),
               }}>
-              Name
+              {Pendinglist[0]?.customer_details?.name}
             </Text>
             <View
               style={{
@@ -653,40 +670,8 @@ export default function BookingListDetail({route, navigation}) {
 
                 </View> */}
 
-        {Pendinglist[0]?.status === 'Cancelled' &&
-        Pendinglist[0]?.status === 'completed' ? (
-          <View style={{marginTop: hp(2)}}>
-            <Rating
-              imageSize={25}
-              tintColor={'#dfdfdf'}
-              minValue={0}
-              startingValue={0}
-              // showRating
-              onFinishRating={rating => ratingdisplay(rating)}
-              style={{paddingVertical: 10}}
-            />
-            <TouchableOpacity
-              style={{
-                height: hp(6),
-                marginTop: hp(2),
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 4,
-                width: wp(90),
-                marginLeft: wp(5),
-                backgroundColor: '#9066e6',
-              }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#fff',
-                  fontFamily: 'Montserrat-Regular',
-                }}>
-                Submit
-              </Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
+        {Pendinglist[0]?.status === 'Cancelled' ||
+        Pendinglist[0]?.status === 'Completed' ? null : (
           <View style={styles.editDeleteWRapper}>
             <TouchableOpacity
               onPress={() =>
@@ -714,6 +699,44 @@ export default function BookingListDetail({route, navigation}) {
             </TouchableOpacity>
           </View>
         )}
+        {Pendinglist[0]?.status === 'Completed' ? (
+          <View style={{marginTop: hp(2)}}>
+            <Rating
+              imageSize={25}
+              tintColor={'#dfdfdf'}
+              minValue={0}
+              startingValue={
+                Pendinglist[0]?.ratings[0]?.rating == null
+                  ? 0
+                  : Pendinglist[0]?.ratings[0]?.rating
+              }
+              // showRating
+              onFinishRating={rating => ratingdisplay(rating)}
+              style={{paddingVertical: 10}}
+            />
+            <TouchableOpacity
+              onPress={() => ratingCompleted()}
+              style={{
+                height: hp(6),
+                marginTop: hp(2),
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 4,
+                width: wp(90),
+                marginLeft: wp(5),
+                backgroundColor: '#9066e6',
+              }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#fff',
+                  fontFamily: 'Montserrat-Regular',
+                }}>
+                Submit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
         {/* {
                     Pendinglist[0]?.status === 'Cancelled' && Pendinglist[0]?.status === 'completed' ?
                         <View>

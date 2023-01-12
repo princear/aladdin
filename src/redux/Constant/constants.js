@@ -32,3 +32,4 @@ export const COUNT_NOTI = 'COUNT_NOTI';
 export const SERVICES = 'SERVICES';
 export const LOCATIONS = 'LOCATIONS';
 export const SENDOTP = 'SENDOTP';
+export const RATING = 'RATING';

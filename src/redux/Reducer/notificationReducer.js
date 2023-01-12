@@ -1,10 +1,11 @@
-import {NOTIFY, CREATE_NOTIFY} from '../Constant/constants';
+import {NOTIFY, CREATE_NOTIFY, RATING} from '../Constant/constants';
 
 const initialstate = {
   notiData: [],
   countData: [],
   loading: false,
   selectnotifyData: [],
+  ratingBooking: [],
 };
 
 const notificationReducer = (state = initialstate, action) => {
@@ -13,6 +14,8 @@ const notificationReducer = (state = initialstate, action) => {
       return {...state, notiData: action.notiData};
     case CREATE_NOTIFY:
       return {...state, selectnotifyData: action.selectnotifyData};
+    case RATING:
+      return {...state, ratingBooking: action.ratingBooking};
     // case COUNT_NOTI:
     //   return {
     //     ...state,
