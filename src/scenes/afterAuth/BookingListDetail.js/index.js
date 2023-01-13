@@ -42,24 +42,45 @@ export default function BookingListDetail({route, navigation}) {
   const averageRating = useSelector(
     state => state.notificationReducer.averageratingBooking,
   );
+
   console.log('averageRating', averageRating);
-
-  // console.log('Pendinglist', Pendinglist);
   const {loading} = useSelector(state => state.UserReducers);
-
+  const [saverate, setSaverate] = useState('');
   const [t] = useTranslation();
+  console.log(
+    'Pendinglist[0]?.ServiceDetail?.id',
+    Pendinglist[0]?.ServiceDetail?.id,
+  );
 
-  useEffect(() => {
-    const booking_id = route.params.bookingId;
-
-    dispatch(particularBookingId(booking_id, navigation));
+  const ratingFunction = serviceId => {
+    console.log('serviceId', serviceId);
     dispatch(
       AvaerageRatingService(
-        {service_id: Pendinglist[0]?.ServiceDetail?.id},
+        {service_id: serviceId, booking_id: route.params.bookingId},
         navigation,
       ),
     );
+  };
+  useEffect(() => {
+    console.log('ababba');
+    const booking_id = route.params.bookingId;
+    setSaverate(Pendinglist[0]?.ServiceDetail?.id);
+    dispatch(particularBookingId(booking_id, navigation)).then(res => {
+      if (res.status == 1) {
+        console.log('Status1');
+        ratingFunction(res.data[0]?.ServiceDetail?.id);
+      }
+    });
+    // ratingFunction()
   }, []);
+  // useEffect(() => {
+  //     console.log('first')
+
+  // }, [Pendinglist, saverate])
+  // useEffect(() => {
+  //     dispatch(AvaerageRatingService({ service_id: Pendinglist[0]?.ServiceDetail?.id, booking_id: route.params.bookingId }, navigation))
+
+  // }, [Pendinglist])
 
   const deltebooking = () => {
     Alert.alert(
@@ -187,30 +208,28 @@ export default function BookingListDetail({route, navigation}) {
     }
   }
 
-  const renderScene = (route, navigator) => {
-    const Component = route.component;
+  // const renderScene = (route, navigator) => {
+  //     const Component = route.component;
 
-    return (
-      <Component navigator={navigator} route={route} {...route.passProps} />
-    );
-  };
+  //     return (
+  //         <Component navigator={navigator} route={route} {...route.passProps} />
+  //     );
+  // };
 
-  const uri =
-    'http://knittingisawesome.com/wp-content/uploads/2012/12/cat-wearing-a-reindeer-hat1.jpg';
-  const longPress = uri => {
-    CameraRoll.saveToCameraRoll(uri);
-  };
+  // const uri = 'http://knittingisawesome.com/wp-content/uploads/2012/12/cat-wearing-a-reindeer-hat1.jpg'
+  // const longPress = (uri) => {
+  //     CameraRoll.saveToCameraRoll(uri)
+  // }
   const ratingdisplay = rating => {
     setShowRating(rating);
   };
   const ratingCompleted = () => {
-    console.log('enter the function');
     dispatch(
       RatingServices(
         {
           booking_id: Pendinglist[0].id.toString(),
           company_id: Pendinglist[0]?.company_id.toString(),
-          service_id: Pendinglist[0].ServiceDetail.id.toString(),
+          service_id: Pendinglist[0]?.ServiceDetail?.id?.toString(),
           rating: showRating.toString(),
           review: '',
         },
@@ -279,57 +298,53 @@ export default function BookingListDetail({route, navigation}) {
           <View
             style={{
               backgroundColor: '#fff',
-              height: 96,
+              height: hp(14.5),
               paddingLeft: wp(3),
               paddingTop: hp(1),
               borderRadius: 4,
-              width: wp(59),
-              marginTop: hp(3),
-              marginLeft: wp(3),
-              // backgroundColor: 'red',
+              width: wp(56),
+              marginTop: hp(2),
+              marginLeft: wp(5),
             }}>
             <Text
               style={{
                 color: '#000',
                 fontSize: 15,
                 fontFamily: 'Montserrat-Bold',
-                paddingTop: hp(1),
               }}>
               {Pendinglist[0]?.customer_details?.name}
             </Text>
             <View
               style={{
                 flexDirection: 'row',
-                // justifyContent: 'space-between',
                 alignItems: 'center',
-                marginTop: hp(1),
-                // marginRight: wp(2),
+                marginTop: hp(3),
+                marginRight: wp(2),
               }}>
+              {/* <Text style={{ color: '#000', fontSize: 12, fontFamily: 'Montserrat-Regular', paddingTop: hp(2) }}>{ }</Text>
+
+                            <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                                <CustomRating />
+
+                            </View> */}
               <Rating
                 readonly
                 imageSize={23}
-                // tintColor={'#dfdfdf'}
                 minValue={0}
-                startingValue={averageRating == null ? 0 : averageRating}
-                // showRating
-                // onFinishRating={rating => ratingdisplay(rating)}
+                startingValue={
+                  averageRating.rating == null ? 0 : averageRating.rating
+                }
                 style={{paddingVertical: 10}}
               />
               <Text
                 style={{
                   color: '#000',
-                  fontSize: 13,
+                  fontSize: 12,
                   fontFamily: 'Montserrat-Regular',
-                  paddingLeft: wp(4),
-                  // paddingTop: hp(2),
+                  paddingLeft: wp(3),
                 }}>
-                ({averageRating == '' ? 0 : averageRating})
+                ({averageRating.rating == '' ? 0 : averageRating.rating})
               </Text>
-
-              {/* <View style={{flexDirection: 'row', alignItems: 'center'}}> */}
-              {/* <CustomRating /> */}
-
-              {/* </View> */}
             </View>
           </View>
         </View>
@@ -725,16 +740,20 @@ export default function BookingListDetail({route, navigation}) {
             </TouchableOpacity>
           </View>
         )}
+        {console.log(
+          'Pendinglist[0]?.ratings',
+          Pendinglist[0]?.ratings == '' ? 0 : Pendinglist[0]?.ratings[0].rating,
+        )}
         {Pendinglist[0]?.status === 'Completed' ? (
-          <View style={{marginTop: hp(2)}}>
+          <View>
             <Rating
+              tintColor="#dfdfdf"
               imageSize={25}
-              tintColor={'#dfdfdf'}
               minValue={0}
               startingValue={
                 Pendinglist[0]?.ratings == ''
                   ? 0
-                  : Pendinglist[0]?.ratings[0]?.rating
+                  : Pendinglist[0]?.ratings[0].rating
               }
               // showRating
               onFinishRating={rating => ratingdisplay(rating)}
@@ -763,6 +782,47 @@ export default function BookingListDetail({route, navigation}) {
             </TouchableOpacity>
           </View>
         ) : null}
+        {/* <View style={{marginTop: hp(3)}}>
+                      {ServiceDetail?.service?.ratings.slice(0, 2).map(item => {
+                        return (
+                          <View
+                            style={{
+                              marginLeft: wp(5),
+                              backgroundColor: '#fff',
+                              marginTop: hp(0.5),
+                              width: wp(90),
+                              paddingBottom: hp(1.5),
+                              borderRadius: 5,
+                            }}>
+                            <View>
+                              <Text
+                                style={{
+                                  fontSize: 15,
+                                  marginTop: 10,
+                                  paddingLeft: wp(3),
+                                  fontFamily: 'Montserrat-Regular',
+                                }}>
+                                {item.review}
+                              </Text>
+                            </View>
+                            <Rating
+                              imageSize={17}
+                              readonly
+                              ratingCount={5}
+                              defaultRating={item.rating}
+                              startingValue={item.rating}
+                              style={{
+                                paddingVertical: 10,
+                                justifyContent: 'flex-start',
+                                alignItems: 'flex-start',
+                                paddingLeft: wp(3),
+                              }}
+                              ratingContainerStyle={{paddingLeft: wp(1)}}
+                            />
+                          </View>
+                        );
+                      })}
+                    </View> */}
         {/* {
                     Pendinglist[0]?.status === 'Cancelled' && Pendinglist[0]?.status === 'completed' ?
                         <View>

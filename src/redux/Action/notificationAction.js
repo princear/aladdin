@@ -131,7 +131,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
   console.log(data, 'hsjhsjhshsjshjh reststststts');
   return new Promise(async (resolve, reject) => {
     console.log(' enter tehe hsjksjk', response);
-    const response = await logistical.post('/avarage-rating-service', data);
+    const response = await logistical.post('/avarage-rating-customer', data);
     console.log(response, 'rating ');
     if (response.status == 1) {
       console.log('response.fata', response.data);
