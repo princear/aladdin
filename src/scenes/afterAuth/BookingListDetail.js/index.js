@@ -150,7 +150,7 @@ export default function BookingListDetail({route, navigation}) {
   const [userLocation, setUserLocation] = useState(false);
   const [selectlocation, setSelectLocation] = useState('');
   const [selectlonguitude, setSelectlonguitude] = useState('');
-  const [showRating, setShowRating] = useState();
+  const [showRating, setShowRating] = useState(0);
 
   const [state, setstate] = useState({
     coordinate: {
@@ -298,13 +298,13 @@ export default function BookingListDetail({route, navigation}) {
           <View
             style={{
               backgroundColor: '#fff',
-              height: hp(14.5),
+              // height: hp(14.5),
               paddingLeft: wp(3),
               paddingTop: hp(1),
               borderRadius: 4,
-              width: wp(56),
-              marginTop: hp(2),
-              marginLeft: wp(5),
+              width: wp(59),
+              marginTop: hp(3),
+              marginLeft: wp(3),
             }}>
             <Text
               style={{
@@ -343,7 +343,7 @@ export default function BookingListDetail({route, navigation}) {
                   fontFamily: 'Montserrat-Regular',
                   paddingLeft: wp(3),
                 }}>
-                ({averageRating.rating == '' ? 0 : averageRating.rating})
+                ({averageRating.count == '' ? 0 : averageRating.count})
               </Text>
             </View>
           </View>
