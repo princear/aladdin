@@ -598,6 +598,11 @@ export default function BookingListDetail({route, navigation}) {
           ) : null}
         </View>
 
+        {/* {console.log(
+          Pendinglist[0] && Pendinglist[0].attribute_values,
+          'PRINCEEEEEEEEEE',
+        )} */}
+
         {Pendinglist[0] && Pendinglist[0].ServiceUploadImage.length > 0 ? (
           <View style={{marginHorizontal: wp(5), marginTop: hp(2)}}>
             <Text

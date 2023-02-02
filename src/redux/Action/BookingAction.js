@@ -105,6 +105,7 @@ export const particularBookingId = (data, navigation) => dispatch => {
     );
 
     if (response.status == 1) {
+      console.log(response, 'PRINCE!!!!!!!!!!!!!');
       dispatch({
         type: BOOKING_LIST_ID,
         particularListData: response.data,
