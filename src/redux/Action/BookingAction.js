@@ -138,6 +138,7 @@ export const particularBookingId = (data, navigation) => dispatch => {
 };
 
 export const editBooking = (data, navigation) => dispatch => {
+  console.log(data, 'BOOKING DATAAAAA');
   dispatch({
     type: 'LOADING',
     payload: true,
@@ -156,7 +157,7 @@ export const editBooking = (data, navigation) => dispatch => {
         editBookingData: response.data,
       });
       dispatch(onCountBooking());
-
+      Alert.alert(response.message);
       resolve(response);
       // dispatch(
       //   ParticularNotification(

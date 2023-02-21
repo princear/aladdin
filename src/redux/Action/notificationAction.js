@@ -123,6 +123,7 @@ export const RatingServices = (data, navigation) => dispatch => {
     }
   });
 };
+
 export const AvaerageRatingService = (data, navigation) => dispatch => {
   dispatch({
     type: 'LOADING',
@@ -132,7 +133,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
   return new Promise(async (resolve, reject) => {
     console.log(' enter tehe hsjksjk', response);
     const response = await logistical.post('/avarage-rating-customer', data);
-    console.log(response, 'rating ');
+    console.log(response, 'ratingAAAAAAAAAAAAA ');
     if (response.status == 1) {
       console.log('response.fata', response.data);
       dispatch({
@@ -144,6 +145,10 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         payload: true,
       });
       resolve(response);
+      console.log(
+        response,
+        'RATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATING',
+      );
       // Alert.alert(response.message);
       // navigation.navigate('Booking');
       dispatch({

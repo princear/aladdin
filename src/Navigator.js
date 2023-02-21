@@ -141,7 +141,7 @@ function MyDrawer({navigation, route}) {
       initialRouteName="Home"
       drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen
-        name="Home"
+        name="Home1"
         component={Home}
         options={{
           headerShown: false,

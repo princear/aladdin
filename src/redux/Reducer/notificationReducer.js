@@ -11,10 +11,14 @@ const initialstate = {
   loading: false,
   selectnotifyData: [],
   ratingBooking: [],
-  averageratingBooking: [],
+  Averagerating: [],
 };
 
 const notificationReducer = (state = initialstate, action) => {
+  console.log(
+    action.averageratingBooking,
+    'action.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBooking',
+  );
   switch (action.type) {
     case NOTIFY:
       return {...state, notiData: action.notiData};
@@ -23,7 +27,7 @@ const notificationReducer = (state = initialstate, action) => {
     case RATING:
       return {...state, ratingBooking: action.ratingBooking};
     case AVERAGE_RATING:
-      return {...state, averageratingBooking: action.averageratingBooking};
+      return {...state, Averagerating: action.averageratingBooking};
     // case COUNT_NOTI:
     //   return {
     //     ...state,

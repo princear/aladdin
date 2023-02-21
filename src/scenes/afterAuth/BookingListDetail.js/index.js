@@ -4,6 +4,8 @@ import {
   Text,
   View,
   Image,
+  FlatList,
+  Linking,
   TouchableOpacity,
   ActivityIndicator,
   Alert,
@@ -40,10 +42,10 @@ export default function BookingListDetail({route, navigation}) {
     state => state.COUNTBOOKINGREDUCER.particularList,
   );
   const averageRating = useSelector(
-    state => state.notificationReducer.averageratingBooking,
+    state => state.notificationReducer.Averagerating,
   );
 
-  console.log('averageRating', averageRating);
+  console.log('averageRatingNEWWWWWWW', averageRating);
   const {loading} = useSelector(state => state.UserReducers);
   const [saverate, setSaverate] = useState('');
   const [t] = useTranslation();
@@ -52,8 +54,13 @@ export default function BookingListDetail({route, navigation}) {
     Pendinglist[0]?.ServiceDetail?.id,
   );
 
+  const Invoice_Link = Pendinglist[0] && Pendinglist[0].invoice_link;
+  console.log(
+    Invoice_Link,
+    'Invoice_LinkInvoice_LinkInvoice_LinkInvoice_LinkInvoice_Link',
+  );
   const ratingFunction = serviceId => {
-    console.log('serviceId', serviceId);
+    console.log('serviceIdRATINGGGGGGGGGGGGGGG', serviceId);
     dispatch(
       AvaerageRatingService(
         {service_id: serviceId, booking_id: route.params.bookingId},
@@ -71,8 +78,8 @@ export default function BookingListDetail({route, navigation}) {
         ratingFunction(res.data[0]?.ServiceDetail?.id);
       }
     });
-    // ratingFunction()
   }, []);
+
   // useEffect(() => {
   //     console.log('first')
 
@@ -102,6 +109,29 @@ export default function BookingListDetail({route, navigation}) {
         cancelable: false,
       },
     );
+  };
+
+  const setTotalCount = actualprice => {
+    console.log(actualprice, 'actualpriceactualpriceactualprice');
+    // let actualprice1 = actualprice.toString();
+    //  console.log(actualprice[2], 'actualpriceactualpriceactualprice!!!!!!');
+
+    // if (actualprice1[0] === '$') {
+    //   actualprice1 = actualprice.substring(1);
+    // }
+
+    if (Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0) {
+      const initialValue = 0;
+      const sumWithInitial =
+        Pendinglist[0] &&
+        Pendinglist[0]?.estimate_item.reduce(
+          (accumulator, currentValue) =>
+            accumulator + currentValue.item.unit_price * currentValue.item.qty,
+          initialValue,
+        );
+      console.log(parseInt(actualprice), 'TOTALLLLLL');
+      return parseInt(actualprice) + sumWithInitial;
+    }
   };
 
   const [defaultRating, setDefaultRating] = useState(1);
@@ -370,6 +400,7 @@ export default function BookingListDetail({route, navigation}) {
               </Text>
             </View>
           </View>
+
           <View style={styles.topRightWRapper}>
             <Text style={styles.heading}>
               {t('placeholders.bookingList.mobile')}
@@ -382,50 +413,44 @@ export default function BookingListDetail({route, navigation}) {
               />
 
               <Text style={styles.subHeading}>
-                {Pendinglist[0]?.customer_details?.formatted_mobile}
+                {Pendinglist[0]?.customer_details?.mobile}
               </Text>
             </View>
           </View>
         </View>
-        <View style={styles.topWrapper}>
-          <View style={styles.topLeftWRapper}>
-            <Text style={styles.heading}>
-              {t('placeholders.bookingList.booking_date')}
-            </Text>
-            <View style={styles.flexWrapper}>
-              <Image
-                source={require('../../../assets/images/date.png')}
-                resizeMode="contain"
-                style={styles.mailImage}
-              />
-              <Text style={styles.dateHeading}>{Pendinglist[0]?.date}</Text>
+        {Pendinglist[0]?.status === 'Completed' ? (
+          <View style={styles.topWrapper}>
+            <View style={styles.topLeftNewWRapper}>
+              <Text style={styles.heading}>
+                {t('placeholders.bookingList.booking_date')}
+              </Text>
+              <View style={styles.flexWrapper}>
+                <Image
+                  source={require('../../../assets/images/date.png')}
+                  resizeMode="contain"
+                  style={styles.mailImage}
+                />
+                <Text style={styles.dateHeading}>{Pendinglist[0]?.date}</Text>
+              </View>
             </View>
-          </View>
-          <View style={styles.topRightWRapper}>
-            <Text style={styles.heading}>
-              {t('placeholders.bookingList.booking_status')}
-            </Text>
-            <View
-              style={[
-                styles.cancellWrapper,
-                {
-                  borderColor:
-                    Pendinglist[0]?.status === 'Pending'
-                      ? '#f2ac00'
-                      : Pendinglist[0]?.status === 'In Progress'
-                      ? '#157dfc'
-                      : Pendinglist[0]?.status === 'Completed'
-                      ? '#2ea749'
-                      : Pendinglist[0]?.status === 'Cancelled'
-                      ? '#da3348'
-                      : null,
-                },
-              ]}>
-              <Text
+
+            <View style={styles.topInvoiceLeftNewWRapper}>
+              <Text style={styles.headingInvoice}>Invoice</Text>
+              <TouchableOpacity
+                onPress={() => Linking.openURL('https://' + Invoice_Link)}
+                style={styles.DownloadButton}>
+                <Text style={styles.downloadText}>Download</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.topLeftNewWRapper}>
+              <Text style={styles.heading}>
+                {t('placeholders.bookingList.booking_status')}
+              </Text>
+              <View
                 style={[
-                  styles.cancelHeading,
+                  styles.cancellWrapper,
                   {
-                    color:
+                    borderColor:
                       Pendinglist[0]?.status === 'Pending'
                         ? '#f2ac00'
                         : Pendinglist[0]?.status === 'In Progress'
@@ -437,19 +462,90 @@ export default function BookingListDetail({route, navigation}) {
                         : null,
                   },
                 ]}>
-                {Pendinglist[0]?.status}
-              </Text>
+                <Text
+                  style={[
+                    styles.cancelHeading,
+                    {
+                      color:
+                        Pendinglist[0]?.status === 'Pending'
+                          ? '#f2ac00'
+                          : Pendinglist[0]?.status === 'In Progress'
+                          ? '#157dfc'
+                          : Pendinglist[0]?.status === 'Completed'
+                          ? '#2ea749'
+                          : Pendinglist[0]?.status === 'Cancelled'
+                          ? '#da3348'
+                          : null,
+                    },
+                  ]}>
+                  {Pendinglist[0]?.status}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        ) : (
+          <View style={styles.topWrapper}>
+            <View style={styles.topLeftWRapper}>
+              <Text style={styles.heading}>
+                {t('placeholders.bookingList.booking_date')}
+              </Text>
+              <View style={styles.flexWrapper}>
+                <Image
+                  source={require('../../../assets/images/date.png')}
+                  resizeMode="contain"
+                  style={styles.mailImage}
+                />
+                <Text style={styles.dateHeading}>{Pendinglist[0]?.date}</Text>
+              </View>
+            </View>
+
+            <View style={styles.topLeftWRapper}>
+              <Text style={styles.heading}>
+                {t('placeholders.bookingList.booking_status')}
+              </Text>
+              <View
+                style={[
+                  styles.cancellWrapper,
+                  {
+                    borderColor:
+                      Pendinglist[0]?.status === 'Pending'
+                        ? '#f2ac00'
+                        : Pendinglist[0]?.status === 'In Progress'
+                        ? '#157dfc'
+                        : Pendinglist[0]?.status === 'Completed'
+                        ? '#2ea749'
+                        : Pendinglist[0]?.status === 'Cancelled'
+                        ? '#da3348'
+                        : null,
+                  },
+                ]}>
+                <Text
+                  style={[
+                    styles.cancelHeading,
+                    {
+                      color:
+                        Pendinglist[0]?.status === 'Pending'
+                          ? '#f2ac00'
+                          : Pendinglist[0]?.status === 'In Progress'
+                          ? '#157dfc'
+                          : Pendinglist[0]?.status === 'Completed'
+                          ? '#2ea749'
+                          : Pendinglist[0]?.status === 'Cancelled'
+                          ? '#da3348'
+                          : null,
+                    },
+                  ]}>
+                  {Pendinglist[0]?.status}
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
 
         <View style={styles.serviesHeading}>
-          <Text style={styles.servicesText}>
-            {' '}
-            {t('placeholders.rang.serve_name')}
-          </Text>
-          <Text style={styles.servicesText}> {'Service Price'}</Text>
-          <Text style={styles.servicesText}> {'Amount'}</Text>
+          <Text style={styles.servicesText}> {'Service' + '\n' + 'Name'}</Text>
+          <Text style={styles.servicesText}> {'Service' + '\n' + 'Price'}</Text>
+          <Text style={styles.servicesText}>Discounted {'\n' + 'Price'}</Text>
         </View>
 
         <View style={styles.productHeading}>
@@ -468,7 +564,7 @@ export default function BookingListDetail({route, navigation}) {
                     </View> */}
         </View>
 
-        <View
+        {/* <View
           style={{
             marginHorizontal: wp(5),
             marginTop: hp(2),
@@ -499,9 +595,9 @@ export default function BookingListDetail({route, navigation}) {
               </Text>
             </View>
           ) : null}
-        </View>
+        </View> */}
 
-        <View
+        {/* <View
           style={{
             marginHorizontal: wp(5),
             marginTop: hp(1),
@@ -532,8 +628,8 @@ export default function BookingListDetail({route, navigation}) {
               </Text>
             </View>
           ) : null}
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             marginHorizontal: wp(5),
             marginTop: hp(2),
@@ -564,8 +660,8 @@ export default function BookingListDetail({route, navigation}) {
               </Text>
             </View>
           ) : null}
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             marginHorizontal: wp(5),
             marginTop: hp(1),
@@ -596,12 +692,87 @@ export default function BookingListDetail({route, navigation}) {
               </Text>
             </View>
           ) : null}
-        </View>
+        </View> */}
 
         {/* {console.log(
-          Pendinglist[0] && Pendinglist[0].attribute_values,
+          Pendinglist[0] && Pendinglist[0].estimate_item.,
           'PRINCEEEEEEEEEE',
         )} */}
+
+        {Pendinglist[0] &&
+          Pendinglist[0]?.attribute_values_with_name.map(item => {
+            return (
+              <View style={styles.servicesHeadingContainer}>
+                <Text style={styles.servicesHeading}>{item.name}</Text>
+
+                {item.item.map(item1 => {
+                  return (
+                    <Text style={styles.servicesName}>- {item1.name}</Text>
+                  );
+                })}
+              </View>
+            );
+          })}
+
+        {Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0 ? (
+          <View style={styles.EstimateservicesHeadingContainer}>
+            <Text style={styles.EstimateservicesHeading}>Service Name</Text>
+            <Text style={styles.EstimateservicesHeading}>Warrenty</Text>
+            {/* <Text style={styles.EstimateservicesHeading}>Desc</Text> */}
+            <Text style={styles.EstimateservicesHeading}>Qty</Text>
+            <Text style={styles.EstimateservicesHeading}>Unit Price</Text>
+            <Text style={styles.EstimateservicesHeading}>Total Amount</Text>
+          </View>
+        ) : (
+          <View />
+        )}
+
+        {Pendinglist[0] &&
+          Pendinglist[0]?.estimate_item.length > 0 &&
+          Pendinglist[0]?.estimate_item.map(item => {
+            return (
+              <View>
+                <View style={styles.EstimateservicesHeadingContainer}>
+                  <Text style={styles.EstimateServicesSubHeading}>
+                    {item.item.name}
+                  </Text>
+
+                  <Text style={styles.EstimateServicesSubHeading}>
+                    {item.item.warranty == null ? 'N/A' : item.item.warranty}
+                  </Text>
+
+                  {/* <Text style={styles.EstimateServicesSubHeading}>
+                    {item.item.description}
+                  </Text> */}
+                  <Text style={styles.EstimateServicesSubHeading}>
+                    {item.item.qty}
+                  </Text>
+                  <Text style={styles.EstimateServicesSubHeading}>
+                    $ {item.item.unit_price}
+                  </Text>
+                  <Text style={styles.EstimateServicesSubHeading}>
+                    $ {item.item.unit_price * item.item.qty}
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        {Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0 && (
+          <View>
+            <View style={styles.EstimateservicesHeadingContainer}>
+              <Text style={styles.EstimateServicesSubHeading}></Text>
+              <Text style={styles.EstimateServicesSubHeading}></Text>
+              <Text style={styles.EstimateServicesSubHeading}></Text>
+              <Text style={styles.EstimateServicesSubHeading}> Total : </Text>
+              <Text style={styles.EstimateServicesSubHeading}>
+                ${' '}
+                {setTotalCount(
+                  Pendinglist[0]?.ServiceDetail?.formated_discounted_price,
+                )}
+              </Text>
+            </View>
+          </View>
+        )}
 
         {Pendinglist[0] && Pendinglist[0].ServiceUploadImage.length > 0 ? (
           <View style={{marginHorizontal: wp(5), marginTop: hp(2)}}>
@@ -670,45 +841,78 @@ export default function BookingListDetail({route, navigation}) {
         ) : null}
 
         <View style={styles.containerWrapper}>
-          <MapView
-            style={[styles.map, {marginBottom: state.marginBottom}]}
-            showsUserLocation={true}
-            showsMyLocationButton={true}
-            initialRegion={{
-              latitude:
-                Pendinglist[0]?.address == null
-                  ? 28.58364
-                  : Pendinglist[0]?.address?.lat,
-              longitude:
-                Pendinglist[0]?.address == null
-                  ? 77.3147
-                  : Pendinglist[0]?.address?.lat,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            onRegionChangeComplete={region =>
-              setstate({
-                coordinate: region,
-              })
-            }
-            onMapReady={() => {
-              setstate({marginBottom: 0});
-            }}>
-            <Marker
-              coordinate={{
+          {Pendinglist[0]?.address == null ? (
+            <MapView
+              style={[styles.map, {marginBottom: state.marginBottom}]}
+              showsUserLocation={true}
+              showsMyLocationButton={true}
+              initialRegion={{
+                latitude: 28.58364,
+
+                longitude: 77.3147,
+
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              onRegionChangeComplete={region =>
+                setstate({
+                  coordinate: region,
+                })
+              }
+              onMapReady={() => {
+                setstate({marginBottom: 0});
+              }}>
+              <Marker
+                coordinate={{
+                  latitude: 28.58364,
+
+                  longitude: 77.3147,
+                }}
+                onDragEnd={e =>
+                  this.setState({x: e.nativeEvent.coordinate})
+                }></Marker>
+            </MapView>
+          ) : (
+            <MapView
+              style={[styles.map, {marginBottom: state.marginBottom}]}
+              showsUserLocation={true}
+              showsMyLocationButton={true}
+              initialRegion={{
                 latitude:
-                  Pendinglist[0]?.address == null
+                  Pendinglist[0]?.address.lat == null
                     ? 28.58364
                     : Pendinglist[0]?.address?.lat,
                 longitude:
-                  Pendinglist[0]?.address == null
+                  Pendinglist[0]?.address.long == null
                     ? 77.3147
                     : Pendinglist[0]?.address?.lat,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
               }}
-              onDragEnd={e =>
-                this.setState({x: e.nativeEvent.coordinate})
-              }></Marker>
-          </MapView>
+              onRegionChangeComplete={region =>
+                setstate({
+                  coordinate: region,
+                })
+              }
+              onMapReady={() => {
+                setstate({marginBottom: 0});
+              }}>
+              <Marker
+                coordinate={{
+                  latitude:
+                    Pendinglist[0]?.address.lat == null
+                      ? 28.58364
+                      : Pendinglist[0]?.address?.lat,
+                  longitude:
+                    Pendinglist[0]?.address.long == null
+                      ? 77.3147
+                      : Pendinglist[0]?.address?.lat,
+                }}
+                onDragEnd={e =>
+                  this.setState({x: e.nativeEvent.coordinate})
+                }></Marker>
+            </MapView>
+          )}
         </View>
 
         {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: wp(5), marginVertical: hp(1.5) }}>
@@ -746,6 +950,7 @@ export default function BookingListDetail({route, navigation}) {
           </View>
         )}
         {console.log(
+          Pendinglist[0]?.ratings,
           'Pendinglist[0]?.ratings',
           Pendinglist[0]?.ratings == '' ? 0 : Pendinglist[0]?.ratings[0].rating,
         )}
@@ -878,6 +1083,20 @@ const styles = StyleSheet.create({
     width: wp(50),
     borderRightWidth: 1,
     borderColor: '#c2c2c2',
+    paddingLeft: 10,
+    // backgroundColor: 'red'
+  },
+  topInvoiceLeftNewWRapper: {
+    width: wp(30),
+    borderRightWidth: 1,
+    borderColor: '#c2c2c2',
+    // backgroundColor: 'red'
+  },
+  topLeftNewWRapper: {
+    width: wp(30),
+    borderRightWidth: 1,
+    borderColor: '#c2c2c2',
+    paddingLeft: 5,
     // backgroundColor: 'red'
   },
   topRightWRapper: {
@@ -893,9 +1112,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: hp(0.5),
   },
-  heading: {
+  headingInvoice: {
     fontSize: 12,
     color: '#000',
+    paddingLeft: 10,
     fontFamily: 'Montserrat-Bold',
   },
   subHeading: {
@@ -978,6 +1198,64 @@ const styles = StyleSheet.create({
     marginHorizontal: wp(5),
     paddingTop: hp(4),
     paddingLeft: wp(2),
+  },
+  servicesName: {
+    marginHorizontal: wp(5),
+    //   width: wp(40),
+    lineHeight: 20,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 14,
+  },
+
+  servicesHeading: {
+    marginHorizontal: wp(5),
+    width: wp(50),
+    marginTop: hp(2),
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 14,
+  },
+
+  EstimateservicesHeading: {
+    backgroundColor: '#9066e6',
+
+    padding: 10,
+    fontSize: 11,
+    color: '#fff',
+    fontFamily: 'Montserrat-Medium',
+    width: wp(20),
+    marginTop: hp(2),
+    textAlign: 'center',
+  },
+
+  EstimateServicesSubHeading: {
+    width: wp(20),
+    marginTop: hp(2),
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 12,
+
+    textAlign: 'center',
+  },
+  EstimateservicesHeadingContainer: {
+    width: wp(90),
+    // alignSelf: 'center',
+    flexDirection: 'row',
+  },
+  servicesHeadingContainer: {
+    margin: 10,
+    marginLeft: 0,
+  },
+  DownloadButton: {
+    backgroundColor: 'green',
+    padding: 5,
+    width: wp(20),
+    margin: 5,
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  downloadText: {
+    fontSize: 10,
+    color: '#fff',
+    fontFamily: 'Montserrat-Medium',
   },
   addressHeading: {
     fontSize: 14,
