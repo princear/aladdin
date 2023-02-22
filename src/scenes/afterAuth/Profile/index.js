@@ -281,7 +281,7 @@ export default function ProfileScreen(props) {
             {imagePath ? (
               <Image
                 source={{uri: imagePath.path}}
-                resizeMode="contain"
+                // resizeMode="contain"
                 style={styles.centerImage}
               />
             ) : (

@@ -344,6 +344,8 @@ export default function Home({props, navigation}) {
                         ? '#343a40'
                         : item.status_en === 'Blank Status'
                         ? '#c2c2c2'
+                        : item.status_en === 'Awaiting'
+                        ? '#ff8c00'
                         : null,
                     alignItems: 'center',
                     borderRadius: 4,
