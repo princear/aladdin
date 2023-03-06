@@ -207,7 +207,7 @@ export default function Registation({props, route}) {
       mutipleFile.forEach(item => {
         formdata.append('company_document[]', {
           name: item.name,
-          fileCopyUri: item.uri,
+          uri: item.uri,
           type: item.type,
         });
       });
@@ -222,7 +222,7 @@ export default function Registation({props, route}) {
             });
       }
 
-      console.log(formdata, 'llllll');
+      console.log(formdata, 'lllllllllllllllllllllllll');
 
       axios.defaults.baseURL = 'https://aladdin.com.iq/api/';
 

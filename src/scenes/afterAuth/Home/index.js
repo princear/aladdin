@@ -160,7 +160,7 @@ export default function Home({props, navigation}) {
 
   async function checkStatus() {
     const status = await AsyncStorage.getItem('long');
-    console.log('=======dddd=======>', status);
+    // console.log('=======dddd=======>', status);
     setCheckstatus(status);
 
     if (status) {
@@ -311,12 +311,11 @@ export default function Home({props, navigation}) {
             onChange={onChange2}
           />
         )}
-
-        <View style={{marginLeft: wp(1)}}>
-          <Text style={styles.totalBookingText}>
-            {t('placeholders.homePage.total_booking')} :{' '}
-            {bookingCount?.countData[6]?.count}
-          </Text>
+        <Text style={styles.totalBookingText}>
+          {t('placeholders.homePage.total_booking')} :{' '}
+          {bookingCount?.countData[7]?.count}
+        </Text>
+        <ScrollView style={{marginLeft: wp(1), height: 400, marginBottom: 100}}>
           <FlatList
             // data={bookings}
             data={bookingCount.countData}
@@ -325,7 +324,12 @@ export default function Home({props, navigation}) {
             numColumns={3}
             renderItem={({item, index}) => (
               <View style={styles.bookingWrapper}>
-                <View
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Booking', {
+                      BookingStatus: item.status_en,
+                    })
+                  }
                   style={{
                     height: hp(16),
                     width: wp(30),
@@ -340,9 +344,9 @@ export default function Home({props, navigation}) {
                         ? '#2ea749'
                         : item.status_en === 'Cancelled'
                         ? '#da3348'
-                        : item.status_en === 'Total'
-                        ? '#343a40'
-                        : item.status_en === 'Blank Status'
+                        : // : item.status_en === 'Total'
+                        // ? '#343a40'
+                        item.status_en === 'Blank Status'
                         ? '#c2c2c2'
                         : item.status_en === 'Awaiting'
                         ? '#ff8c00'
@@ -351,18 +355,29 @@ export default function Home({props, navigation}) {
                     borderRadius: 4,
                     justifyContent: 'center',
                   }}>
-                  <Image
-                    source={require('../../../assets/images/Booking.png')}
-                    resizeMode="contain"
-                    style={styles.bookingImage}
-                  />
-                  <Text style={styles.bookingCountText}>{item.count}</Text>
-                </View>
-                <Text style={styles.bookingTitleText}>{item.status}</Text>
+                  {item.status == 'Total' ? (
+                    <View></View>
+                  ) : (
+                    <>
+                      <Image
+                        source={require('../../../assets/images/Booking.png')}
+                        resizeMode="contain"
+                        style={styles.bookingImage}
+                      />
+                      <Text style={styles.bookingCountText}>{item.count}</Text>
+                    </>
+                  )}
+                </TouchableOpacity>
+                {item.status == 'Total' ? (
+                  <View />
+                ) : (
+                  <Text style={styles.bookingTitleText}>{item.status}</Text>
+                )}
               </View>
             )}
           />
-        </View>
+          <View style={{height: 50}}></View>
+        </ScrollView>
 
         <View>
           <View style={{marginBottom: hp(2)}}>

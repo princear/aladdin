@@ -170,7 +170,7 @@ export const editBooking = (data, navigation) => dispatch => {
       //     navigation,
       //   ),
       // );
-      navigation.navigate('Booking');
+      navigation.navigate('Home');
 
       // Alert.alert(
       //     'Status Changed',

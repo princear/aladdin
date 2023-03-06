@@ -556,7 +556,7 @@ export default function BookingListDetail({route, navigation}) {
             {Pendinglist[0]?.ServiceDetail?.formated_price}{' '}
           </Text>
           <Text style={styles.productText}>
-            {Pendinglist[0]?.ServiceDetail?.formated_discounted_price}{' '}
+            $ {Pendinglist[0]?.ServiceDetail?.converted_discounted_price}{' '}
           </Text>
 
           {/* <View style={styles.servicesWrapper}>
@@ -767,7 +767,7 @@ export default function BookingListDetail({route, navigation}) {
               <Text style={styles.EstimateServicesSubHeading}>
                 ${' '}
                 {setTotalCount(
-                  Pendinglist[0]?.ServiceDetail?.formated_discounted_price,
+                  Pendinglist[0]?.ServiceDetail?.converted_discounted_price,
                 )}
               </Text>
             </View>
@@ -833,12 +833,29 @@ export default function BookingListDetail({route, navigation}) {
             <Text style={styles.addressSubHeading}>
               {Pendinglist[0]?.address?.name}
             </Text>
-
+            <Text style={styles.addressSubHeading}>
+              {Pendinglist[0]?.address?.type}
+            </Text>
+            <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
+              {Pendinglist[0]?.address?.address_map}
+            </Text>
             <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
               {Pendinglist[0]?.address?.address_one}
             </Text>
+            <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
+              {Pendinglist[0]?.address?.address_two}
+            </Text>
           </View>
-        ) : null}
+        ) : (
+          <View style={styles.AddressWrapper}>
+            <Text style={styles.addressHeading}>
+              {t('placeholders.rang.address_detail')}
+            </Text>
+            <Text style={styles.addressText}>
+              {Pendinglist[0]?.current_address}
+            </Text>
+          </View>
+        )}
 
         <View style={styles.containerWrapper}>
           {Pendinglist[0]?.address == null ? (

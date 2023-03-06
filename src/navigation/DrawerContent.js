@@ -55,7 +55,9 @@ const DrawerContent = ({props, navigation}) => {
 
   const bookingBack = () => {
     setActive('Bookings'),
-      navigation.navigate('Booking'),
+      navigation.navigate('Booking', {
+        BookingStatus: 'Pending',
+      }),
       navigation.dispatch(DrawerActions.closeDrawer());
   };
   const profileBack = () => {

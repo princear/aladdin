@@ -21,9 +21,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {onALlBooking} from '../../../redux/Action/BookingAction';
 import {useTranslation} from 'react-i18next';
 
-export default function Booking({props, navigation}) {
+export default function Booking({props, navigation, route}) {
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
+
+  const [bookingstatus, setBookingStatus] = useState(
+    route.params.BookingStatus,
+  );
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -38,7 +42,8 @@ export default function Booking({props, navigation}) {
   };
   const {loading} = useSelector(state => state.UserReducers);
 
-  const [state, setState] = useState(' View All');
+  const [state, setState] = useState(bookingstatus);
+  //  const [state, setState] = useState(' View All');
   const state_list = [
     {label: ' View All', value: ' View All'},
     {label: 'Pending', value: 'Pending'},
@@ -55,8 +60,14 @@ export default function Booking({props, navigation}) {
   );
 
   useEffect(() => {
+    // if (route.params.BookingStatus == undefined) {
+    //   setBookingStatus('View All');
+    // } else {
+    //   setBookingStatus(route.params.BookingStatus);
+    // }
+
     dispatch(onALlBooking(navigation));
-  }, []);
+  }, [bookingstatus]);
   const [t] = useTranslation();
 
   return (

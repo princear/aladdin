@@ -36,6 +36,7 @@ export default function EditPage({route, navigation}) {
 
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
+  const [Loader, setLoader] = useState(false);
   const [t] = useTranslation();
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -49,9 +50,9 @@ export default function EditPage({route, navigation}) {
     showMode('date');
   };
 
-  const [state, setState] = useState('Pending');
+  const [state, setState] = useState('Choose a booking status');
   const state_list = [
-    // { label: 'Select status', value: 'Select status' },
+    // {label: 'Select status', value: 'Select status'},
     {label: 'Pending', value: 'pending'},
     {label: 'Completed', value: 'completed'},
     {label: 'In Progress', value: 'in Progress'},
@@ -59,6 +60,8 @@ export default function EditPage({route, navigation}) {
     {label: 'Approved', value: 'approved'},
     {label: 'Awaiting', value: 'awaiting'},
   ];
+
+  console.log(state_list, 'ddsdsdsf');
   const bookingid = route.params.b_id;
 
   const [arr, setArr] = useState([]);
@@ -68,6 +71,12 @@ export default function EditPage({route, navigation}) {
   );
 
   const {loading} = useSelector(state => state.UserReducers);
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, []);
   const deltebooking = () => {
     Alert.alert(
       'Delete Booking',
@@ -181,7 +190,7 @@ export default function EditPage({route, navigation}) {
           </Text>
         </View>
       </View>
-      {loading && (
+      {Loader && (
         <View
           style={{
             flex: 1,
@@ -242,7 +251,7 @@ export default function EditPage({route, navigation}) {
             style={styles.userImage}
           />
           <Text style={styles.rightText}>
-            {Pendinglist[0]?.customer_details?.formatted_mobile}
+            {Pendinglist[0]?.customer_details?.mobile}
           </Text>
         </View>
 
@@ -267,10 +276,13 @@ export default function EditPage({route, navigation}) {
 
         <Text style={[styles.headingSecondTextWrapp]}>
           {t('placeholders.bookingList.booking_status')}
+
+          {console.log(loading, 'loadsingloadsingloadsingloadsingloadsing')}
         </Text>
 
         <TouchableOpacity
           style={{
+            // backgroundColor: '#fff',
             backgroundColor: '#fff',
             borderWidth: 1,
             borderRadius: 5,
@@ -279,11 +291,70 @@ export default function EditPage({route, navigation}) {
             elevation: 3,
             paddingVertical: hp(1),
           }}>
-          <RNPickerSelect
-            placeholder={{
-              label: 'Select a status',
-              value: 'Select',
-            }}
+          {state == 'Choose a booking status' ? (
+            <RNPickerSelect
+              placeholder={{}}
+              onValueChange={value => setState(value)}
+              items={state_list}
+              value={state}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: wp(4),
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {state}
+                </Text>
+
+                <Image
+                  source={require('../../assets/images/Downarrow.png')}
+                  resizeMode="contain"
+                  style={{height: hp(3), width: wp(5)}}
+                />
+              </View>
+            </RNPickerSelect>
+          ) : (
+            <RNPickerSelect
+              placeholder={{}}
+              onValueChange={value => setState(value)}
+              items={state_list}
+              value={state}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: wp(4),
+                }}>
+                {state_list.map(
+                  item =>
+                    item.value === state && (
+                      <Text
+                        key={item.value}
+                        style={{
+                          fontSize: 14,
+                          color: '#000',
+                          fontFamily: 'Montserrat-Medium',
+                        }}>
+                        {item.label}
+                      </Text>
+                    ),
+                )}
+                <Image
+                  source={require('../../assets/images/Downarrow.png')}
+                  resizeMode="contain"
+                  style={{height: hp(3), width: wp(5)}}
+                />
+              </View>
+            </RNPickerSelect>
+          )}
+          {/* <RNPickerSelect
+            placeholder={{}}
             onValueChange={value => setState(value)}
             items={state_list}
             value={state}>
@@ -313,7 +384,7 @@ export default function EditPage({route, navigation}) {
                 style={{height: hp(3), width: wp(5)}}
               />
             </View>
-          </RNPickerSelect>
+          </RNPickerSelect> */}
         </TouchableOpacity>
 
         {arr.map((r, i) => (
@@ -481,16 +552,18 @@ export default function EditPage({route, navigation}) {
             style={[styles.editWrapper, {backgroundColor: '#2ea749'}]}
             onPress={() =>
               dispatch(
-                editBooking({
-                  status: state,
-                  booking_id: bookingid,
-                  name: Names,
-                  description: Description,
-                  qty: Qty,
-                  unit_price: UnitPrice,
-                  warranty: Warrenty,
-                  
-                },navigation),
+                editBooking(
+                  {
+                    status: state,
+                    booking_id: bookingid,
+                    name: Names,
+                    description: Description,
+                    qty: Qty,
+                    unit_price: UnitPrice,
+                    warranty: Warrenty,
+                  },
+                  navigation,
+                ),
               )
             }>
             {/* <Text style={[styles.deleteCrossWrapp, { color: '#fff' }]}>X</Text> */}
