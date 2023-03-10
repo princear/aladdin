@@ -159,17 +159,17 @@ export const editBooking = (data, navigation) => dispatch => {
       dispatch(onCountBooking());
       Alert.alert(response.message);
       resolve(response);
-      // dispatch(
-      //   ParticularNotification(
-      //     {
-      //       // user_id: notification.notificationId,
-      //       booking_id: response.data.data.id,
-      //       user_id: response.data.data.user_id,
-      //       message: response.message,
-      //     },
-      //     navigation,
-      //   ),
-      // );
+      dispatch(
+        ParticularNotification(
+          {
+            // user_id: notification.notificationId,
+            booking_id: response.data.data.id,
+            user_id: response.data.data.user_id,
+            message: response.message,
+          },
+          navigation,
+        ),
+      );
       navigation.navigate('Home');
 
       // Alert.alert(

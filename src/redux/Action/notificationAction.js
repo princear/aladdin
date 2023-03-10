@@ -41,7 +41,7 @@ export const ParticularNotification = (data, navigation) => dispatch => {
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/save-push-notifications/', data);
 
-    if (response.status == '1') {
+    if (response.status == 1) {
       dispatch({
         type: CREATE_NOTIFY,
         selectnotifyData: response.data,
