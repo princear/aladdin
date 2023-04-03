@@ -147,7 +147,6 @@ export default function EditPage({route, navigation}) {
     console.log('PRINCEEEEE', i, text);
     let newFormValues = [...arr];
     newFormValues[i]['warrenty'] = text;
-
     setArr(newFormValues);
   };
 
@@ -386,28 +385,323 @@ export default function EditPage({route, navigation}) {
             </View>
           </RNPickerSelect> */}
         </TouchableOpacity>
+        {state == 'awaiting' ? (
+          <View>
+            <View
+              // key={i}
+              style={{
+                backgroundColor: '#e5e5e5',
+                marginTop: hp(2),
+                justifyContent: 'space-between',
+                elevation: 10,
+                paddingVertical: hp(1),
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextFunc(i, text)}
+                  placeholder="Service"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextDesc(i, text)}
+                  placeholder="Description"
+                />
+              </View>
+              <View
+                //  key={i}
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  // borderWidth: 1,
+                  // borderRadius: 5,
+                  //borderColor: '#9066e6',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextQty(i, text)}
+                  placeholder="Qty"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextUnit(i, text)}
+                  placeholder="Unit Price"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  placeholder="Warrenty"
+                />
+              </View>
+            </View>
+            <View
+              // key={i}
+              style={{
+                backgroundColor: '#e5e5e5',
+                marginTop: hp(2),
+                justifyContent: 'space-between',
+                elevation: 10,
+                paddingVertical: hp(1),
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextFunc(i, text)}
+                  placeholder="Material"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextDesc(i, text)}
+                  placeholder="Description"
+                />
+              </View>
+              <View
+                //  key={i}
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  // borderWidth: 1,
+                  // borderRadius: 5,
+                  //borderColor: '#9066e6',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextQty(i, text)}
+                  placeholder="Qty"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextUnit(i, text)}
+                  placeholder="Unit Price"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  placeholder="Warrenty"
+                />
+              </View>
+            </View>
+            <View
+              // key={i}
+              style={{
+                backgroundColor: '#e5e5e5',
+                marginTop: hp(2),
+                justifyContent: 'space-between',
+                elevation: 10,
+                paddingVertical: hp(1),
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextFunc(i, text)}
+                  placeholder="Visit/Travel/Fuel"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(40),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextDesc(i, text)}
+                  placeholder="Description"
+                />
+              </View>
+              <View
+                //  key={i}
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  // borderWidth: 1,
+                  // borderRadius: 5,
+                  //borderColor: '#9066e6',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  flexDirection: 'row',
+                  paddingVertical: hp(1),
+                  paddingHorizontal: wp(2),
+                }}>
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextQty(i, text)}
+                  placeholder="Qty"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextUnit(i, text)}
+                  placeholder="Unit Price"
+                />
+
+                <TextInput
+                  style={{
+                    backgroundColor: '#fff',
+                    borderWidth: 1,
+                    width: wp(25),
+                    padding: 10,
+                    borderRadius: 5,
+                    borderColor: '#9066e6',
+                  }}
+                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  placeholder="Warrenty"
+                />
+              </View>
+            </View>
+          </View>
+        ) : (
+          <View />
+        )}
 
         {arr.map((r, i) => (
           <View
             key={i}
             style={{
               backgroundColor: '#e5e5e5',
-              // borderWidth: 1,
-              // borderRadius: 5,
-              //borderColor: '#9066e6',
               marginTop: hp(2),
               justifyContent: 'space-between',
               elevation: 10,
-
               paddingVertical: hp(1),
             }}>
             <View
-              // key={i}
               style={{
                 backgroundColor: '#e5e5e5',
-                // borderWidth: 1,
-                // borderRadius: 5,
-                //borderColor: '#9066e6',
                 marginTop: hp(2),
                 justifyContent: 'space-between',
                 elevation: 10,
@@ -425,7 +719,7 @@ export default function EditPage({route, navigation}) {
                   borderColor: '#9066e6',
                 }}
                 onChangeText={text => onchangeTextFunc(i, text)}
-                placeholder="item"
+                placeholder="Service/Material/Visit Price"
               />
 
               <TextInput
@@ -506,13 +800,15 @@ export default function EditPage({route, navigation}) {
                 Add Row{' '}
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => removeSomeThing('add')}
-              style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
-              <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
-                Remove{' '}
-              </Text>
-            </TouchableOpacity>
+            {arr.length > 0 && (
+              <TouchableOpacity
+                onPress={() => removeSomeThing('add')}
+                style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
+                <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
+                  Remove{' '}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         ) : (
           <View />

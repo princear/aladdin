@@ -69,10 +69,11 @@ export default function BookingListDetail({route, navigation}) {
     );
   };
   useEffect(() => {
-    console.log('ababba');
+    console.log('ababba', route.params.bookingId);
     const booking_id = route.params.bookingId;
     setSaverate(Pendinglist[0]?.ServiceDetail?.id);
     dispatch(particularBookingId(booking_id, navigation)).then(res => {
+      console.log(res, 'resresresresres');
       if (res.status == 1) {
         console.log('Status1');
         ratingFunction(res.data[0]?.ServiceDetail?.id);
@@ -130,7 +131,8 @@ export default function BookingListDetail({route, navigation}) {
           initialValue,
         );
       console.log(parseInt(actualprice), 'TOTALLLLLL');
-      return parseInt(actualprice) + sumWithInitial;
+      // return parseInt(actualprice) + sumWithInitial;
+      return parseFloat(sumWithInitial);
     }
   };
 
@@ -553,10 +555,10 @@ export default function BookingListDetail({route, navigation}) {
             {Pendinglist[0]?.ServiceDetail?.name}{' '}
           </Text>
           <Text style={styles.productText}>
-            {Pendinglist[0]?.ServiceDetail?.formated_price}{' '}
+            {Pendinglist[0]?.ServiceDetail?.formated_price} /hr
           </Text>
           <Text style={styles.productText}>
-            $ {Pendinglist[0]?.ServiceDetail?.converted_discounted_price}{' '}
+            $ {Pendinglist[0]?.ServiceDetail?.converted_discounted_price} /hr
           </Text>
 
           {/* <View style={styles.servicesWrapper}>
