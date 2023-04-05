@@ -43,14 +43,17 @@ export default function EditPage({route, navigation}) {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
+
   const showMode = currentMode => {
     setShow(true);
   };
+
   const showDatepicker = () => {
     showMode('date');
   };
 
   const [state, setState] = useState('Choose a booking status');
+
   const state_list = [
     // {label: 'Select status', value: 'Select status'},
     {label: 'Pending', value: 'pending'},
@@ -64,15 +67,65 @@ export default function EditPage({route, navigation}) {
   console.log(state_list, 'ddsdsdsf');
   const bookingid = route.params.b_id;
 
-  const [arr, setArr] = useState([]);
+  // const [arr, setArr] = useState([
+  //   {
+  //     index: index++,
+  //     servicePlaceholder: 'Service',
+  //     name: '',
+  //     ServiceName: serviceName,
+  //     ServiceValue: route.params.b_id,
+  //   },
+  //   {
+  //     index: index++,
+  //     servicePlaceholder: 'Material',
+  //     name: '',
+  //     ServiceName: serviceName,
+  //     ServiceValue: route.params.b_id,
+  //   },
+  //   {
+  //     index: index++,
+  //     servicePlaceholder: 'Visit',
+  //     name: '',
+  //     ServiceName: serviceName,
+  //     ServiceValue: route.params.b_id,
+  //   },
+  // ]);
 
   const Pendinglist = useSelector(
     state => state.COUNTBOOKINGREDUCER.particularList,
   );
 
+  const [serviceName, setserviceName] = useState([
+    {
+      index: index++,
+      servicePlaceholder: 'Service',
+      name: '',
+    },
+    {
+      index: index++,
+      servicePlaceholder: 'Material',
+      name: '',
+    },
+    {
+      index: index++,
+      servicePlaceholder: 'Visit',
+      name: '',
+    },
+  ]);
+
+  console.log(serviceName, 'QQQQQQQQQQ');
   const {loading} = useSelector(state => state.UserReducers);
   useEffect(() => {
     setLoader(true);
+    if (
+      Pendinglist &&
+      Pendinglist[0] &&
+      Pendinglist[0]?.estimate_item.length > 0
+    ) {
+      stateData = Pendinglist[0].estimate_item.map(item => item.item);
+      setserviceName(stateData);
+    }
+
     setTimeout(() => {
       setLoader(false);
     }, 2000);
@@ -103,65 +156,102 @@ export default function EditPage({route, navigation}) {
   //     setArr([...arr, {index: index++, placeholder: placeholder, name: ''}]);
   //   };
 
+  const EditBookingFunc = () => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+
+    if (Names.some(el => el == null || el == '')) {
+      Alert.alert('Please fill all fields');
+    } else if (UnitPrice.some(el => el == null || el == '')) {
+      Alert.alert('Please fill all fields');
+    } else {
+      dispatch(
+        editBooking(
+          {
+            status: state,
+            booking_id: bookingid,
+            name: Names,
+            description: Description,
+            qty: Qty,
+            unit_price: UnitPrice,
+            warranty: Warrenty,
+          },
+          navigation,
+        ),
+      );
+    }
+  };
   const insertSomeThing = placeholder => {
-    setArr([...arr, {index: index++, placeholder: placeholder, name: ''}]);
+    setserviceName([
+      ...serviceName,
+      {index: index++, servicePlaceholder: placeholder},
+    ]);
   };
 
   const removeSomeThing = () => {
-    setArr(arr.slice(0, -1));
+    setserviceName(serviceName.slice(0, -1));
   };
 
   const onchangeTextFunc = (i, text) => {
     console.log('PRINCEEEEE', i, text);
-    let newFormValues = [...arr];
+    // let newFormValues = [...arr];
+    let newFormValues = [...serviceName];
     newFormValues[i]['name'] = text;
 
-    setArr(newFormValues);
+    // setArr(newFormValues);
+    setserviceName(newFormValues);
   };
 
   const onchangeTextDesc = (i, text) => {
     console.log('PRINCEEEEE', i, text);
-    let newFormValues = [...arr];
-    newFormValues[i]['Desc'] = text;
-
-    setArr(newFormValues);
+    // let newFormValues = [...arr];
+    let newFormValues = [...serviceName];
+    newFormValues[i]['description'] = text;
+    setserviceName(newFormValues);
+    // setArr(newFormValues);
   };
 
   const onchangeTextQty = (i, text) => {
     console.log('PRINCEEEEE', i, text);
-    let newFormValues = [...arr];
+    //let newFormValues = [...arr];
+    let newFormValues = [...serviceName];
     newFormValues[i]['qty'] = text;
-
-    setArr(newFormValues);
+    setserviceName(newFormValues);
+    // setArr(newFormValues);
   };
 
   const onchangeTextUnit = (i, text) => {
     console.log('PRINCEEEEE', i, text);
-    let newFormValues = [...arr];
-    newFormValues[i]['unit'] = text;
-
-    setArr(newFormValues);
+    //let newFormValues = [...arr];
+    let newFormValues = [...serviceName];
+    newFormValues[i]['unit_price'] = text;
+    setserviceName(newFormValues);
+    // setArr(newFormValues);
   };
 
   const onchangeTextWarrenty = (i, text) => {
     console.log('PRINCEEEEE', i, text);
-    let newFormValues = [...arr];
-    newFormValues[i]['warrenty'] = text;
-    setArr(newFormValues);
+    // let newFormValues = [...arr];
+    let newFormValues = [...serviceName];
+    newFormValues[i]['warranty'] = text;
+    // setArr(newFormValues);
+    setserviceName(newFormValues);
   };
 
-  console.log(arr, 'All DATAAAAAAAA');
+  console.log(serviceName, 'All DATAAAAAAAA');
   var Names = [];
   var Description = [];
   var Qty = [];
   var UnitPrice = [];
   var Warrenty = [];
-  arr.forEach(element => {
+  serviceName.forEach(element => {
     let name = element.name;
-    let desc = element.Desc;
+    let desc = element.description;
     let qty = element.qty;
-    let unit = element.unit;
-    let warrenty = element.warrenty;
+    let unit = element.unit_price;
+    let warrenty = element.warranty;
     Names.push(name);
     Description.push(desc);
     Qty.push(qty);
@@ -385,10 +475,10 @@ export default function EditPage({route, navigation}) {
             </View>
           </RNPickerSelect> */}
         </TouchableOpacity>
-        {state == 'awaiting' ? (
+        {/* {state == 'awaiting' ? (
           <View>
             <View
-              // key={i}
+              //  key={i}
               style={{
                 backgroundColor: '#e5e5e5',
                 marginTop: hp(2),
@@ -415,7 +505,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextFunc(i, text)}
+                  onChangeText={text => onchangeNameFunc(text)}
                   placeholder="Service"
                 />
 
@@ -428,7 +518,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextDesc(i, text)}
+                  onChangeText={text => onchangeTextDesc(text)}
                   placeholder="Description"
                 />
               </View>
@@ -455,7 +545,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextQty(i, text)}
+                  onChangeText={text => onchangeTextQty(text)}
                   placeholder="Qty"
                 />
 
@@ -468,7 +558,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextUnit(i, text)}
+                  onChangeText={text => onchangeTextUnit(text)}
                   placeholder="Unit Price"
                 />
 
@@ -481,13 +571,13 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  onChangeText={text => onchangeTextWarrenty(text)}
                   placeholder="Warrenty"
                 />
               </View>
             </View>
             <View
-              // key={i}
+              //  key={i}
               style={{
                 backgroundColor: '#e5e5e5',
                 marginTop: hp(2),
@@ -514,7 +604,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextFunc(i, text)}
+                  onChangeText={text => onchangeNameFunc(text)}
                   placeholder="Material"
                 />
 
@@ -527,7 +617,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextDesc(i, text)}
+                  onChangeText={text => onchangeTextDesc(text)}
                   placeholder="Description"
                 />
               </View>
@@ -554,7 +644,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextQty(i, text)}
+                  onChangeText={text => onchangeTextQty(text)}
                   placeholder="Qty"
                 />
 
@@ -567,7 +657,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextUnit(i, text)}
+                  onChangeText={text => onchangeTextUnit(text)}
                   placeholder="Unit Price"
                 />
 
@@ -580,13 +670,13 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  onChangeText={text => onchangeTextWarrenty(text)}
                   placeholder="Warrenty"
                 />
               </View>
             </View>
             <View
-              // key={i}
+              //   key={i}
               style={{
                 backgroundColor: '#e5e5e5',
                 marginTop: hp(2),
@@ -613,7 +703,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextFunc(i, text)}
+                  onChangeText={text => onchangeNameFunc(text)}
                   placeholder="Visit/Travel/Fuel"
                 />
 
@@ -626,7 +716,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextDesc(i, text)}
+                  onChangeText={text => onchangeTextDesc(text)}
                   placeholder="Description"
                 />
               </View>
@@ -653,7 +743,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextQty(i, text)}
+                  onChangeText={text => onchangeTextQty(text)}
                   placeholder="Qty"
                 />
 
@@ -666,7 +756,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextUnit(i, text)}
+                  onChangeText={text => onchangeTextUnit(text)}
                   placeholder="Unit Price"
                 />
 
@@ -679,7 +769,7 @@ export default function EditPage({route, navigation}) {
                     borderRadius: 5,
                     borderColor: '#9066e6',
                   }}
-                  onChangeText={text => onchangeTextWarrenty(i, text)}
+                  onChangeText={text => onchangeTextWarrenty(text)}
                   placeholder="Warrenty"
                 />
               </View>
@@ -687,120 +777,145 @@ export default function EditPage({route, navigation}) {
           </View>
         ) : (
           <View />
-        )}
+        )} */}
+        {state == 'awaiting' && (
+          <View>
+            {serviceName.map((r, i) => (
+              <View
+                key={i}
+                style={{
+                  backgroundColor: '#e5e5e5',
+                  marginTop: hp(2),
+                  justifyContent: 'space-between',
+                  elevation: 10,
+                  paddingVertical: hp(1),
+                }}>
+                <View
+                  style={{
+                    backgroundColor: '#e5e5e5',
+                    marginTop: hp(2),
+                    justifyContent: 'space-between',
+                    elevation: 10,
+                    flexDirection: 'row',
+                    paddingVertical: hp(1),
+                    paddingHorizontal: wp(2),
+                  }}>
+                  <TextInput
+                    style={{
+                      backgroundColor: '#fff',
+                      borderWidth: 1,
+                      width: wp(40),
+                      padding: 10,
+                      borderRadius: 5,
+                      borderColor: '#9066e6',
+                    }}
+                    value={r.name}
+                    onChangeText={text => onchangeTextFunc(i, text)}
+                    // placeholder="Service/Material/Visit Price"
+                    placeholder={r.servicePlaceholder}
+                  />
+                  <Text>{r.ServiceName}</Text>
+                  <TextInput
+                    style={{
+                      backgroundColor: '#fff',
+                      borderWidth: 1,
+                      width: wp(40),
+                      padding: 10,
+                      borderRadius: 5,
+                      borderColor: '#9066e6',
+                    }}
+                    value={r.description}
+                    onChangeText={text => onchangeTextDesc(i, text)}
+                    placeholder="Description"
+                  />
+                </View>
 
-        {arr.map((r, i) => (
-          <View
-            key={i}
-            style={{
-              backgroundColor: '#e5e5e5',
-              marginTop: hp(2),
-              justifyContent: 'space-between',
-              elevation: 10,
-              paddingVertical: hp(1),
-            }}>
-            <View
-              style={{
-                backgroundColor: '#e5e5e5',
-                marginTop: hp(2),
-                justifyContent: 'space-between',
-                elevation: 10,
-                flexDirection: 'row',
-                paddingVertical: hp(1),
-                paddingHorizontal: wp(2),
-              }}>
-              <TextInput
-                style={{
-                  backgroundColor: '#fff',
-                  borderWidth: 1,
-                  width: wp(40),
-                  padding: 10,
-                  borderRadius: 5,
-                  borderColor: '#9066e6',
-                }}
-                onChangeText={text => onchangeTextFunc(i, text)}
-                placeholder="Service/Material/Visit Price"
-              />
+                <View
+                  //  key={i}
+                  style={{
+                    backgroundColor: '#e5e5e5',
+                    // borderWidth: 1,
+                    // borderRadius: 5,
+                    //borderColor: '#9066e6',
+                    marginTop: hp(2),
+                    justifyContent: 'space-between',
+                    elevation: 10,
+                    flexDirection: 'row',
+                    paddingVertical: hp(1),
+                    paddingHorizontal: wp(2),
+                  }}>
+                  <TextInput
+                    style={{
+                      backgroundColor: '#fff',
+                      borderWidth: 1,
+                      width: i == 0 || i == 2 ? wp(40) : wp(25),
 
-              <TextInput
-                style={{
-                  backgroundColor: '#fff',
-                  borderWidth: 1,
-                  width: wp(40),
-                  padding: 10,
-                  borderRadius: 5,
-                  borderColor: '#9066e6',
-                }}
-                onChangeText={text => onchangeTextDesc(i, text)}
-                placeholder="Description"
-              />
-            </View>
-            <View
-              //  key={i}
-              style={{
-                backgroundColor: '#e5e5e5',
-                // borderWidth: 1,
-                // borderRadius: 5,
-                //borderColor: '#9066e6',
-                marginTop: hp(2),
-                justifyContent: 'space-between',
-                elevation: 10,
-                flexDirection: 'row',
-                paddingVertical: hp(1),
-                paddingHorizontal: wp(2),
-              }}>
-              <TextInput
-                style={{
-                  backgroundColor: '#fff',
-                  borderWidth: 1,
-                  width: wp(25),
-                  padding: 10,
-                  borderRadius: 5,
-                  borderColor: '#9066e6',
-                }}
-                onChangeText={text => onchangeTextQty(i, text)}
-                placeholder="Qty"
-              />
+                      padding: 10,
+                      borderRadius: 5,
+                      borderColor: '#9066e6',
+                    }}
+                    value={r.qty}
+                    onChangeText={text => onchangeTextQty(i, text)}
+                    placeholder="Qty"
+                  />
 
-              <TextInput
-                style={{
-                  backgroundColor: '#fff',
-                  borderWidth: 1,
-                  width: wp(25),
-                  padding: 10,
-                  borderRadius: 5,
-                  borderColor: '#9066e6',
-                }}
-                onChangeText={text => onchangeTextUnit(i, text)}
-                placeholder="Unit Price"
-              />
+                  <TextInput
+                    style={{
+                      backgroundColor: '#fff',
+                      borderWidth: 1,
+                      width: i == 0 || i == 2 ? wp(40) : wp(25),
+                      padding: 10,
+                      borderRadius: 5,
+                      borderColor: '#9066e6',
+                    }}
+                    value={r.unit_price}
+                    onChangeText={text => onchangeTextUnit(i, text)}
+                    placeholder="Unit Price"
+                  />
 
-              <TextInput
-                style={{
-                  backgroundColor: '#fff',
-                  borderWidth: 1,
-                  width: wp(25),
-                  padding: 10,
-                  borderRadius: 5,
-                  borderColor: '#9066e6',
-                }}
-                onChangeText={text => onchangeTextWarrenty(i, text)}
-                placeholder="Warrenty"
-              />
-            </View>
+                  {i == 0 || i == 2 ? (
+                    <TextInput
+                      style={{
+                        width: wp(0),
+                        height: wp(0),
+                      }}
+                      value="N/A"
+                      // editable={i == 0 || i == 2 ? false : true}
+                      onChangeText={text => onchangeTextWarrenty(i, text)}
+                      placeholder="Warrenty"
+                    />
+                  ) : (
+                    <TextInput
+                      style={{
+                        backgroundColor: '#fff',
+                        borderWidth: 1,
+                        width: wp(25),
+                        padding: 10,
+                        borderRadius: 5,
+                        borderColor: '#9066e6',
+                      }}
+                      value={r.warranty}
+                      // editable={i == 0 || i == 2 ? false : true}
+                      onChangeText={text => onchangeTextWarrenty(i, text)}
+                      placeholder="Warrenty"
+                    />
+                  )}
+                </View>
+              </View>
+            ))}
           </View>
-        ))}
+        )}
 
         {state == 'awaiting' ? (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity
-              onPress={() => insertSomeThing('add')}
+              onPress={() => insertSomeThing('Service/Material/Visit Price')}
               style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
               <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
                 Add Row{' '}
               </Text>
             </TouchableOpacity>
-            {arr.length > 0 && (
+            {serviceName.length > 3 && (
               <TouchableOpacity
                 onPress={() => removeSomeThing('add')}
                 style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
@@ -846,22 +961,7 @@ export default function EditPage({route, navigation}) {
           {/* <Text> {state}</Text> */}
           <TouchableOpacity
             style={[styles.editWrapper, {backgroundColor: '#2ea749'}]}
-            onPress={() =>
-              dispatch(
-                editBooking(
-                  {
-                    status: state,
-                    booking_id: bookingid,
-                    name: Names,
-                    description: Description,
-                    qty: Qty,
-                    unit_price: UnitPrice,
-                    warranty: Warrenty,
-                  },
-                  navigation,
-                ),
-              )
-            }>
+            onPress={() => EditBookingFunc()}>
             {/* <Text style={[styles.deleteCrossWrapp, { color: '#fff' }]}>X</Text> */}
             <Image
               source={require('../../assets/images/right.png')}
