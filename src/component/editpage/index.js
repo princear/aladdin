@@ -23,17 +23,19 @@ import {ARROW_WHITE, DOWN_ARROW} from '../../assets/icon';
 import {useDispatch, useSelector} from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
 import {BLACK, WHITE} from '../../scenes/styles/color';
+
 import {
   editBooking,
   cancelBooking,
   deleteBooking,
 } from '../../redux/Action/BookingAction';
+
 import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
 let index = 0;
+
 export default function EditPage({route, navigation}) {
   const dispatch = useDispatch();
-
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [Loader, setLoader] = useState(false);
@@ -130,6 +132,7 @@ export default function EditPage({route, navigation}) {
       setLoader(false);
     }, 2000);
   }, []);
+
   const deltebooking = () => {
     Alert.alert(
       'Delete Booking',
