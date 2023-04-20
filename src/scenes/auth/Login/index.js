@@ -299,7 +299,7 @@ export default function Login(props) {
               fontFamily: MONTSERRAT_MEDIUM,
               color: '#000',
             }}>
-            Not Registered ?{' '}
+            {t('placeholders.auth.notreg')} ?{' '}
           </Text>
           <TouchableOpacity
             // onPress={() => navigation.navigate('Registation')}>
@@ -310,7 +310,7 @@ export default function Login(props) {
                 fontFamily: MONTSERRAT_BOLD,
                 color: '#9066e6',
               }}>
-              Sign up
+              {t('placeholders.auth.signup')}
             </Text>
           </TouchableOpacity>
         </View>

@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* Alladin_vendorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Alladin_vendorTests.m */; };
+		057D7D5D1875445367EAB780 /* libPods-Alladin_vendor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7416309DD924F4ED0490E6A1 /* libPods-Alladin_vendor.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		700515B306437A20B62911F7 /* libPods-Alladin_vendor-Alladin_vendorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F09336023A093B1F5BB437 /* libPods-Alladin_vendor-Alladin_vendorTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		ADCB109F28813A1D00299CE0 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADCB109E28813A1D00299CE0 /* Montserrat-Medium.ttf */; };
 		ADCB10A5288140E800299CE0 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = ADCB10A4288140E800299CE0 /* assets */; };
 		ADE9774B2880464100F2CAEE /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = ADE9774A2880464100F2CAEE /* main.jsbundle */; };
 		ADE9774F2880480700F2CAEE /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADE9774E2880480700F2CAEE /* Montserrat-Regular.ttf */; };
 		ADE977512880490800F2CAEE /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADE977502880490800F2CAEE /* Montserrat-Bold.ttf */; };
-		C52D1908632C9048A2491747 /* libPods-Alladin_vendor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AF75649FAC8225EB7DACF32 /* libPods-Alladin_vendor.a */; };
-		E775F8578EE8BAC8DCC869F6 /* libPods-Alladin_vendor-Alladin_vendorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E51F79D1257E69D61BD65D0A /* libPods-Alladin_vendor-Alladin_vendorTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +48,7 @@
 		00E356EE1AD99517003FC87E /* Alladin_vendorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alladin_vendorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* Alladin_vendorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Alladin_vendorTests.m; sourceTree = "<group>"; };
+		02F09336023A093B1F5BB437 /* libPods-Alladin_vendor-Alladin_vendorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alladin_vendor-Alladin_vendorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		039CE92FDF6942F7B03EC30F /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		04EBA595A5DB437EAB7AFA11 /* FredokaOne-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FredokaOne-Regular.ttf"; path = "../src/assets/fonts/FredokaOne-Regular.ttf"; sourceTree = "<group>"; };
 		06F1D138738F4095BBEDB823 /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-MediumItalic.ttf"; path = "../src/assets/fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -68,18 +69,18 @@
 		37C696CA8850482D93F79ADF /* Montserrat-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Montserrat-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		3CFDCCCC9865402280571DD2 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		3D4CC7F3719D4A5C86C5A29A /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		43469238E76673C04D507B27 /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4488E75C185C494ABD1661AC /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../src/assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
-		4AF75649FAC8225EB7DACF32 /* libPods-Alladin_vendor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alladin_vendor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DD37EE8DBF944F0BFF87CE4 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		5353D189BF8947D0901171C3 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = ../src/assets/fonts/Foundation.ttf; sourceTree = "<group>"; };
-		5C658ED2E98AA2339479663F /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig"; sourceTree = "<group>"; };
 		5D0CD5FAAD524C79851ADF84 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		6A21D5415675FA70649F1E6A /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6063323E74D20D39AD68CD04 /* Pods-Alladin_vendor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor.debug.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor.debug.xcconfig"; sourceTree = "<group>"; };
 		6AD53BDCC6964D5FA01C376B /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BoldItalic.ttf"; path = "../src/assets/fonts/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		6C51340CA50249719A023749 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		6DB62ED458B34494B4899866 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = ../src/assets/fonts/FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
 		73201FB2F3A7403F8E26023A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		73D432BC4754492FB9A8320A /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		7416309DD924F4ED0490E6A1 /* libPods-Alladin_vendor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alladin_vendor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77CA5D73C870470BA9276E2B /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		7A3B3F3C5CF74039A529CE2B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		7CB997C813744952986AC81D /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = ../src/assets/fonts/Ionicons.ttf; sourceTree = "<group>"; };
@@ -103,8 +104,8 @@
 		A581748BB9684854A893162B /* Montserrat-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-LightItalic.ttf"; path = "../src/assets/fonts/Montserrat-LightItalic.ttf"; sourceTree = "<group>"; };
 		A937A6F9EBA145AAAF15FE01 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.ttf"; path = "../src/assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		AA756474E85E4C00AAA08E00 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		AB333224CB08EAD586C45056 /* Pods-Alladin_vendor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor.release.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor.release.xcconfig"; sourceTree = "<group>"; };
 		AD103E74287D78BA0021849D /* Alladin_vendorRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Alladin_vendorRelease.entitlements; path = Alladin_vendor/Alladin_vendorRelease.entitlements; sourceTree = "<group>"; };
-		AD981C12E65E2D46404ED3AF /* Pods-Alladin_vendor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor.debug.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor.debug.xcconfig"; sourceTree = "<group>"; };
 		ADCB109C2881387700299CE0 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = src/assets; sourceTree = "<group>"; };
 		ADCB109E28813A1D00299CE0 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Montserrat-Medium.ttf"; path = "../src/assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		ADCB10A4288140E800299CE0 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
@@ -123,8 +124,8 @@
 		BDC5FBCCFF0F4847AFA25690 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Thin.ttf"; path = "../src/assets/fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; };
 		C306BC5CCB5B41FC9CEFBE68 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		C38A3C708E7E495090970FA6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = ../src/assets/fonts/SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		C8DC3590617A8C736306E093 /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig"; sourceTree = "<group>"; };
 		C90871083D764AEDAA1B7C56 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = ../src/assets/fonts/Zocial.ttf; sourceTree = "<group>"; };
-		C92D960976183D2C39A67F14 /* Pods-Alladin_vendor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alladin_vendor.release.xcconfig"; path = "Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor.release.xcconfig"; sourceTree = "<group>"; };
 		CA73D7E0DA06446D8FA0412C /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLight.ttf"; path = "../src/assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		CB9F0D1826524BD0AFAE6004 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Italic.ttf"; path = "../src/assets/fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
 		CD18D6C5C2B74868A5CB6211 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = ../src/assets/fonts/AntDesign.ttf; sourceTree = "<group>"; };
@@ -134,7 +135,6 @@
 		D43B69855E8445769CA981E7 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = ../src/assets/fonts/FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
 		D7AE8C210F6642AD8B63ABB9 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = ../src/assets/fonts/Fontisto.ttf; sourceTree = "<group>"; };
 		DA0BB46484E64F13961C921F /* Montserrat-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Light.ttf"; path = "../src/assets/fonts/Montserrat-Light.ttf"; sourceTree = "<group>"; };
-		E51F79D1257E69D61BD65D0A /* libPods-Alladin_vendor-Alladin_vendorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Alladin_vendor-Alladin_vendorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E80EAF81F49741CFBB59ECAD /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = ../src/assets/fonts/EvilIcons.ttf; sourceTree = "<group>"; };
 		EA0A5C276B4F410385DF1E03 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../src/assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E775F8578EE8BAC8DCC869F6 /* libPods-Alladin_vendor-Alladin_vendorTests.a in Frameworks */,
+				700515B306437A20B62911F7 /* libPods-Alladin_vendor-Alladin_vendorTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C52D1908632C9048A2491747 /* libPods-Alladin_vendor.a in Frameworks */,
+				057D7D5D1875445367EAB780 /* libPods-Alladin_vendor.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,10 +200,10 @@
 		22F58EC7B8E6681E257514C1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AD981C12E65E2D46404ED3AF /* Pods-Alladin_vendor.debug.xcconfig */,
-				C92D960976183D2C39A67F14 /* Pods-Alladin_vendor.release.xcconfig */,
-				6A21D5415675FA70649F1E6A /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */,
-				5C658ED2E98AA2339479663F /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */,
+				6063323E74D20D39AD68CD04 /* Pods-Alladin_vendor.debug.xcconfig */,
+				AB333224CB08EAD586C45056 /* Pods-Alladin_vendor.release.xcconfig */,
+				43469238E76673C04D507B27 /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */,
+				C8DC3590617A8C736306E093 /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				4AF75649FAC8225EB7DACF32 /* libPods-Alladin_vendor.a */,
-				E51F79D1257E69D61BD65D0A /* libPods-Alladin_vendor-Alladin_vendorTests.a */,
+				7416309DD924F4ED0490E6A1 /* libPods-Alladin_vendor.a */,
+				02F09336023A093B1F5BB437 /* libPods-Alladin_vendor-Alladin_vendorTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -351,12 +351,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "Alladin_vendorTests" */;
 			buildPhases = (
-				41735A782C7EDA4D288C4055 /* [CP] Check Pods Manifest.lock */,
+				03D1DC981453B3CAAC9D5D00 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				8C5EC26083632E129B027CF2 /* [CP] Embed Pods Frameworks */,
-				7931BDDE18033904D1C89A16 /* [CP] Copy Pods Resources */,
+				E41FAB09284F5D5DAB9B78EB /* [CP] Embed Pods Frameworks */,
+				1811F91984B5F6467EC98C27 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -372,15 +372,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Alladin_vendor" */;
 			buildPhases = (
-				C603652901A1AA0BE50A09BE /* [CP] Check Pods Manifest.lock */,
+				C32C920C7F38B34093498A54 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				ADD36CFC287C53CD0032FBE1 /* Embed App Extensions */,
-				A4C3AC0973367D4BD59C3419 /* [CP] Embed Pods Frameworks */,
-				F230CF65510790D27444CEBE /* [CP] Copy Pods Resources */,
+				AA0EFD2804B46A61196B6330 /* [CP] Embed Pods Frameworks */,
+				B8CE9E1D9B51EA82D063FE51 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -471,7 +471,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\n";
 		};
-		41735A782C7EDA4D288C4055 /* [CP] Check Pods Manifest.lock */ = {
+		03D1DC981453B3CAAC9D5D00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -493,7 +493,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7931BDDE18033904D1C89A16 /* [CP] Copy Pods Resources */ = {
+		1811F91984B5F6467EC98C27 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -510,24 +510,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C5EC26083632E129B027CF2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A4C3AC0973367D4BD59C3419 /* [CP] Embed Pods Frameworks */ = {
+		AA0EFD2804B46A61196B6330 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -544,7 +527,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C603652901A1AA0BE50A09BE /* [CP] Check Pods Manifest.lock */ = {
+		B8CE9E1D9B51EA82D063FE51 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C32C920C7F38B34093498A54 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -566,21 +566,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F230CF65510790D27444CEBE /* [CP] Copy Pods Resources */ = {
+		E41FAB09284F5D5DAB9B78EB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor/Pods-Alladin_vendor-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Alladin_vendor-Alladin_vendorTests/Pods-Alladin_vendor-Alladin_vendorTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -638,7 +638,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A21D5415675FA70649F1E6A /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */;
+			baseConfigurationReference = 43469238E76673C04D507B27 /* Pods-Alladin_vendor-Alladin_vendorTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
@@ -670,7 +670,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C658ED2E98AA2339479663F /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */;
+			baseConfigurationReference = C8DC3590617A8C736306E093 /* Pods-Alladin_vendor-Alladin_vendorTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -700,7 +700,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD981C12E65E2D46404ED3AF /* Pods-Alladin_vendor.debug.xcconfig */;
+			baseConfigurationReference = 6063323E74D20D39AD68CD04 /* Pods-Alladin_vendor.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -736,7 +736,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C92D960976183D2C39A67F14 /* Pods-Alladin_vendor.release.xcconfig */;
+			baseConfigurationReference = AB333224CB08EAD586C45056 /* Pods-Alladin_vendor.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -801,7 +801,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -866,7 +866,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

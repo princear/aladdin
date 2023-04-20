@@ -96,7 +96,8 @@ export const RatingServices = (data, navigation) => dispatch => {
       });
       resolve(response);
       Alert.alert(response.message);
-      navigation.navigate('Booking');
+      // navigation.navigate('Booking');
+      navigation.navigate('BookingListDetail');
       dispatch({
         type: 'LOADING',
         payload: false,

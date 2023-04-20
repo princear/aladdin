@@ -54,19 +54,44 @@ export default function EditPage({route, navigation}) {
     showMode('date');
   };
 
-  const [state, setState] = useState('Choose a booking status');
+  //const [state, setState] = useState(t('placeholders.editpage.bookingstatus'));
+  const [state, setState] = useState('Pending');
 
   const state_list = [
     // {label: 'Select status', value: 'Select status'},
-    {label: 'Pending', value: 'pending'},
-    {label: 'Completed', value: 'completed'},
-    {label: 'In Progress', value: 'in Progress'},
-    {label: 'canceled', value: 'canceled'},
-    {label: 'Approved', value: 'approved'},
-    {label: 'Awaiting', value: 'awaiting'},
+    {
+      label: t('placeholders.settings.pending'),
+      // value: t('placeholders.editpage.pending'),
+      value: 'Pending',
+    },
+    {
+      label: t('placeholders.settings.completed'),
+      //  value: t('placeholders.editpage.completed'),
+      value: 'Completed',
+    },
+    {
+      label: t('placeholders.settings.inprogress'),
+      //  value: t('placeholders.editpage.inprogress'),
+      value: 'In Progress',
+    },
+    {
+      label: t('placeholders.settings.cancelled'),
+      //  value: t('placeholders.editpage.cancelled'),
+      value: 'Canceled',
+    },
+    {
+      label: t('placeholders.settings.approved'),
+      //  value: t('placeholders.editpage.approved'),
+      value: 'Approved',
+    },
+    {
+      label: t('placeholders.settings.awaiting'),
+      //value: t('placeholders.editpage.awaiting'),
+      value: 'awaiting',
+    },
   ];
 
-  console.log(state_list, 'ddsdsdsf');
+  console.log(state_list, 'ddsdsdsfAAAAAAAAAAAAA');
   const bookingid = route.params.b_id;
 
   // const [arr, setArr] = useState([
@@ -100,31 +125,27 @@ export default function EditPage({route, navigation}) {
   const [serviceName, setserviceName] = useState([
     {
       index: index++,
-      servicePlaceholder: 'Service',
+      servicePlaceholder: t('placeholders.editpage.service'),
       name: '',
     },
     {
       index: index++,
-      servicePlaceholder: 'Material',
+      servicePlaceholder: t('placeholders.editpage.material'),
       name: '',
     },
     {
       index: index++,
-      servicePlaceholder: 'Visit',
+      servicePlaceholder: t('placeholders.editpage.Visit'),
       name: '',
     },
   ]);
 
-  console.log(serviceName, 'QQQQQQQQQQ');
+  // console.log(serviceName, 'QQQQQQQQQQ');
   const {loading} = useSelector(state => state.UserReducers);
   useEffect(() => {
     setLoader(true);
-    if (
-      Pendinglist &&
-      Pendinglist[0] &&
-      Pendinglist[0]?.estimate_item.length > 0
-    ) {
-      stateData = Pendinglist[0].estimate_item.map(item => item.item);
+    if (Pendinglist && Pendinglist[0] && Pendinglist[0]?.estimates.length > 0) {
+      stateData = Pendinglist[0].estimates.map(item => item);
       setserviceName(stateData);
     }
 
@@ -165,9 +186,32 @@ export default function EditPage({route, navigation}) {
       setLoader(false);
     }, 2000);
 
-    if (Names.some(el => el == null || el == '')) {
+    console.log(
+      state,
+      bookingid,
+      Names,
+      Description,
+      Qty,
+      UnitPrice,
+      Warrenty,
+      'AKHLAQQQQQQQQQQQAKHLAQQQQQQQQQQQ',
+    );
+
+    if (
+      Names.some(
+        el =>
+          (el == null && state == t('placeholders.settings.awaiting')) ||
+          (el == '' && state == t('placeholders.settings.awaiting')),
+      )
+    ) {
       Alert.alert('Please fill all fields');
-    } else if (UnitPrice.some(el => el == null || el == '')) {
+    } else if (
+      UnitPrice.some(
+        el =>
+          (el == null && state == t('placeholders.settings.awaiting')) ||
+          (el == '' && state == t('placeholders.settings.awaiting')),
+      )
+    ) {
       Alert.alert('Please fill all fields');
     } else {
       dispatch(
@@ -278,7 +322,7 @@ export default function EditPage({route, navigation}) {
             <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
           </TouchableOpacity>
           <Text style={styles.headerCenterText}>
-            {t('placeholders.rang.edit_page')}
+            {t('placeholders.editpage.heading')}
           </Text>
         </View>
       </View>
@@ -383,7 +427,7 @@ export default function EditPage({route, navigation}) {
             elevation: 3,
             paddingVertical: hp(1),
           }}>
-          {state == 'Choose a booking status' ? (
+          {/* {state == t('placeholders.editpage.bookingstatus') ? (
             <RNPickerSelect
               placeholder={{}}
               onValueChange={value => setState(value)}
@@ -410,20 +454,91 @@ export default function EditPage({route, navigation}) {
                   style={{height: hp(3), width: wp(5)}}
                 />
               </View>
-            </RNPickerSelect>
-          ) : (
-            <RNPickerSelect
-              placeholder={{}}
-              onValueChange={value => setState(value)}
-              items={state_list}
-              value={state}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingHorizontal: wp(4),
-                }}>
-                {state_list.map(
+            </RNPickerSelect> */}
+          {/* ) : ( */}
+          <RNPickerSelect
+            placeholder={{}}
+            onValueChange={value => setState(value)}
+            items={state_list}
+            value={state}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingHorizontal: wp(4),
+              }}>
+              {state === 'Pending' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.pending')}
+                </Text>
+              ) : state == 'Approved' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.approved')}
+                </Text>
+              ) : state == 'In Progress' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.inprogress')}
+                </Text>
+              ) : state === 'Completed' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.completed')}
+                </Text>
+              ) : state === 'Canceled' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.cancelled')}
+                </Text>
+              ) : state === 'Awaiting' ? (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.awaiting')}
+                </Text>
+              ) : (
+                <Text
+                  //key={item.value}
+                  style={{
+                    fontSize: 14,
+                    color: '#000',
+                    fontFamily: 'Montserrat-Medium',
+                  }}>
+                  {t('placeholders.settings.pending')}
+                </Text>
+              )}
+              {/* {state_list.map(
                   item =>
                     item.value === state && (
                       <Text
@@ -436,15 +551,15 @@ export default function EditPage({route, navigation}) {
                         {item.label}
                       </Text>
                     ),
-                )}
-                <Image
-                  source={require('../../assets/images/Downarrow.png')}
-                  resizeMode="contain"
-                  style={{height: hp(3), width: wp(5)}}
-                />
-              </View>
-            </RNPickerSelect>
-          )}
+                )} */}
+              <Image
+                source={require('../../assets/images/Downarrow.png')}
+                resizeMode="contain"
+                style={{height: hp(3), width: wp(5)}}
+              />
+            </View>
+          </RNPickerSelect>
+          {/* )} */}
           {/* <RNPickerSelect
             placeholder={{}}
             onValueChange={value => setState(value)}
@@ -781,7 +896,7 @@ export default function EditPage({route, navigation}) {
         ) : (
           <View />
         )} */}
-        {state == 'awaiting' && (
+        {state == t('placeholders.editpage.awaiting') && (
           <View>
             {serviceName.map((r, i) => (
               <View
@@ -829,7 +944,7 @@ export default function EditPage({route, navigation}) {
                     }}
                     value={r.description}
                     onChangeText={text => onchangeTextDesc(i, text)}
-                    placeholder="Description"
+                    placeholder={t('placeholders.editpage.Description')}
                   />
                 </View>
 
@@ -859,7 +974,7 @@ export default function EditPage({route, navigation}) {
                     }}
                     value={r.qty}
                     onChangeText={text => onchangeTextQty(i, text)}
-                    placeholder="Qty"
+                    placeholder={t('placeholders.editpage.Qty')}
                   />
 
                   <TextInput
@@ -873,7 +988,7 @@ export default function EditPage({route, navigation}) {
                     }}
                     value={r.unit_price}
                     onChangeText={text => onchangeTextUnit(i, text)}
-                    placeholder="Unit Price"
+                    placeholder={t('placeholders.editpage.unit_price')}
                   />
 
                   {i == 0 || i == 2 ? (
@@ -885,7 +1000,7 @@ export default function EditPage({route, navigation}) {
                       value="N/A"
                       // editable={i == 0 || i == 2 ? false : true}
                       onChangeText={text => onchangeTextWarrenty(i, text)}
-                      placeholder="Warrenty"
+                      placeholder={t('placeholders.editpage.warrenty')}
                     />
                   ) : (
                     <TextInput
@@ -900,7 +1015,7 @@ export default function EditPage({route, navigation}) {
                       value={r.warranty}
                       // editable={i == 0 || i == 2 ? false : true}
                       onChangeText={text => onchangeTextWarrenty(i, text)}
-                      placeholder="Warrenty"
+                      placeholder={t('placeholders.editpage.warrenty')}
                     />
                   )}
                 </View>
@@ -909,13 +1024,15 @@ export default function EditPage({route, navigation}) {
           </View>
         )}
 
-        {state == 'awaiting' ? (
+        {state == t('placeholders.editpage.awaiting') ? (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity
-              onPress={() => insertSomeThing('Service/Material/Visit Price')}
+              onPress={() =>
+                insertSomeThing(t('placeholders.editpage.serviceText'))
+              }
               style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
               <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
-                Add Row{' '}
+                {t('placeholders.editpage.addrow')}{' '}
               </Text>
             </TouchableOpacity>
             {serviceName.length > 3 && (
@@ -923,7 +1040,7 @@ export default function EditPage({route, navigation}) {
                 onPress={() => removeSomeThing('add')}
                 style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
                 <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
-                  Remove{' '}
+                  {t('placeholders.editpage.remove')}{' '}
                 </Text>
               </TouchableOpacity>
             )}

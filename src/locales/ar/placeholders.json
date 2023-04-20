@@ -1,126 +1,168 @@
 {
-    "home" :{
-        "title": "heading"
-    },
-    "auth":{
-        "login":"تسجيل الدخول",
-        "create":"إنشاء كلمة",
-        "password":"مرور",
-        "eightDigit":" ف   كلمة مرورك من 8 أحرف",
-        "confir_password":"ة المرور",
-        "bothpassword":"ن  تتطابق كلمتي المرور",
-        "createpassword":"ة مرور",
-        "forgotPassword":"ة المرور",
-        "mobileNumber":"قم هاتفك النقال للحصول على",
-        "otpVerified":" OTP للتحقق",
-        "enterMobileNumber":"أدخل رقم الموبايل",
-        "request_otp":"ة مرور لمرة واحدة O",
-        "Otp_verification":"التحقق بواسطة OTP",
-        "time_password":"سنرسل لك كلمة مرور لمرة واحدة ",
-        "thisNumber":"على  هذا الرقم الموبايل",
-        "otpENter":" ادخل رقم OTP",
-        "resendOtp":" إعادة إرسال رمز OTP",
-        "verify_oto":"التحقق من OTP",
-        "number":"رقم الهاتف النقال",
-        "update":"تحديث",
-        "enter_email":"أدخل بريدك الإلكتروني",
-        "number_add":"Add Your number (Iraq only)"
-    },
-    "homePage":{
-        "heading":"تسّوق عبر الإنترنت",
-        "seeMoreText":"إظهار المزيد",
-        "serachHeading":"ابحث عن منتجك",
-        "serviceHeading":"حدد خدمة الصيانة",
-        "serviceFirst":"Lorem Ipsum is simply dummy text",
-        "servicePrinting":"of the printing",
-        "dashbpard":"اللوحة الرئيسية",
-        "total_booking":"إجمالي الحجوزات",
-        "homeservices":"الخدمات المنزلية"
-    },
-    "address":{
-        "addAddress":"إضافة عنوان",
-        "newAddress":"عنوان جديد",
-        "enterThe_address":"يرجى إدخال العنوان"
-    },
-    "checkout":{
-        "textCheckout":"الدفع"
-    },
-    "order":{
-        "place_order":"إجراء الطلب",
-        "bookNow":"احجز الآن",
-        "pending":"Pending"
-    },
-    "cart":{
-        "cartHeading":"أضف إلى سلة التسوق",
-        "Name":"الاسم",
-        "quantity":"الكمية",
-        "price":"السعر",
-        "remove":"إزالة",
-        "location":"الموقع",
-        "service_provider":"حدد مزود الخدمة",
-        "no_data":"لا توجد بيانات ",
-        "email":"البريد الإلكتروني"
-    },
-    "bookingList":{
-        "listing":"قائمة الحجز ",
-        "productListing":"قائمة الحجز المنتج",
-        "email":"البريد الإلكتروني",
-        "mobile":"رقم الهاتف النقال",
-        "booking_date":"تاريخ الحجز",
-        "booking_status":"حالة الحجز",
-        "cancel":"إلغاء",
-        "image_uploaded":"الصور التي تم تحميلها والوصف",
-        "item":"العنصر",
-        "unit_price":"سعر الوحدة",
-        "Qty":"الكمية",
-        "amount":"المبلغ الإجمالي",
-        "method_payment":"طريقة الدفع ",
-        "servie_total":"إجمالي الخدمة",
-        "status_payment":"حالة الدفع",
-        "message":"عنوان",
-        "rate_us":"الرجاء تقييمنا",
-        "submit":"إرسال",
-        "booking":"الحجز"
-    },
-    "profile":{
-        "profileHeading":"الملف الشخصي",
-        "upload":"تحميل صورة",
-        "choose_picture":"اختر صورة ملفك الشخصي",
-        "take_photo":"التقط صورة",
-        "choose_librray":"اختر من مكتبة الصورة"
-    },
-    "language":{
-        "chose_language":"اختر اللغة",
-        "prefered_language":"اختر لغتك المفضّلة",
-        "select_language":"الرجاء اختيار لغتك"
-    },
-    "settings":{
-        "settings":"ضبط",
-        "logout":"تسجيل الخروج",
-        "servicelist":"قائمة حجز الخدمة",
-        "rate_alladin":"قيّم Alladin",
-        "about_alladin":"نبذة عن خدمة Alladin",
-        "seting_email":"راسلنا",
-        "shoppingOrder":"طلبات التسوق",
-        "language":"تغيير اللغة",
-        "our_price":"الأسعار",
-        "completed_request":"طلب مكتمل"
+  "home": {
+    "title": "heading"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "create": "إنشاء كلمة",
+    "password": "مرور",
+    "eightDigit": " ف   كلمة مرورك من 8 أحرف",
+    "confir_password": "ة المرور",
+    "bothpassword": "ن  تتطابق كلمتي المرور",
+    "createpassword": "ة مرور",
+    "forgotPassword": "ة المرور",
+    "mobileNumber": "قم هاتفك النقال للحصول على",
+    "otpVerified": " OTP للتحقق",
+    "enterMobileNumber": "أدخل رقم الموبايل",
+    "request_otp": "ة مرور لمرة واحدة O",
+    "Otp_verification": "التحقق بواسطة OTP",
+    "time_password": "سنرسل لك كلمة مرور لمرة واحدة ",
+    "thisNumber": "على  هذا الرقم الموبايل",
+    "otpENter": " ادخل رقم OTP",
+    "resendOtp": " إعادة إرسال رمز OTP",
+    "verify_oto": "التحقق من OTP",
+    "number": "رقم الهاتف النقال",
+    "update": "تحديث",
+    "enter_email": "أدخل بريدك الإلكتروني",
+    "number_add": "Add Your number (Iraq only)",
+    "notreg": "غير مسجل",
+    "signup": "اشتراك"
+  },
 
-    },
-    "rang":{
-        "date_range":" التاريخ RAG",
-        "apply":"تطبق",
-        "recent_booking":"الحجز الأخير",
-        "scrren_password":"أدخل البريد الإلكتروني الخاص بحسابك وسنرسل لك رمزًا لإعادة ضبط  كلمة المرور الخاصة بك",
-        "send":"إرسال",
-        "menu":"قائمة",
-        "Booking_detail":"Booking Detail",
-        "serve_name":"Services Name",
-        "service":"Services",
-        "uploadedimages":"User Upload images",
-        "address_detail":"Address Details",
-        "edit":"Edit",
-        "delete":"Delete Booking",
-        "edit_page":"Edit page "
-    }
+  "homePage": {
+    "heading": "تسّوق عبر الإنترنت",
+    "seeMoreText": "إظهار المزيد",
+    "serachHeading": "ابحث عن منتجك",
+    "serviceHeading": "حدد خدمة الصيانة",
+    "serviceFirst": "Lorem Ipsum is simply dummy text",
+    "servicePrinting": "of the printing",
+    "dashbpard": "اللوحة الرئيسية",
+    "total_booking": "إجمالي الحجوزات",
+    "homeservices": "الخدمات المنزلية"
+  },
+  "address": {
+    "addAddress": "إضافة عنوان",
+    "newAddress": "عنوان جديد",
+    "enterThe_address": "يرجى إدخال العنوان"
+  },
+  "checkout": {
+    "textCheckout": "الدفع"
+  },
+  "order": {
+    "place_order": "إجراء الطلب",
+    "bookNow": "احجز الآن",
+    "pending": "Pending"
+  },
+  "cart": {
+    "cartHeading": "أضف إلى سلة التسوق",
+    "Name": "الاسم",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "remove": "إزالة",
+    "location": "الموقع",
+    "service_provider": "حدد مزود الخدمة",
+    "no_data": "لا توجد بيانات ",
+    "email": "البريد الإلكتروني"
+  },
+  "bookingList": {
+    "listing": "قائمة الحجز ",
+    "productListing": "قائمة الحجز المنتج",
+    "email": "البريد الإلكتروني",
+    "mobile": "رقم الهاتف النقال",
+    "booking_date": "تاريخ الحجز",
+    "booking_status": "حالة الحجز",
+    "cancel": "إلغاء",
+    "image_uploaded": "الصور التي تم تحميلها والوصف",
+    "item": "العنصر",
+    "warrenty": "ضمان",
+    "Total": "المجموع",
+    "unit_price": "سعر الوحدة",
+    "Qty": "الكمية",
+    "amount": "المبلغ الإجمالي",
+    "method_payment": "طريقة الدفع ",
+    "servie_total": "إجمالي الخدمة",
+    "status_payment": "حالة الدفع",
+    "message": "عنوان",
+    "rate_us": "الرجاء تقييمنا",
+    "submit": "إرسال",
+    "booking": "الحجز"
+  },
+  "profile": {
+    "profileHeading": "الملف الشخصي",
+    "upload": "تحميل صورة",
+    "choose_picture": "اختر صورة ملفك الشخصي",
+    "take_photo": "التقط صورة",
+    "choose_librray": "اختر من مكتبة الصورة"
+  },
+  "language": {
+    "chose_language": "اختر اللغة",
+    "prefered_language": "اختر لغتك المفضّلة",
+    "select_language": "الرجاء اختيار لغتك"
+  },
+  "settings": {
+    "settings": "ضبط",
+    "logout": "تسجيل الخروج",
+    "servicelist": "قائمة حجز الخدمة",
+    "rate_alladin": "قيّم Alladin",
+    "about_alladin": "نبذة عن خدمة Alladin",
+    "seting_email": "راسلنا",
+    "shoppingOrder": "طلبات التسوق",
+    "language": "تغيير اللغة",
+    "our_price": "الأسعار",
+    "completed_request": "طلب مكتمل",
+    "pending": "قيد الانتظار",
+    "completed": "مكتمل",
+    "cancelled": "ألغيت",
+    "approved": "موافقة",
+    "inprogress": "في تَقَدم",
+    "awaiting": "في انتظا",
+    "viewall": "مشاهدة الكل"
+  },
+  "rang": {
+    "date_range": " التاريخ RAG",
+    "apply": "تطبق",
+    "recent_booking": "الحجز الأخير",
+    "scrren_password": "أدخل البريد الإلكتروني الخاص بحسابك وسنرسل لك رمزًا لإعادة ضبط  كلمة المرور الخاصة بك",
+    "send": "إرسال",
+    "menu": "قائمة",
+    "Booking_detail": "تفاصيل الحجز",
+    "serve_name": "اسم الخدمة",
+    "service": "Services",
+    "uploadedimages": "قام المستخدم بتحميل الصور",
+    "address_detail": "تفاصيل العنوان",
+    "edit": "يحرر",
+    "delete": "حذف الحجز",
+    "edit_page": "Edit page"
+  },
+
+  "bookingdetail": {
+    "servicename": "اسم الخدمة",
+    "serviceprice": "سعر الخدمة",
+    "discountprice": "سعر مخفض",
+    "edit": "يحرر",
+    "delbooking": "حذف الحجز"
+  },
+
+  "editpage": {
+    "heading": "تعديل الصفحة",
+    "bookingstatus": "تحديث الحالة",
+
+    "pending": "pending",
+    "completed": "completed",
+    "cancelled": "cancelled",
+    "approved": "approved",
+    "inprogress": "In Progress",
+    "awaiting": "awaiting",
+    "service": "خدمة",
+    "Description": "وصف",
+    "unit_price": "سعر الوحدة",
+    "Qty": "الكمية",
+    "warrenty": "ضمان",
+    "Visit": "فيزيت",
+    "material": "مادة",
+    "serviceText": "الخدمة / المواد / سعر الزيارة",
+    "remove": "إزالة",
+    "addrow": "اضف سطر",
+    "sessionExpire": "دانیشتنەکە بەسەرچوو تکایە دووبارە بچۆرەوە ژوورەوە"
+  }
 }

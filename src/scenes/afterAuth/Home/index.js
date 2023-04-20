@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   BackHandler,
   FlatList,
+  RefreshControl,
   Button,
   ScrollView,
 } from 'react-native';
@@ -42,7 +43,7 @@ import {
 import {DrawerActions} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {onALlBooking} from '../../../redux/Action/BookingAction';
 export default function Home({props, navigation}) {
   const [bookings, setBookings] = useState([
     {
@@ -144,10 +145,34 @@ export default function Home({props, navigation}) {
   const {loading} = useSelector(state => state.UserReducers);
   const [t, i18n] = useTranslation();
   const [checkstatus, setCheckstatus] = useState('false');
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     dispatch(onCountBooking(navigation));
+  //   }, 5000);
+  // }, []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      dispatch(onCountBooking(navigation));
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     dispatch(onCountBooking(navigation));
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(onCountBooking(navigation));
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
     return () => {
@@ -168,6 +193,16 @@ export default function Home({props, navigation}) {
     }
   }
 
+  const GetServiceData = (statusEnText, statusText) => {
+    console.log(statusText, 'PPPPPPPPPPPPPPP');
+    if (statusEnText == 'Cancelled') {
+      dispatch(onALlBooking('canceled', statusText, navigation));
+    } else {
+      dispatch(onALlBooking(statusEnText, statusText, navigation));
+    }
+    //dispatch(onALlBooking(statusEnText, statusText, navigation));
+    // dispatch(ServicesListing(statusText, navigation));
+  };
   console.log(checkstatus);
   useEffect(() => {
     checkStatus();
@@ -315,7 +350,11 @@ export default function Home({props, navigation}) {
           {t('placeholders.homePage.total_booking')} :{' '}
           {bookingCount?.countData[7]?.count}
         </Text>
-        <ScrollView style={{marginLeft: wp(1), height: 400, marginBottom: 100}}>
+        <ScrollView
+          style={{marginLeft: wp(1), height: 400, marginBottom: 100}}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }>
           <FlatList
             // data={bookings}
             data={bookingCount.countData}
@@ -325,11 +364,13 @@ export default function Home({props, navigation}) {
             renderItem={({item, index}) => (
               <View style={styles.bookingWrapper}>
                 <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('Booking', {
-                      BookingStatus: item.status_en,
-                    })
-                  }
+                  // onPress={() =>
+                  //   navigation.navigate('Booking', {
+                  //     BookingStatus: item.status,
+                  //     //  BookingStatus: item.status_en,
+                  //   })
+                  // }
+                  onPress={() => GetServiceData(item.status_en, item.status)}
                   style={{
                     height: hp(16),
                     width: wp(30),
@@ -355,7 +396,7 @@ export default function Home({props, navigation}) {
                     borderRadius: 4,
                     justifyContent: 'center',
                   }}>
-                  {item.status == 'Total' ? (
+                  {item.status == t('placeholders.bookingList.Total') ? (
                     <View></View>
                   ) : (
                     <>
@@ -368,7 +409,7 @@ export default function Home({props, navigation}) {
                     </>
                   )}
                 </TouchableOpacity>
-                {item.status == 'Total' ? (
+                {item.status == t('placeholders.bookingList.Total') ? (
                   <View />
                 ) : (
                   <Text style={styles.bookingTitleText}>{item.status}</Text>

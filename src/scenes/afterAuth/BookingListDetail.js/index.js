@@ -50,8 +50,8 @@ export default function BookingListDetail({route, navigation}) {
   const [saverate, setSaverate] = useState('');
   const [t] = useTranslation();
   console.log(
-    'Pendinglist[0]?.ServiceDetail?.id',
-    Pendinglist[0]?.ServiceDetail?.id,
+    'Pendinglist[0]?.ServiceDetail?.id>>>>>>',
+    Pendinglist[0]?.estimates.id,
   );
 
   const Invoice_Link = Pendinglist[0] && Pendinglist[0].invoice_link;
@@ -100,6 +100,7 @@ export default function BookingListDetail({route, navigation}) {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
+
         {
           text: 'OK',
           onPress: () =>
@@ -121,13 +122,13 @@ export default function BookingListDetail({route, navigation}) {
     //   actualprice1 = actualprice.substring(1);
     // }
 
-    if (Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0) {
+    if (Pendinglist[0] && Pendinglist[0]?.estimates.length > 0) {
       const initialValue = 0;
       const sumWithInitial =
         Pendinglist[0] &&
-        Pendinglist[0]?.estimate_item.reduce(
+        Pendinglist[0]?.estimates.reduce(
           (accumulator, currentValue) =>
-            accumulator + currentValue.item.unit_price * currentValue.item.qty,
+            accumulator + currentValue.unit_price * currentValue.qty,
           initialValue,
         );
       console.log(parseInt(actualprice), 'TOTALLLLLL');
@@ -420,7 +421,7 @@ export default function BookingListDetail({route, navigation}) {
             </View>
           </View>
         </View>
-        {Pendinglist[0]?.status === 'Completed' ? (
+        {Pendinglist[0]?.status === t('placeholders.settings.completed') ? (
           <View style={styles.topWrapper}>
             <View style={styles.topLeftNewWRapper}>
               <Text style={styles.heading}>
@@ -441,7 +442,9 @@ export default function BookingListDetail({route, navigation}) {
               <TouchableOpacity
                 onPress={() => Linking.openURL('https://' + Invoice_Link)}
                 style={styles.DownloadButton}>
-                <Text style={styles.downloadText}>Download</Text>
+                <Text style={styles.downloadText}>
+                  {t('placeholders.settings.completed')}
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.topLeftNewWRapper}>
@@ -457,7 +460,8 @@ export default function BookingListDetail({route, navigation}) {
                         ? '#f2ac00'
                         : Pendinglist[0]?.status === 'In Progress'
                         ? '#157dfc'
-                        : Pendinglist[0]?.status === 'Completed'
+                        : Pendinglist[0]?.status ===
+                          t('placeholders.settings.completed')
                         ? '#2ea749'
                         : Pendinglist[0]?.status === 'Cancelled'
                         ? '#da3348'
@@ -473,7 +477,8 @@ export default function BookingListDetail({route, navigation}) {
                           ? '#f2ac00'
                           : Pendinglist[0]?.status === 'In Progress'
                           ? '#157dfc'
-                          : Pendinglist[0]?.status === 'Completed'
+                          : Pendinglist[0]?.status ===
+                            t('placeholders.settings.completed')
                           ? '#2ea749'
                           : Pendinglist[0]?.status === 'Cancelled'
                           ? '#da3348'
@@ -514,7 +519,8 @@ export default function BookingListDetail({route, navigation}) {
                         ? '#f2ac00'
                         : Pendinglist[0]?.status === 'In Progress'
                         ? '#157dfc'
-                        : Pendinglist[0]?.status === 'Completed'
+                        : Pendinglist[0]?.status ===
+                          t('placeholders.settings.completed')
                         ? '#2ea749'
                         : Pendinglist[0]?.status === 'Cancelled'
                         ? '#da3348'
@@ -530,7 +536,8 @@ export default function BookingListDetail({route, navigation}) {
                           ? '#f2ac00'
                           : Pendinglist[0]?.status === 'In Progress'
                           ? '#157dfc'
-                          : Pendinglist[0]?.status === 'Completed'
+                          : Pendinglist[0]?.status ===
+                            t('placeholders.settings.completed')
                           ? '#2ea749'
                           : Pendinglist[0]?.status === 'Cancelled'
                           ? '#da3348'
@@ -545,9 +552,18 @@ export default function BookingListDetail({route, navigation}) {
         )}
 
         <View style={styles.serviesHeading}>
-          <Text style={styles.servicesText}> {'Service' + '\n' + 'Name'}</Text>
-          <Text style={styles.servicesText}> {'Service' + '\n' + 'Price'}</Text>
-          <Text style={styles.servicesText}>Discounted {'\n' + 'Price'}</Text>
+          <Text style={styles.servicesText}>
+            {' '}
+            {t('placeholders.bookingdetail.servicename')}
+          </Text>
+          <Text style={styles.servicesText}>
+            {' '}
+            {t('placeholders.bookingdetail.serviceprice')}
+          </Text>
+          <Text style={styles.servicesText}>
+            {' '}
+            {t('placeholders.bookingdetail.discountprice')}
+          </Text>
         </View>
 
         <View style={styles.productHeading}>
@@ -716,56 +732,74 @@ export default function BookingListDetail({route, navigation}) {
             );
           })}
 
-        {Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0 ? (
+        {Pendinglist[0] && Pendinglist[0]?.estimates.length > 0 ? (
           <View style={styles.EstimateservicesHeadingContainer}>
-            <Text style={styles.EstimateservicesHeading}>Service Name</Text>
-            <Text style={styles.EstimateservicesHeading}>Warrenty</Text>
+            <Text style={styles.EstimateservicesHeading}>
+              {' '}
+              {t('placeholders.bookingdetail.servicename')}
+            </Text>
+            <Text style={styles.EstimateservicesHeading}>
+              {' '}
+              {t('placeholders.bookingList.warrenty')}
+            </Text>
             {/* <Text style={styles.EstimateservicesHeading}>Desc</Text> */}
-            <Text style={styles.EstimateservicesHeading}>Qty</Text>
-            <Text style={styles.EstimateservicesHeading}>Unit Price</Text>
-            <Text style={styles.EstimateservicesHeading}>Total Amount</Text>
+            <Text style={styles.EstimateservicesHeading}>
+              {' '}
+              {t('placeholders.bookingList.Qty')}
+            </Text>
+            <Text style={styles.EstimateservicesHeading}>
+              {' '}
+              {t('placeholders.bookingList.unit_price')}
+            </Text>
+            <Text style={styles.EstimateservicesHeading}>
+              {' '}
+              {t('placeholders.bookingList.Total')}
+            </Text>
           </View>
         ) : (
           <View />
         )}
 
         {Pendinglist[0] &&
-          Pendinglist[0]?.estimate_item.length > 0 &&
-          Pendinglist[0]?.estimate_item.map(item => {
+          Pendinglist[0]?.estimates.length > 0 &&
+          Pendinglist[0]?.estimates.map(item => {
             return (
               <View>
                 <View style={styles.EstimateservicesHeadingContainer}>
                   <Text style={styles.EstimateServicesSubHeading}>
-                    {item.item.name}
+                    {item.name}
                   </Text>
 
                   <Text style={styles.EstimateServicesSubHeading}>
-                    {item.item.warranty == null ? 'N/A' : item.item.warranty}
+                    {item.warranty == null ? 'N/A' : item.warranty}
                   </Text>
 
                   {/* <Text style={styles.EstimateServicesSubHeading}>
                     {item.item.description}
                   </Text> */}
                   <Text style={styles.EstimateServicesSubHeading}>
-                    {item.item.qty}
+                    {item.qty}
                   </Text>
                   <Text style={styles.EstimateServicesSubHeading}>
-                    $ {item.item.unit_price}
+                    $ {item.unit_price}
                   </Text>
                   <Text style={styles.EstimateServicesSubHeading}>
-                    $ {item.item.unit_price * item.item.qty}
+                    $ {item.unit_price * item.qty}
                   </Text>
                 </View>
               </View>
             );
           })}
-        {Pendinglist[0] && Pendinglist[0]?.estimate_item.length > 0 && (
+        {Pendinglist[0] && Pendinglist[0]?.estimates.length > 0 && (
           <View>
             <View style={styles.EstimateservicesHeadingContainer}>
               <Text style={styles.EstimateServicesSubHeading}></Text>
               <Text style={styles.EstimateServicesSubHeading}></Text>
               <Text style={styles.EstimateServicesSubHeading}></Text>
-              <Text style={styles.EstimateServicesSubHeading}> Total : </Text>
+              <Text style={styles.EstimateServicesSubHeading}>
+                {' '}
+                {t('placeholders.bookingList.Total')} :{' '}
+              </Text>
               <Text style={styles.EstimateServicesSubHeading}>
                 ${' '}
                 {setTotalCount(
@@ -939,8 +973,9 @@ export default function BookingListDetail({route, navigation}) {
 
                 </View> */}
 
-        {Pendinglist[0]?.status === 'Cancelled' ||
-        Pendinglist[0]?.status === 'Completed' ? null : (
+        {Pendinglist[0]?.status === 'Canceled' ||
+        Pendinglist[0]?.status ===
+          t('placeholders.settings.completed') ? null : (
           <View style={styles.editDeleteWRapper}>
             <TouchableOpacity
               onPress={() =>
@@ -973,7 +1008,7 @@ export default function BookingListDetail({route, navigation}) {
           'Pendinglist[0]?.ratings',
           Pendinglist[0]?.ratings == '' ? 0 : Pendinglist[0]?.ratings[0].rating,
         )}
-        {Pendinglist[0]?.status === 'Completed' ? (
+        {Pendinglist[0]?.status === t('placeholders.settings.completed') ? (
           <View>
             <Rating
               tintColor="#dfdfdf"
@@ -1006,7 +1041,7 @@ export default function BookingListDetail({route, navigation}) {
                   color: '#fff',
                   fontFamily: 'Montserrat-Regular',
                 }}>
-                Submit
+                {t('placeholders.bookingList.submit')}
               </Text>
             </TouchableOpacity>
           </View>

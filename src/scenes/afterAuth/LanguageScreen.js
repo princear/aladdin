@@ -16,6 +16,7 @@ import {
   AllLangugae,
   ParticularLangugae,
 } from '../../redux/Action/langugaeAction';
+import {onCountBooking, RecentBookings} from '../../redux/Action/BookingAction';
 import {useTranslation} from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -53,6 +54,9 @@ export default function LanguageScreen({props, navigation}) {
     setType(id);
     changeLanguage(code);
     dispatch(ParticularLangugae({language_id: id}, navigation));
+
+    dispatch(onCountBooking(navigation));
+
     // RNRestart.Restart();
   };
   const [t, i18n] = useTranslation();
@@ -64,6 +68,11 @@ export default function LanguageScreen({props, navigation}) {
   useEffect(() => {
     dispatch(AllLangugae(navigation));
   }, []);
+
+  useEffect(() => {
+    dispatch(onCountBooking(navigation));
+  }, []);
+
   async function updatecheckstatus() {
     const status = await AsyncStorage.getItem('long');
     console.log('=======dddd=======>', status);

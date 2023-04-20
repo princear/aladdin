@@ -136,7 +136,7 @@ const DrawerContent = ({props, navigation}) => {
 
 
         </TouchableOpacity> */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[
             styles.bookingWrapper,
             {backgroundColor: active === 'Bookings' ? '#9066e6' : '#fff'},
@@ -157,7 +157,7 @@ const DrawerContent = ({props, navigation}) => {
             resizeMode="contain"
             style={styles.bookingImage}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           style={[

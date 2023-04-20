@@ -25,9 +25,9 @@ export default function Booking({props, navigation, route}) {
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
 
-  const [bookingstatus, setBookingStatus] = useState(
-    route.params.BookingStatus,
-  );
+  // const [bookingstatus, setBookingStatus] = useState(
+  //   route.params.BookingStatus,
+  // );
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -41,17 +41,54 @@ export default function Booking({props, navigation, route}) {
     showMode('date');
   };
   const {loading} = useSelector(state => state.UserReducers);
+  const [t] = useTranslation();
 
-  const [state, setState] = useState(bookingstatus);
+  const [state, setState] = useState(route.params.Bookingstatus);
+  const [state1, setState1] = useState(route.params.Bookingstatus1);
+
+  console.log(
+    state,
+    'statestatestatestatestate',
+    route.params.Bookingstatus,
+    route.params.Bookingstatus1,
+  );
   //  const [state, setState] = useState(' View All');
   const state_list = [
-    {label: ' View All', value: ' View All'},
-    {label: 'Pending', value: 'Pending'},
-    {label: 'Completed', value: 'Completed'},
-    {label: 'In Progress', value: 'In Progress'},
-    {label: 'Cancelled', value: 'Cancelled'},
-    {label: 'Approved', value: 'Approved'},
-    {label: 'Awaiting', value: 'Awaiting'},
+    // {
+    //   label: t('placeholders.settings.viewall'),
+    //   value: 'View all',
+    // },
+    {
+      label: t('placeholders.settings.pending'),
+      //label: 'pending',
+      //  value: t('placeholders.settings.pending'),
+      value: 'Pending',
+    },
+    {
+      label: t('placeholders.settings.completed'),
+      value: 'Completed',
+      //value: t('placeholders.settings.completed'),
+    },
+    {
+      label: t('placeholders.settings.inprogress'),
+      value: 'In Progress',
+      //value: t('placeholders.settings.inprogress'),
+    },
+    {
+      label: t('placeholders.settings.cancelled'),
+      value: 'Canceled',
+      //value: t('placeholders.settings.cancelled'),
+    },
+    {
+      label: t('placeholders.settings.approved'),
+      value: 'Approved',
+      //value: t('placeholders.settings.approved'),
+    },
+    {
+      label: t('placeholders.settings.awaiting'),
+      value: 'Awaiting',
+      //value: t('placeholders.settings.awaiting'),
+    },
   ];
 
   const dispatch = useDispatch();
@@ -65,11 +102,15 @@ export default function Booking({props, navigation, route}) {
     // } else {
     //   setBookingStatus(route.params.BookingStatus);
     // }
+    //  setBookingStatus(route.params.BookingStatus);
+    dispatch(onALlBooking(state, route.params.Bookingstatus1, navigation));
+  }, [state, state1]);
 
-    dispatch(onALlBooking(navigation));
-  }, [bookingstatus]);
-  const [t] = useTranslation();
+  // useEffect(() => {
+  //   setState(route.params.BookingStatus);
+  // }, [state]);
 
+  // console.log(bookingstatus, 'console.log(bookingstatus)');
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
@@ -131,20 +172,71 @@ export default function Booking({props, navigation, route}) {
               justifyContent: 'space-between',
               paddingHorizontal: wp(4),
             }}>
-            {state_list.map(
-              item =>
-                item.value === state && (
-                  <Text
-                    key={item.value}
-                    style={{
-                      fontSize: 14,
-                      color: '#000',
-                      fontFamily: 'Montserrat-Medium',
-                    }}>
-                    {item.label}
-                  </Text>
-                ),
+            {state == 'Pending' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.pending')}
+              </Text>
+            ) : state == 'Completed' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.completed')}
+              </Text>
+            ) : state == 'Awaiting' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.awaiting')}
+              </Text>
+            ) : state == 'Approved' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.approved')}
+              </Text>
+            ) : state == 'Cancelled' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.cancelled')}
+              </Text>
+            ) : state == 'In Progress' ? (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {t('placeholders.settings.inprogress')}
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000',
+                  fontFamily: 'Montserrat-Medium',
+                }}>
+                {state}
+              </Text>
             )}
+
             <Image
               source={require('../../../assets/images/Downarrow.png')}
               resizeMode="contain"
@@ -171,410 +263,66 @@ export default function Booking({props, navigation, route}) {
         />
       )}
 
-      {state === ' View All' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('BookingListDetail', {
-                    bookingId: item.id,
-                  })
-                }
-                style={styles.bookingWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <View style={styles.imagebackgroundwrappper}>
-                    <Image
-                      source={require('../../../assets/images/userProfile.png')}
-                      style={styles.imageBox}
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <View style={styles.bookingTopWrapper}>
-                    <Text style={styles.bookingLeftText}>
-                      Booking #{item.id}
-                    </Text>
-                    <Text style={styles.bookingBottomText}>
-                      {item.service_name}
-                    </Text>
-                  </View>
-                  <View
-                    style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                    <Text style={styles.bookingLeftText}>{item.date}</Text>
-                  </View>
+      <FlatList
+        key={'_'}
+        keyExtractor={item => '_' + item.id}
+        data={bookingList.data}
+        horizontal={false}
+        renderItem={({item, index}) => (
+          <>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('BookingListDetail', {
+                  bookingId: item.id,
+                })
+              }
+              style={styles.bookingWrapper}>
+              <View style={styles.leftImageWrapper}>
+                <View style={styles.imagebackgroundwrappper}>
+                  <Image
+                    source={require('../../../assets/images/userProfile.png')}
+                    style={styles.imageBox}
+                    resizeMode="contain"
+                  />
                 </View>
-                <View
-                  style={[
-                    styles.approvedWrapper,
-                    {
-                      backgroundColor:
-                        item.status === 'Pending'
-                          ? '#f2ac00'
-                          : item.status == 'Cancelled'
-                          ? '#da3348'
-                          : item.status == 'Completed'
-                          ? '#2ea749'
-                          : item.status == 'Approved'
-                          ? '#157dfc'
-                          : item.status == 'In Progress'
-                          ? '#157dfc'
-                          : item.status == 'Awaiting'
-                          ? '#ff8c00'
-                          : null,
-                    },
-                  ]}>
-                  <Text style={styles.approvedText}>{item.status}</Text>
+                <View style={styles.bookingTopWrapper}>
+                  <Text style={styles.bookingLeftText}>
+                    {t('placeholders.bookingList.booking')} #{item.id}
+                  </Text>
+                  <Text style={styles.bookingBottomText}>
+                    {item.service_name}
+                  </Text>
                 </View>
-              </TouchableOpacity>
-            </>
-          )}
-        />
-      ) : state === 'Pending' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {item.status === state ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#f2ac00'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : state === 'Cancelled' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {state === item.status ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#da3348'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : state === 'Completed' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {item.status === state ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#2ea749'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {/* {item.status} */}
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : state === 'In Progress' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {item.status === state ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#157dfc'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : state === 'Approved' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {item.status === state ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#157dfc'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : state === 'Awaiting' ? (
-        <FlatList
-          key={'_'}
-          keyExtractor={item => '_' + item.id}
-          data={bookingList.data}
-          horizontal={false}
-          renderItem={({item, index}) => (
-            <>
-              {item.status === state ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('BookingListDetail', {
-                      bookingId: item.id,
-                    })
-                  }
-                  style={styles.bookingWrapper}>
-                  <View style={styles.leftImageWrapper}>
-                    <View style={styles.imagebackgroundwrappper}>
-                      <Image
-                        source={require('../../../assets/images/userProfile.png')}
-                        style={styles.imageBox}
-                        resizeMode="contain"
-                      />
-                    </View>
-                    <View style={styles.bookingTopWrapper}>
-                      <Text style={styles.bookingLeftText}>
-                        Booking #{item.id}
-                      </Text>
-                      <Text style={styles.bookingBottomText}>
-                        {item.service_name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
-                      <Text style={styles.bookingLeftText}>{item.date}</Text>
-                    </View>
-                  </View>
-
-                  <View
-                    style={[
-                      styles.approvedWrapper,
-                      {backgroundColor: '#ff8c00'},
-                    ]}>
-                    <Text style={styles.approvedText}>
-                      {item.status === state ? item.status : null}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ) : null}
-            </>
-          )}
-        />
-      ) : null}
-
-      {/* <TouchableOpacity style={styles.resetButtonWrapper}>
-                <Text style={styles.resetTextWrapper}>Reset</Text>
-            </TouchableOpacity> */}
-      {/* <View style={styles.selectedHeading}>
-                <Text style={styles.selectedText}>0 Booking Selected</Text>
-            </View> */}
-      {/* <View style={{ flexDirection: 'row', marginHorizontal: wp(5) }}>
-                <View style={{ backgroundColor: WHITE, width: wp(54), marginTop: hp(2) }}>
-                    <RNPickerSelect
-                        placeholder={{ label: "Select Customer: View All", value: '' }}
-                        onValueChange={(value) => { setServices(value); }}
-                        items={[
-                            { label: 'Pending', value: 'Pending' },
-                            { label: 'Approved', value: 'Approved' },
-                            { label: 'Cancel', value: 'Cancel' },
-                        ]}
-                        style={styles.pickerStyle}
-                    />
+                <View style={{justifyContent: 'flex-start', marginTop: -hp(4)}}>
+                  <Text style={styles.bookingLeftText}>{item.date}</Text>
                 </View>
-                <TouchableOpacity style={styles.statusChangeWrapper}>
-                    <Text style={styles.statusChangeText}>Change Status</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={{ marginTop: hp(2), marginHorizontal: wp(5) }}>
-                <Text style={{ fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: BLACK }}>Click booking to select it</Text>
-
-            </View> */}
+              </View>
+              <View
+                style={[
+                  styles.approvedWrapper,
+                  {
+                    backgroundColor:
+                      item.status_en === 'pending'
+                        ? '#f2ac00'
+                        : item.status_en == 'canceled'
+                        ? '#da3348'
+                        : item.status_en == 'completed'
+                        ? '#2ea749'
+                        : item.status_en == 'approved'
+                        ? '#23a2b7'
+                        : item.status_en == 'in progress'
+                        ? '#157dfc'
+                        : item.status_en == 'awaiting'
+                        ? '#ff8c00'
+                        : null,
+                  },
+                ]}>
+                <Text style={styles.approvedText}>{item.status}</Text>
+              </View>
+            </TouchableOpacity>
+          </>
+        )}
+      />
     </View>
   );
 }
