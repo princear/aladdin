@@ -72,6 +72,7 @@ export default function SelectArea({route, navigation}) {
     setdata(locationsShowed);
   }, [locationsShowed]);
   // const arrayServices = [];
+  
   const onValueChange = (itemSelected, index) => {
     const newdata = data.map(item => {
       if (item.id == itemSelected.id) {

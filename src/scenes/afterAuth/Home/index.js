@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,7 +13,7 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import {BLACK, GREY_6C, LIGHT_BLUE, WHITE} from '../../styles/color';
+import { BLACK, GREY_6C, LIGHT_BLUE, WHITE } from '../../styles/color';
 import {
   HOME_HEADING,
   SPLASH,
@@ -32,106 +32,26 @@ import {
   MONTSERRAT_BOLD,
   MONTSERRAT_REGULAR,
 } from '../../styles/typography';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   onCountBooking,
   RecentBookings,
 } from '../../../redux/Action/BookingAction';
-import {DrawerActions} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
+import { DrawerActions } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {onALlBooking} from '../../../redux/Action/BookingAction';
-export default function Home({props, navigation}) {
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      color: '#2ea749',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'Completed Booking',
-      number: '100',
-    },
-    {
-      id: 2,
-      color: '#f2ac00',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'Pending Booking',
-      number: '50',
-    },
-    {
-      id: 3,
-      color: '#23a2b7',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'Approved Booking',
-      number: '5',
-    },
-    {
-      id: 4,
-      color: '#157dfc',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'In Progress Booking',
-      number: '140',
-    },
-    {
-      id: 5,
-      color: '#da3348',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'Cancelled Booking',
-      number: '21',
-    },
-    {
-      id: 6,
-      color: '#6c757d',
-      image: require('../../../assets/images/WalkInBookings.png'),
-      title: 'Walk-In Booking',
-      number: '1',
-    },
-    {
-      id: 7,
-      color: '#23a2b7',
-      image: require('../../../assets/images/Booking.png'),
-      title: 'Online Booking',
-      number: '32',
-    },
-    {
-      id: 8,
-      color: '#343a40',
-      image: require('../../../assets/images/TotalCustomers.png'),
-      title: 'Total Customers',
-      number: '425',
-    },
-    {
-      id: 9,
-      color: '#2ea749',
-      image: require('../../../assets/images/TotalEarnings.png'),
-      title: 'Total Earings',
-      number: '1200',
-    },
-  ]);
-  const [listing, setListing] = useState([
-    {
-      id: 1,
-      image: require('../../../assets/images/user.jpg'),
-      number: '+91-9874563210',
-      email: 'nitika@delimp.com',
-      content:
-        'IF8 6Kg 5 Star Aqua Energie , Laundry Add, Tub Clean, Fully Automatic Front Load With in-built Heater White (Diva Aqua VX)#JustHere x 1',
-      date: '2022-02-04',
-      time: '11:30 Pm',
-    },
-    {
-      id: 2,
-      image: require('../../../assets/images/user.jpg'),
-      number: '+91-9874563210',
-      email: 'abc@delimp.com',
-      content:
-        'IF8 6Kg 5 Star Aqua Energie , Laundry Add, Tub Clean, Fully Automatic Front Load With in-built Heater White (Diva Aqua VX)#JustHere x 1',
-      date: '2022-02-04',
-      time: '11:30 Pm',
-    },
-  ]);
+import { onALlBooking } from '../../../redux/Action/BookingAction';
+
+
+export default function Home({ props, navigation }) {
+
+
+
+
+
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());
   const [show, setShow] = useState(false);
@@ -142,24 +62,12 @@ export default function Home({props, navigation}) {
   const recentBookings = useSelector(
     state => state.COUNTBOOKINGREDUCER.recentBookingData,
   );
-  const {loading} = useSelector(state => state.UserReducers);
+  const { loading } = useSelector(state => state.UserReducers);
   const [t, i18n] = useTranslation();
   const [checkstatus, setCheckstatus] = useState('false');
   const [refreshing, setRefreshing] = React.useState(false);
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     dispatch(onCountBooking(navigation));
-  //   }, 5000);
-  // }, []);
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      dispatch(onCountBooking(navigation));
-      setRefreshing(false);
-    }, 2000);
-  }, []);
 
   useEffect(() => {
     dispatch(onCountBooking(navigation));
@@ -183,7 +91,18 @@ export default function Home({props, navigation}) {
     };
   }, []);
 
-  async function checkStatus() {
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      dispatch(onCountBooking(navigation));
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+
+
+  const checkStatus = async () => {
     const status = await AsyncStorage.getItem('long');
     // console.log('=======dddd=======>', status);
     setCheckstatus(status);
@@ -200,10 +119,11 @@ export default function Home({props, navigation}) {
     } else {
       dispatch(onALlBooking(statusEnText, statusText, navigation));
     }
-    //dispatch(onALlBooking(statusEnText, statusText, navigation));
-    // dispatch(ServicesListing(statusText, navigation));
+   
   };
-  console.log(checkstatus);
+  
+
+
   useEffect(() => {
     checkStatus();
   }, [bookingCount?.countData]);
@@ -213,6 +133,7 @@ export default function Home({props, navigation}) {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
+
   const onChange2 = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShowFix(Platform.OS === 'ios');
@@ -235,7 +156,8 @@ export default function Home({props, navigation}) {
   const showDatepicker2 = () => {
     showMode2('date');
   };
-  function handleBackButtonClick() {
+
+  const handleBackButtonClick = () => {
     // navigation.isFocused() helps to exit the app on this component rather than in whole app.
     if (navigation.isFocused()) {
       BackHandler.exitApp();
@@ -286,7 +208,7 @@ export default function Home({props, navigation}) {
         </View>
       )}
 
-      <View contentContainerStyle={{paddingBottom: hp(2)}}>
+      <View contentContainerStyle={{ paddingBottom: hp(2) }}>
         <View style={styles.dateHeadingWrapper}>
           <Text style={styles.dateHeading}>
             {t('placeholders.rang.date_range')}
@@ -351,77 +273,81 @@ export default function Home({props, navigation}) {
           {bookingCount?.countData[7]?.count}
         </Text>
         <ScrollView
-          style={{marginLeft: wp(1), height: 400, marginBottom: 100}}
+          horizontal={true}
+          style={{ marginLeft: wp(1), height: 400, marginBottom: 100 }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }>
-          <FlatList
-            // data={bookings}
-            data={bookingCount.countData}
-            keyExtractor={(item, index) => index}
-            // horizontal={false}
-            numColumns={3}
-            renderItem={({item, index}) => (
-              <View style={styles.bookingWrapper}>
-                <TouchableOpacity
-                  // onPress={() =>
-                  //   navigation.navigate('Booking', {
-                  //     BookingStatus: item.status,
-                  //     //  BookingStatus: item.status_en,
-                  //   })
-                  // }
-                  onPress={() => GetServiceData(item.status_en, item.status)}
-                  style={{
-                    height: hp(16),
-                    width: wp(30),
-                    backgroundColor:
-                      item.status_en === 'Pending'
-                        ? '#f2ac00'
-                        : item.status_en == 'Approved'
-                        ? '#23a2b7'
-                        : item.status_en == 'In Progress'
-                        ? '#157dfc'
-                        : item.status_en === 'Completed'
-                        ? '#2ea749'
-                        : item.status_en === 'Cancelled'
-                        ? '#da3348'
-                        : // : item.status_en === 'Total'
-                        // ? '#343a40'
-                        item.status_en === 'Blank Status'
-                        ? '#c2c2c2'
-                        : item.status_en === 'Awaiting'
-                        ? '#ff8c00'
-                        : null,
-                    alignItems: 'center',
-                    borderRadius: 4,
-                    justifyContent: 'center',
-                  }}>
+          <View>
+            <FlatList
+
+              // data={bookings}
+              data={bookingCount.countData}
+              keyExtractor={(item, index) => index}
+              // horizontal={false}
+              numColumns={3}
+              renderItem={({ item, index }) => (
+                <View style={styles.bookingWrapper}>
+                  <TouchableOpacity
+                    // onPress={() =>
+                    //   navigation.navigate('Booking', {
+                    //     BookingStatus: item.status,
+                    //     //  BookingStatus: item.status_en,
+                    //   })
+                    // }
+                    onPress={() => GetServiceData(item.status_en, item.status)}
+                    style={{
+                      height: hp(16),
+                      width: wp(30),
+                      backgroundColor:
+                        item.status_en === 'Pending'
+                          ? '#f2ac00'
+                          : item.status_en == 'Approved'
+                            ? '#23a2b7'
+                            : item.status_en == 'In Progress'
+                              ? '#157dfc'
+                              : item.status_en === 'Completed'
+                                ? '#2ea749'
+                                : item.status_en === 'Cancelled'
+                                  ? '#da3348'
+                                  : // : item.status_en === 'Total'
+                                  // ? '#343a40'
+                                  item.status_en === 'Blank Status'
+                                    ? '#c2c2c2'
+                                    : item.status_en === 'Awaiting'
+                                      ? '#ff8c00'
+                                      : null,
+                      alignItems: 'center',
+                      borderRadius: 4,
+                      justifyContent: 'center',
+                    }}>
+                    {item.status == t('placeholders.bookingList.Total') ? (
+                      <View></View>
+                    ) : (
+                      <>
+                        <Image
+                          source={require('../../../assets/images/Booking.png')}
+                          resizeMode="contain"
+                          style={styles.bookingImage}
+                        />
+                        <Text style={styles.bookingCountText}>{item.count}</Text>
+                      </>
+                    )}
+                  </TouchableOpacity>
                   {item.status == t('placeholders.bookingList.Total') ? (
-                    <View></View>
+                    <View />
                   ) : (
-                    <>
-                      <Image
-                        source={require('../../../assets/images/Booking.png')}
-                        resizeMode="contain"
-                        style={styles.bookingImage}
-                      />
-                      <Text style={styles.bookingCountText}>{item.count}</Text>
-                    </>
+                    <Text style={styles.bookingTitleText}>{item.status}</Text>
                   )}
-                </TouchableOpacity>
-                {item.status == t('placeholders.bookingList.Total') ? (
-                  <View />
-                ) : (
-                  <Text style={styles.bookingTitleText}>{item.status}</Text>
-                )}
-              </View>
-            )}
-          />
-          <View style={{height: 50}}></View>
+                </View>
+              )}
+            />
+          </View>
+          <View style={{ height: 50 }}></View>
         </ScrollView>
 
         <View>
-          <View style={{marginBottom: hp(2)}}>
+          <View style={{ marginBottom: hp(2) }}>
             {recentBookings.data && (
               <Text style={styles.recentBookingText}>
                 {t('placeholders.rang.recent_booking')}:{' '}
@@ -434,7 +360,7 @@ export default function Home({props, navigation}) {
               keyExtractor={(item, index) => index}
               // horizontal={false}
               numColumns={1}
-              renderItem={({item, index}) => (
+              renderItem={({ item, index }) => (
                 <View style={styles.recentWrapper}>
                   <View style={styles.recentLeftWrapper}>
                     <Image
@@ -476,14 +402,14 @@ export default function Home({props, navigation}) {
                               item.status == 'Pending'
                                 ? '#f2ac00'
                                 : item.status == 'Approved'
-                                ? '#23a2b7'
-                                : item.status == 'In Progress'
-                                ? '#157dfc'
-                                : item.status === 'Completed'
-                                ? '#2ea749'
-                                : item.status === 'Cancelled'
-                                ? '#da3348'
-                                : null,
+                                  ? '#23a2b7'
+                                  : item.status == 'In Progress'
+                                    ? '#157dfc'
+                                    : item.status === 'Completed'
+                                      ? '#2ea749'
+                                      : item.status === 'Cancelled'
+                                        ? '#da3348'
+                                        : null,
                           },
                         ]}>
                         <Text style={styles.statusText}>{item.status}</Text>
@@ -506,8 +432,8 @@ export default function Home({props, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#f7f5f1'},
-  containerText: {fontSize: 27, color: '#000'},
+  container: { flex: 1, backgroundColor: '#f7f5f1' },
+  containerText: { fontSize: 27, color: '#000' },
   headerWrapper: {
     backgroundColor: '#9066e6',
     paddingVertical: hp(1),
@@ -515,16 +441,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerFlex: {flexDirection: 'row', alignItems: 'center'},
+  headerFlex: { flexDirection: 'row', alignItems: 'center' },
   headerLeftImage: {
     height: hp(5),
     width: wp(10),
     marginRight: wp(6),
     marginLeft: wp(2),
   },
-  headerText: {fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD},
-  dateHeadingWrapper: {marginTop: hp(2), marginHorizontal: wp(5)},
-  dateHeading: {fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: BLACK},
+  headerText: { fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD },
+  dateHeadingWrapper: { marginTop: hp(2), marginHorizontal: wp(5) },
+  dateHeading: { fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: BLACK },
   dateWrapper: {
     marginTop: hp(2),
     backgroundColor: WHITE,
@@ -555,7 +481,7 @@ const styles = StyleSheet.create({
     marginVertical: hp(2),
     alignSelf: 'center',
   },
-  applyText: {fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: WHITE},
+  applyText: { fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: WHITE },
   totalBookingText: {
     fontSize: 14,
     marginLeft: wp(3),
@@ -568,7 +494,7 @@ const styles = StyleSheet.create({
     marginLeft: wp(2),
     marginTop: hp(1),
   },
-  bookingImage: {height: hp(5), width: wp(10)},
+  bookingImage: { height: hp(5), width: wp(10) },
   bookingCountText: {
     color: '#fff',
     fontSize: 15,
@@ -606,9 +532,9 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: '#c2c2c2',
   },
-  recentLeftImage: {width: wp(30), height: wp(15)},
-  recentleftEmail: {fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK},
-  recentRightWrapper: {width: wp(58), paddingHorizontal: wp(1)},
+  recentLeftImage: { width: wp(30), height: wp(15) },
+  recentleftEmail: { fontFamily: MONTSERRAT_REGULAR, fontSize: 12, color: BLACK },
+  recentRightWrapper: { width: wp(58), paddingHorizontal: wp(1) },
   recentHeading: {
     fontFamily: MONTSERRAT_REGULAR,
     fontSize: 10,
@@ -621,7 +547,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  recentRightImage: {height: hp(3), width: wp(6), marginLeft: wp(1)},
+  recentRightImage: { height: hp(3), width: wp(6), marginLeft: wp(1) },
   recentRightDateText: {
     fontFamily: MONTSERRAT_REGULAR,
     fontSize: 10,
@@ -641,5 +567,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  statusText: {color: WHITE, fontSize: 11, fontFamily: MONTSERRAT_BOLD},
+  statusText: { color: WHITE, fontSize: 11, fontFamily: MONTSERRAT_BOLD },
 });

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,29 +11,29 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import {MONTSERRAT_BOLD} from '../../styles/typography';
+import { MONTSERRAT_BOLD } from '../../styles/typography';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ARROW_WHITE, DOWN_ARROW} from '../../../assets/icon';
-import {useDispatch, useSelector} from 'react-redux';
+import { ARROW_WHITE, DOWN_ARROW } from '../../../assets/icon';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   particularBookingId,
   cancelBooking,
   deleteBooking,
 } from '../../../redux/Action/BookingAction';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {request, PERMISSIONS} from 'react-native-permissions';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { request, PERMISSIONS } from 'react-native-permissions';
 import Lightbox from 'react-native-lightbox';
-import {useTranslation} from 'react-i18next';
-import {Rating, AirbnbRating} from 'react-native-ratings';
+import { useTranslation } from 'react-i18next';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import {
   AvaerageRatingService,
   RatingServices,
 } from '../../../redux/Action/notificationAction';
 
-export default function BookingListDetail({route, navigation}) {
+export default function BookingListDetail({ route, navigation }) {
   const dispatch = useDispatch();
 
   // const mapRef = React.createRef();
@@ -46,7 +46,7 @@ export default function BookingListDetail({route, navigation}) {
   );
 
   console.log('averageRatingNEWWWWWWW', averageRating);
-  const {loading} = useSelector(state => state.UserReducers);
+  const { loading } = useSelector(state => state.UserReducers);
   const [saverate, setSaverate] = useState('');
   const [t] = useTranslation();
   console.log(
@@ -60,10 +60,14 @@ export default function BookingListDetail({route, navigation}) {
     'Invoice_LinkInvoice_LinkInvoice_LinkInvoice_LinkInvoice_Link',
   );
   const ratingFunction = serviceId => {
-    console.log('serviceIdRATINGGGGGGGGGGGGGGG', serviceId);
+    console.log(
+      'serviceIdRATINGGGGGGGGGGGGGGG',
+      serviceId,
+      route.params.bookingId,
+    );
     dispatch(
       AvaerageRatingService(
-        {service_id: serviceId, booking_id: route.params.bookingId},
+        { service_id: serviceId, booking_id: route.params.bookingId },
         navigation,
       ),
     );
@@ -73,7 +77,7 @@ export default function BookingListDetail({route, navigation}) {
     const booking_id = route.params.bookingId;
     setSaverate(Pendinglist[0]?.ServiceDetail?.id);
     dispatch(particularBookingId(booking_id, navigation)).then(res => {
-      console.log(res, 'resresresresres');
+      console.log(res, 'resresresresres>>>>>>>>>>>>>');
       if (res.status == 1) {
         console.log('Status1');
         ratingFunction(res.data[0]?.ServiceDetail?.id);
@@ -164,14 +168,14 @@ export default function BookingListDetail({route, navigation}) {
             <View
               activeOpacity={0.5}
               key={item}
-              // onPress={() => rating( item )}
+            // onPress={() => rating( item )}
             >
               <Image
                 style={styles.starImgStyle}
                 source={
                   item <= ratingResult
-                    ? {uri: starImagFilled}
-                    : {uri: starImgCorner}
+                    ? { uri: starImagFilled }
+                    : { uri: starImgCorner }
                 }
               />
             </View>
@@ -185,6 +189,9 @@ export default function BookingListDetail({route, navigation}) {
   const [selectlonguitude, setSelectlonguitude] = useState('');
   const [showRating, setShowRating] = useState(0);
 
+  //console.log( Pendinglist[0]?.address,' Pendinglist[0]?.address Pendinglist[0]?.address Pendinglist[0]?.address')
+
+
   const [state, setstate] = useState({
     coordinate: {
       latitude:
@@ -194,7 +201,7 @@ export default function BookingListDetail({route, navigation}) {
       longitude:
         Pendinglist[0]?.address == null
           ? 77.3147
-          : Pendinglist[0]?.address?.lat,
+          : Pendinglist[0]?.address?.long,
       // latitude: 28.58364,
       // longitude: 77.3147,
     },
@@ -204,7 +211,7 @@ export default function BookingListDetail({route, navigation}) {
   const handleUserLocation = () => {
     const latitude = userLocation.latitude;
     const longitude = userLocation.longitude;
-    setstate({latitude, longitude});
+    setstate({ latitude, longitude });
     console.log('mapRef', mapRef);
     mapRef.current.animateToRegion(
       {
@@ -224,7 +231,7 @@ export default function BookingListDetail({route, navigation}) {
 
     if (response == 'granted') {
       await Geolocation.getCurrentPosition(
-        ({coords}) => {
+        ({ coords }) => {
           console.log('coords', coords);
           setUserLocation(coords);
         },
@@ -306,7 +313,7 @@ export default function BookingListDetail({route, navigation}) {
           />
         </View>
       )}
-      <ScrollView contentContainerStyle={{paddingBottom: hp(6)}}>
+      <ScrollView contentContainerStyle={{ paddingBottom: hp(6) }}>
         <View
           style={{
             width: wp(90),
@@ -324,8 +331,8 @@ export default function BookingListDetail({route, navigation}) {
               borderColor: '#9066e6',
             }}>
             <Image
-              source={{uri: Pendinglist[0]?.customer_details?.user_image_url}}
-              style={{height: 96, width: 96}}
+              source={{ uri: Pendinglist[0]?.customer_details?.user_image_url }}
+              style={{ height: 96, width: 96 }}
             />
           </View>
           <View
@@ -367,7 +374,7 @@ export default function BookingListDetail({route, navigation}) {
                 startingValue={
                   averageRating.rating == null ? 0 : averageRating.rating
                 }
-                style={{paddingVertical: 10}}
+                style={{ paddingVertical: 10 }}
               />
               <Text
                 style={{
@@ -443,10 +450,12 @@ export default function BookingListDetail({route, navigation}) {
                 onPress={() => Linking.openURL('https://' + Invoice_Link)}
                 style={styles.DownloadButton}>
                 <Text style={styles.downloadText}>
-                  {t('placeholders.settings.completed')}
+                  {t('placeholders.bookingdetail.download')}
+
                 </Text>
               </TouchableOpacity>
             </View>
+
             <View style={styles.topLeftNewWRapper}>
               <Text style={styles.heading}>
                 {t('placeholders.bookingList.booking_status')}
@@ -459,13 +468,13 @@ export default function BookingListDetail({route, navigation}) {
                       Pendinglist[0]?.status === 'Pending'
                         ? '#f2ac00'
                         : Pendinglist[0]?.status === 'In Progress'
-                        ? '#157dfc'
-                        : Pendinglist[0]?.status ===
-                          t('placeholders.settings.completed')
-                        ? '#2ea749'
-                        : Pendinglist[0]?.status === 'Cancelled'
-                        ? '#da3348'
-                        : null,
+                          ? '#157dfc'
+                          : Pendinglist[0]?.status ===
+                            t('placeholders.settings.completed')
+                            ? '#2ea749'
+                            : Pendinglist[0]?.status === 'Cancelled'
+                              ? '#da3348'
+                              : null,
                   },
                 ]}>
                 <Text
@@ -476,13 +485,13 @@ export default function BookingListDetail({route, navigation}) {
                         Pendinglist[0]?.status === 'Pending'
                           ? '#f2ac00'
                           : Pendinglist[0]?.status === 'In Progress'
-                          ? '#157dfc'
-                          : Pendinglist[0]?.status ===
-                            t('placeholders.settings.completed')
-                          ? '#2ea749'
-                          : Pendinglist[0]?.status === 'Cancelled'
-                          ? '#da3348'
-                          : null,
+                            ? '#157dfc'
+                            : Pendinglist[0]?.status ===
+                              t('placeholders.settings.completed')
+                              ? '#2ea749'
+                              : Pendinglist[0]?.status === 'Cancelled'
+                                ? '#da3348'
+                                : null,
                     },
                   ]}>
                   {Pendinglist[0]?.status}
@@ -518,13 +527,13 @@ export default function BookingListDetail({route, navigation}) {
                       Pendinglist[0]?.status === 'Pending'
                         ? '#f2ac00'
                         : Pendinglist[0]?.status === 'In Progress'
-                        ? '#157dfc'
-                        : Pendinglist[0]?.status ===
-                          t('placeholders.settings.completed')
-                        ? '#2ea749'
-                        : Pendinglist[0]?.status === 'Cancelled'
-                        ? '#da3348'
-                        : null,
+                          ? '#157dfc'
+                          : Pendinglist[0]?.status ===
+                            t('placeholders.settings.completed')
+                            ? '#2ea749'
+                            : Pendinglist[0]?.status === 'Cancelled'
+                              ? '#da3348'
+                              : null,
                   },
                 ]}>
                 <Text
@@ -535,13 +544,13 @@ export default function BookingListDetail({route, navigation}) {
                         Pendinglist[0]?.status === 'Pending'
                           ? '#f2ac00'
                           : Pendinglist[0]?.status === 'In Progress'
-                          ? '#157dfc'
-                          : Pendinglist[0]?.status ===
-                            t('placeholders.settings.completed')
-                          ? '#2ea749'
-                          : Pendinglist[0]?.status === 'Cancelled'
-                          ? '#da3348'
-                          : null,
+                            ? '#157dfc'
+                            : Pendinglist[0]?.status ===
+                              t('placeholders.settings.completed')
+                              ? '#2ea749'
+                              : Pendinglist[0]?.status === 'Cancelled'
+                                ? '#da3348'
+                                : null,
                     },
                   ]}>
                   {Pendinglist[0]?.status}
@@ -549,6 +558,7 @@ export default function BookingListDetail({route, navigation}) {
               </View>
             </View>
           </View>
+
         )}
 
         <View style={styles.serviesHeading}>
@@ -811,7 +821,7 @@ export default function BookingListDetail({route, navigation}) {
         )}
 
         {Pendinglist[0] && Pendinglist[0].ServiceUploadImage.length > 0 ? (
-          <View style={{marginHorizontal: wp(5), marginTop: hp(2)}}>
+          <View style={{ marginHorizontal: wp(5), marginTop: hp(2) }}>
             <Text
               style={{
                 fontSize: 14,
@@ -833,14 +843,14 @@ export default function BookingListDetail({route, navigation}) {
                         alignItems: 'center',
                         marginTop: hp(2),
                       }}>
-                      <Lightbox underlayColor="white" style={{width: wp(30)}}>
+                      <Lightbox underlayColor="white" style={{ width: wp(30) }}>
                         <Image
                           style={{
                             flex: 1,
                             height: hp(20),
                           }}
                           resizeMode="contain"
-                          source={{uri: item.upload_image_url}}
+                          source={{ uri: item.upload_image_url }}
                         />
                       </Lightbox>
                     </View>
@@ -860,8 +870,8 @@ export default function BookingListDetail({route, navigation}) {
         ) : null}
 
         {Pendinglist[0] &&
-        Pendinglist[0]?.address &&
-        Pendinglist[0]?.address?.address_one.length > 0 ? (
+          Pendinglist[0]?.address &&
+          Pendinglist[0]?.address?.address_one.length > 0 ? (
           <View style={styles.AddressWrapper}>
             <Text style={styles.addressHeading}>
               {t('placeholders.rang.address_detail')}
@@ -872,13 +882,13 @@ export default function BookingListDetail({route, navigation}) {
             <Text style={styles.addressSubHeading}>
               {Pendinglist[0]?.address?.type}
             </Text>
-            <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
+            <Text style={[styles.addressSubHeading, { paddingTop: hp(1) }]}>
               {Pendinglist[0]?.address?.address_map}
             </Text>
-            <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
+            <Text style={[styles.addressSubHeading, { paddingTop: hp(1) }]}>
               {Pendinglist[0]?.address?.address_one}
             </Text>
-            <Text style={[styles.addressSubHeading, {paddingTop: hp(1)}]}>
+            <Text style={[styles.addressSubHeading, { paddingTop: hp(1) }]}>
               {Pendinglist[0]?.address?.address_two}
             </Text>
           </View>
@@ -894,9 +904,9 @@ export default function BookingListDetail({route, navigation}) {
         )}
 
         <View style={styles.containerWrapper}>
-          {Pendinglist[0]?.address == null ? (
+          {Pendinglist[0] && Pendinglist[0]?.address == null ? (
             <MapView
-              style={[styles.map, {marginBottom: state.marginBottom}]}
+              style={[styles.map, { marginBottom: state.marginBottom }]}
               showsUserLocation={true}
               showsMyLocationButton={true}
               initialRegion={{
@@ -913,7 +923,7 @@ export default function BookingListDetail({route, navigation}) {
                 })
               }
               onMapReady={() => {
-                setstate({marginBottom: 0});
+                setstate({ marginBottom: 0 });
               }}>
               <Marker
                 coordinate={{
@@ -922,23 +932,23 @@ export default function BookingListDetail({route, navigation}) {
                   longitude: 77.3147,
                 }}
                 onDragEnd={e =>
-                  this.setState({x: e.nativeEvent.coordinate})
+                  this.setState({ x: e.nativeEvent.coordinate })
                 }></Marker>
             </MapView>
           ) : (
             <MapView
-              style={[styles.map, {marginBottom: state.marginBottom}]}
+              style={[styles.map, { marginBottom: state.marginBottom }]}
               showsUserLocation={true}
               showsMyLocationButton={true}
               initialRegion={{
                 latitude:
-                  Pendinglist[0]?.address.lat == null
+                  Pendinglist[0]?.address == null || Pendinglist[0]?.address?.lat == null
                     ? 28.58364
                     : Pendinglist[0]?.address?.lat,
                 longitude:
-                  Pendinglist[0]?.address.long == null
-                    ? 77.3147
-                    : Pendinglist[0]?.address?.lat,
+                  Pendinglist[0]?.address == null || Pendinglist[0]?.address?.long == null
+                    ? 28.58364
+                    : Pendinglist[0]?.address?.long,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
               }}
@@ -948,21 +958,21 @@ export default function BookingListDetail({route, navigation}) {
                 })
               }
               onMapReady={() => {
-                setstate({marginBottom: 0});
+                setstate({ marginBottom: 0 });
               }}>
               <Marker
                 coordinate={{
                   latitude:
-                    Pendinglist[0]?.address.lat == null
+                    Pendinglist[0]?.address == null || Pendinglist[0]?.address?.lat == null
                       ? 28.58364
                       : Pendinglist[0]?.address?.lat,
                   longitude:
-                    Pendinglist[0]?.address.long == null
-                      ? 77.3147
-                      : Pendinglist[0]?.address?.lat,
+                    Pendinglist[0]?.address == null || Pendinglist[0]?.address?.long == null
+                      ? 28.58364
+                      : Pendinglist[0]?.address?.long,
                 }}
                 onDragEnd={e =>
-                  this.setState({x: e.nativeEvent.coordinate})
+                  setState({ x: e.nativeEvent.coordinate })
                 }></Marker>
             </MapView>
           )}
@@ -974,7 +984,7 @@ export default function BookingListDetail({route, navigation}) {
                 </View> */}
 
         {Pendinglist[0]?.status === 'Canceled' ||
-        Pendinglist[0]?.status ===
+          Pendinglist[0]?.status ===
           t('placeholders.settings.completed') ? null : (
           <View style={styles.editDeleteWRapper}>
             <TouchableOpacity
@@ -987,7 +997,7 @@ export default function BookingListDetail({route, navigation}) {
               <Image
                 source={require('../../../assets/images/editbooking.png')}
                 resizeMode="contain"
-                style={{height: hp(2), width: wp(5)}}
+                style={{ height: hp(2), width: wp(5) }}
               />
               <Text style={styles.editTextWrapp}>
                 {t('placeholders.rang.edit')}
@@ -1015,13 +1025,15 @@ export default function BookingListDetail({route, navigation}) {
               imageSize={25}
               minValue={0}
               startingValue={
+
                 Pendinglist[0]?.ratings == ''
                   ? 0
                   : Pendinglist[0]?.ratings[0].rating
+
               }
               // showRating
               onFinishRating={rating => ratingdisplay(rating)}
-              style={{paddingVertical: 10}}
+              style={{ paddingVertical: 10 }}
             />
             <TouchableOpacity
               onPress={() => ratingCompleted()}
@@ -1110,21 +1122,21 @@ export default function BookingListDetail({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#dfdfdf'},
+  container: { flex: 1, backgroundColor: '#dfdfdf' },
   headerWrapper: {
     backgroundColor: '#9066e6',
     paddingVertical: hp(1.5),
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headerAligner: {flexDirection: 'row', alignItems: 'center'},
+  headerAligner: { flexDirection: 'row', alignItems: 'center' },
   headerLeftImage: {
     height: hp(4),
     width: wp(8),
     marginRight: wp(3),
     marginLeft: wp(2),
   },
-  headerCenterText: {fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD},
+  headerCenterText: { fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD },
   topWrapper: {
     flexDirection: 'row',
     marginHorizontal: wp(5),

@@ -11,10 +11,16 @@ import {
   TextInput,
 } from 'react-native';
 import {
+  particularBookingId,
+
+
+} from '../../redux/Action/BookingAction';
+import {
   MONTSERRAT_BOLD,
   MONTSERRAT_REGULAR,
   MONTSERRAT_MEDIUM,
 } from '../../scenes/styles/typography';
+import {Rating, AirbnbRating} from 'react-native-ratings';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -32,14 +38,22 @@ import {
 
 import {useTranslation} from 'react-i18next';
 import {ScrollView} from 'react-native-gesture-handler';
+import {
+  AvaerageRatingService,
+  RatingServices,
+} from '../../redux/Action/notificationAction';
+
 let index = 0;
 
 export default function EditPage({route, navigation}) {
+
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [Loader, setLoader] = useState(false);
   const [t] = useTranslation();
+  const [showRating, setShowRating] = useState(0);
+  const [saverate, setSaverate] = useState('');
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
@@ -92,6 +106,8 @@ export default function EditPage({route, navigation}) {
   ];
 
   console.log(state_list, 'ddsdsdsfAAAAAAAAAAAAA');
+  console.log('ababbaPRINCEEEEEEEEEEEEEEEE', route.params.b_id);
+
   const bookingid = route.params.b_id;
 
   // const [arr, setArr] = useState([
@@ -122,6 +138,11 @@ export default function EditPage({route, navigation}) {
     state => state.COUNTBOOKINGREDUCER.particularList,
   );
 
+  const averageRating = useSelector(
+    state => state.notificationReducer.Averagerating,
+  );
+
+  console.log('averageRatingNEWWWWWWW', averageRating);
   const [serviceName, setserviceName] = useState([
     {
       index: index++,
@@ -153,6 +174,57 @@ export default function EditPage({route, navigation}) {
       setLoader(false);
     }, 2000);
   }, []);
+
+  const ratingFunction = serviceId => {
+    console.log(
+      'serviceIdRATINGGGGGGGGGGGGGGG',
+      serviceId,
+      bookingid,
+    );
+    dispatch(
+      AvaerageRatingService(
+        {service_id: serviceId, booking_id: bookingid},
+        navigation,
+      ),
+    );
+  };
+  useEffect(() => {
+    console.log('ababbaPRINCEEEEEEEEEEEEEEEE', bookingid);
+    const booking_id = route.params.b_id;
+    setSaverate(Pendinglist[0]?.ServiceDetail?.id);
+    dispatch(particularBookingId(booking_id, navigation)).then(res => {
+      console.log(res, 'resresresresres>>>>>>>>>>>>>');
+      if (res.status == 1) {
+        console.log('Status1');
+        ratingFunction(res.data[0]?.ServiceDetail?.id);
+      }
+    });
+  }, []);
+
+
+  const ratingdisplay = rating => {
+    console.log("Ratinggggggg",rating)
+  
+      setShowRating(rating);
+    
+ 
+    
+    
+  };
+  const ratingCompleted = () => {
+    dispatch(
+      RatingServices(
+        {
+          booking_id: Pendinglist[0].id.toString(),
+          company_id: Pendinglist[0]?.company_id.toString(),
+          service_id: Pendinglist[0]?.ServiceDetail?.id?.toString(),
+          rating: showRating.toString(),
+          review: '',
+        },
+        navigation,
+      ),
+    );
+  };
 
   const deltebooking = () => {
     Alert.alert(
@@ -186,16 +258,19 @@ export default function EditPage({route, navigation}) {
       setLoader(false);
     }, 2000);
 
-    console.log(
-      state,
-      bookingid,
-      Names,
-      Description,
-      Qty,
-      UnitPrice,
-      Warrenty,
-      'AKHLAQQQQQQQQQQQAKHLAQQQQQQQQQQQ',
-    );
+   
+   
+    // console.log(
+    //   state,
+    //   bookingid,
+    //   Names,
+    //   Description,
+    //   Qty,
+    //   UnitPrice,
+    //   Warrenty,
+   
+    //   'AKHLAQQQQQQQQQQQAKHLAQQQQQQQQQQQ',state,showRating
+    // );
 
     if (
       Names.some(
@@ -214,6 +289,7 @@ export default function EditPage({route, navigation}) {
     ) {
       Alert.alert('Please fill all fields');
     } else {
+     
       dispatch(
         editBooking(
           {
@@ -224,6 +300,7 @@ export default function EditPage({route, navigation}) {
             qty: Qty,
             unit_price: UnitPrice,
             warranty: Warrenty,
+            ratingValue:showRating
           },
           navigation,
         ),
@@ -315,6 +392,7 @@ export default function EditPage({route, navigation}) {
   );
 
   return (
+
     <ScrollView style={styles.container}>
       <View style={styles.headerWrapper}>
         <View style={styles.headerAligner}>
@@ -517,7 +595,7 @@ export default function EditPage({route, navigation}) {
                   }}>
                   {t('placeholders.settings.cancelled')}
                 </Text>
-              ) : state === 'Awaiting' ? (
+              ) : state === 'awaiting' ? (
                 <Text
                   //key={item.value}
                   style={{
@@ -951,23 +1029,22 @@ export default function EditPage({route, navigation}) {
                 <View
                   //  key={i}
                   style={{
-                    backgroundColor: '#e5e5e5',
-                    // borderWidth: 1,
-                    // borderRadius: 5,
-                    //borderColor: '#9066e6',
-                    marginTop: hp(2),
-                    justifyContent: 'space-between',
-                    elevation: 10,
-                    flexDirection: 'row',
-                    paddingVertical: hp(1),
-                    paddingHorizontal: wp(2),
+                  
+                      backgroundColor: '#e5e5e5',
+                      marginTop: hp(2),
+                      justifyContent: 'space-between',
+                      elevation: 10,
+                      flexDirection: 'row',
+                      paddingVertical: hp(1),
+                      paddingHorizontal: wp(2),
+                    
                   }}>
                   <TextInput
                     style={{
                       backgroundColor: '#fff',
                       borderWidth: 1,
                       width: i == 0 || i == 2 ? wp(40) : wp(25),
-
+                    
                       padding: 10,
                       borderRadius: 5,
                       borderColor: '#9066e6',
@@ -975,6 +1052,7 @@ export default function EditPage({route, navigation}) {
                     value={r.qty}
                     onChangeText={text => onchangeTextQty(i, text)}
                     placeholder={t('placeholders.editpage.Qty')}
+                    
                   />
 
                   <TextInput
@@ -983,6 +1061,7 @@ export default function EditPage({route, navigation}) {
                       borderWidth: 1,
                       width: i == 0 || i == 2 ? wp(40) : wp(25),
                       padding: 10,
+                      marginLeft: i == 0 || i == 2 ? wp(5) : wp(0),
                       borderRadius: 5,
                       borderColor: '#9066e6',
                     }}
@@ -1049,6 +1128,9 @@ export default function EditPage({route, navigation}) {
           <View />
         )}
 
+
+
+
         <View style={styles.serviesHeading}>
           <Text style={styles.servicesText}>
             {t('placeholders.rang.serve_name')}{' '}
@@ -1063,6 +1145,52 @@ export default function EditPage({route, navigation}) {
                         <Text style={styles.servicesTextWrapper}>Services</Text>
                     </View> */}
         </View>
+
+        {state == t('placeholders.settings.completed')? (
+           
+          <View>
+  <Text style={styles.headingTextRating}>{t('placeholders.editpage.Ratingmsg')}</Text>
+            <Rating
+            //  tintColor="#dfdfdf"
+            
+            imageSize={25}
+              minValue={0}
+              startingValue={
+                Pendinglist[0]?.ratings == ''
+                  ? 0
+                  : Pendinglist[0]?.ratings[0].rating
+              }
+              // showRating
+              onFinishRating={rating => ratingdisplay(rating)}
+             style={{paddingVertical: 0,}}
+             
+          
+
+            />
+            {/* <TouchableOpacity
+              onPress={() => ratingCompleted()}
+              style={{
+                height: hp(6),
+                marginTop: hp(2),
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 4,
+                width: wp(90),
+              //  marginLeft: wp(5),
+                backgroundColor: '#9066e6',
+              }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#fff',
+                  fontFamily: 'Montserrat-Regular',
+                }}>
+                {t('placeholders.bookingList.submit')}
+              </Text>
+            </TouchableOpacity> */}
+          </View>
+       ) : null} 
+
 
         <View style={styles.editDeleteWRapper}>
           <TouchableOpacity
@@ -1123,6 +1251,14 @@ const styles = StyleSheet.create({
   headingTextWrapp: {
     fontSize: 13,
     color: '#000',
+    fontFamily: MONTSERRAT_BOLD,
+  },
+
+  headingTextRating: {
+    fontSize: 13,
+    color: '#000',
+    textAlign:'center',
+    paddingVertical:hp(2),
     fontFamily: MONTSERRAT_BOLD,
   },
   headingSecondTextWrapp: {
@@ -1316,6 +1452,8 @@ const styles = StyleSheet.create({
   editDeleteWRapper: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    
+
     marginTop: hp(5),
   },
   editTextWrapp: {

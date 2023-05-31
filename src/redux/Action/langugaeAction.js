@@ -35,7 +35,7 @@ export const AllLangugae = navigation => dispatch => {
         payload: false,
       });
     } else {
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>lan');
       reject(response);
     }
   });
@@ -79,7 +79,7 @@ export const ParticularLangugae = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>pannn');
       reject(response);
     }
   });

@@ -140,7 +140,8 @@
     "serviceprice": "Service Price",
     "discountprice": "Discounted Price",
     "edit": "Edit",
-    "delbooking": "Delete Booking"
+    "delbooking": "Delete Booking",
+    "download":"Download"
   },
   "editpage": {
     "heading": "Edit Page",
@@ -161,6 +162,7 @@
     "serviceText": "Service/Material/Visit Price",
     "remove": "Remove",
     "addrow": "Add Row",
-    "sessionExpire": "Session expired Please login again"
+    "sessionExpire": "Session expired Please login again",
+    "Ratingmsg":"Give Your Rating To Customer"
   }
 }

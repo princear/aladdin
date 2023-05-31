@@ -13,7 +13,7 @@ const initialstate = {
 
 const UserReducers = ( state = initialstate, action ) => {
 
-    console.log( '>>>>>>>>>>>>>>>>Token from reducer.', action.type, action.payload );
+   // console.log( '>>>>>>>>>>>>>>>>Token from reducer.', action.type, action.payload );
     switch ( action.type ) {
 
         case GET_TOKEN:

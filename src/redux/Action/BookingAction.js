@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import {
   COUNT,
   BOOKINGLIST,
@@ -8,12 +8,12 @@ import {
   DELETE_BOOKING,
   RECENT_BOOKINGS,
 } from '../Constant/constants';
-import {logistical} from '../../logistical';
-import {RemoveToken} from './LoginAction';
+import { logistical } from '../../logistical';
+import { RemoveToken } from './LoginAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ParticularNotification} from './notificationAction';
+import { ParticularNotification } from './notificationAction';
 
-export const onCountBooking = navigation => dispatch => {
+export const onCountBooking = (navigation) => dispatch => {
   dispatch({
     type: 'LOADING',
     payload: true,
@@ -43,71 +43,73 @@ export const onCountBooking = navigation => dispatch => {
         payload: false,
       });
     } else {
+
       Alert.alert(response.message);
       dispatch({
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>ocount1');
       reject(response);
     }
   });
 };
 
-export const onALlBooking =
-  (statusEnText, statusText, navigation) => dispatch => {
-    console.log(statusEnText, statusText, 'responxceeeeXXXXXXXXXX');
+export const onALlBooking = (statusEnText, statusText, navigation) => dispatch => {
+  // console.log(statusEnText, statusText, navigation,'responxceeeeXXXXXXXXXX');
 
-    dispatch({
-      type: 'LOADING',
-      payload: true,
-    });
-    return new Promise(async (resolve, reject) => {
-      // const response = await logistical.get('/get-provider-booking-details');
-      const response = await logistical.get(
-        '/get-provider-booking-details/' + statusEnText,
-      );
-      //  console.log(response.data, 'responxceeeeXXXXXXXXXX');
-      if (response.status == 1) {
-        dispatch({
-          type: BOOKINGLIST,
-          // bookingListData: response.data,
-          bookingListData: response.data.bookings,
-          //  bookingListData: response.data,
-        });
+  dispatch({
+    type: 'LOADING',
+    payload: true,
+  });
+  return new Promise(async (resolve, reject) => {
+    // const response = await logistical.get('/get-provider-booking-details');
+    const response = await logistical.get(
+      '/get-provider-booking-details/' + statusEnText,
+    );
+      console.log(response.data, 'responxceeeeXXXXXXXXXX');
+    if (response.status == 1) {
+      dispatch({
+        type: BOOKINGLIST,
+        // bookingListData: response.data,
+        bookingListData: response.data.bookings,
+        //  bookingListData: response.data,
+      });
 
-        navigation.navigate('Booking', {
-          Bookingstatus: statusEnText,
-          Bookingstatus1: statusText,
-        });
-        resolve(response);
-        dispatch({
-          type: 'LOADING',
-          payload: false,
-        });
-      } else if (
-        response.status == 0 &&
-        response.message == 'unauthenticated'
-      ) {
-        Alert.alert('Session expired Please login again..');
-        dispatch(RemoveToken('null'));
-        AsyncStorage.removeItem('login');
-        navigation.navigate('Login');
-        dispatch({
-          type: 'LOADING',
-          payload: false,
-        });
-      } else {
-        Alert.alert(response.message);
-        dispatch({
-          type: 'LOADING',
-          payload: false,
-        });
-        console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
-        reject(response);
-      }
-    });
-  };
+      navigation.navigate('Booking', {
+        Bookingstatus: statusEnText,
+        Bookingstatus1: statusText,
+      });
+
+      resolve(response);
+      dispatch({
+        type: 'LOADING',
+        payload: false,
+      });
+    } else if (
+      response.status == 0 &&
+      response.message == 'unauthenticated'
+    ) {
+      Alert.alert('Session expired Please login again..');
+      dispatch(RemoveToken('null'));
+      AsyncStorage.removeItem('login');
+      navigation.navigate('Login');
+      dispatch({
+        type: 'LOADING',
+        payload: false,
+      });
+    } else {
+      Alert.alert(response.message);
+      dispatch({
+        type: 'LOADING',
+        payload: false,
+      });
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>11111');
+      reject(response);
+    }
+  });
+};
 
 export const particularBookingId = (data, navigation) => dispatch => {
   dispatch({
@@ -120,7 +122,7 @@ export const particularBookingId = (data, navigation) => dispatch => {
     );
 
     if (response.status == 1) {
-      console.log(response, 'PRINCE!!!!!!!!!!!!!');
+      console.log(response.data[0].address, 'PRINCE!!!!!!!!!!!!!');
       dispatch({
         type: BOOKING_LIST_ID,
         particularListData: response.data,
@@ -146,7 +148,7 @@ export const particularBookingId = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>Booking Id');
       reject(response);
     }
   });
@@ -231,7 +233,7 @@ export const editBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>2222');
       reject(response);
     }
   });
@@ -310,7 +312,7 @@ export const cancelBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>88888');
       reject(response);
     }
   });
@@ -361,7 +363,7 @@ export const deleteBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>44444');
       reject(response);
     }
   });
@@ -406,7 +408,7 @@ export const RecentBookings = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>55555');
       reject(response);
     }
   });

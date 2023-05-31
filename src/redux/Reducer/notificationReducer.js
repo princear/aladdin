@@ -15,10 +15,10 @@ const initialstate = {
 };
 
 const notificationReducer = (state = initialstate, action) => {
-  console.log(
-    action.averageratingBooking,
-    'action.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBooking',
-  );
+  // console.log(
+  //   action.averageratingBooking,
+  //   'action.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBooking',
+  // );
   switch (action.type) {
     case NOTIFY:
       return {...state, notiData: action.notiData};

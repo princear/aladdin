@@ -62,7 +62,7 @@ export const ParticularNotification = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>not');
       reject(response);
     }
   });
@@ -118,7 +118,7 @@ export const RatingServices = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>not1');
       console.log('datattatatat');
       reject(response.data);
     }
@@ -130,7 +130,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
     type: 'LOADING',
     payload: true,
   });
-  console.log(data, 'hsjhsjhshsjshjh reststststts');
+  console.log(data, 'hsjhsjhshsjshjh reststststts', data);
   return new Promise(async (resolve, reject) => {
     console.log(' enter tehe hsjksjk', response);
     const response = await logistical.post('/avarage-rating-customer', data);
@@ -157,6 +157,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         payload: false,
       });
     }
+    
     // else if (response.message == 'Unauthenticated.') {
     //   Alert.alert('Session expired please login again ..');
     //   dispatch(RemoveToken('null'));
@@ -172,7 +173,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>noti2');
       console.log('datattatatat');
       reject(response.data);
     }

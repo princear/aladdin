@@ -18,46 +18,54 @@ import RNPickerSelect from 'react-native-picker-select';
 import moment from 'moment';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {useDispatch, useSelector} from 'react-redux';
-import {onALlBooking} from '../../../redux/Action/BookingAction';
+import {
+  onALlBooking,
+  particularBookingId,
+} from '../../../redux/Action/BookingAction';
 import {useTranslation} from 'react-i18next';
 
-export default function Booking({props, navigation, route}) {
+export default function Booking({props,navigation, route}) {
+  
+
+
+
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
 
-  // const [bookingstatus, setBookingStatus] = useState(
-  //   route.params.BookingStatus,
-  // );
-
+ 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
+
+  const GotoDetail = id => {
+    dispatch(particularBookingId(id, navigation)).then(res => {
+      if (res.status == 1) {
+        console.log('Status1');
+        navigation.navigate('BookingListDetail', {
+          bookingId: id,
+        });
+      }
+    });
+  };
+
   const showMode = currentMode => {
     setShow(true);
   };
   const showDatepicker = () => {
     showMode('date');
   };
+
   const {loading} = useSelector(state => state.UserReducers);
   const [t] = useTranslation();
 
   const [state, setState] = useState(route.params.Bookingstatus);
   const [state1, setState1] = useState(route.params.Bookingstatus1);
 
-  console.log(
-    state,
-    'statestatestatestatestate',
-    route.params.Bookingstatus,
-    route.params.Bookingstatus1,
-  );
-  //  const [state, setState] = useState(' View All');
+
   const state_list = [
-    // {
-    //   label: t('placeholders.settings.viewall'),
-    //   value: 'View all',
-    // },
+  
     {
       label: t('placeholders.settings.pending'),
       //label: 'pending',
@@ -92,25 +100,22 @@ export default function Booking({props, navigation, route}) {
   ];
 
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+
+    dispatch(onALlBooking(state, route.params.Bookingstatus1, navigation));
+
+  }, [state, state1]);
+
+
+
   const bookingList = useSelector(
     state => state.COUNTBOOKINGREDUCER.bookingListData,
   );
 
-  useEffect(() => {
-    // if (route.params.BookingStatus == undefined) {
-    //   setBookingStatus('View All');
-    // } else {
-    //   setBookingStatus(route.params.BookingStatus);
-    // }
-    //  setBookingStatus(route.params.BookingStatus);
-    dispatch(onALlBooking(state, route.params.Bookingstatus1, navigation));
-  }, [state, state1]);
-
-  // useEffect(() => {
-  //   setState(route.params.BookingStatus);
-  // }, [state]);
-
-  // console.log(bookingstatus, 'console.log(bookingstatus)');
+ 
+ 
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
@@ -163,9 +168,9 @@ export default function Booking({props, navigation, route}) {
         }}>
         <RNPickerSelect
           onValueChange={value => setState(value)}
-          items={state_list}
+         items={state_list}
           value={state}
-          placeholder={{}}>
+          >
           <View
             style={{
               flexDirection: 'row',
@@ -271,10 +276,11 @@ export default function Booking({props, navigation, route}) {
         renderItem={({item, index}) => (
           <>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('BookingListDetail', {
-                  bookingId: item.id,
-                })
+              onPress={
+                () => GotoDetail(item.id)
+                // navigation.navigate('BookingListDetail', {
+                //   bookingId: item.id,
+                // })
               }
               style={styles.bookingWrapper}>
               <View style={styles.leftImageWrapper}>

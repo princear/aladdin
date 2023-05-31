@@ -14,7 +14,7 @@ const initialstate = {
 
 const COUNTBOOKINGREDUCER = (state = initialstate, action) => {
 
-    console.log('>>>>>>>>>>>>>>>>Token from reducer.', action.type);
+  //  console.log('>>>>>>>>>>>>>>>>Token from reducer.', action.type);
     switch (action.type) {
 
 
