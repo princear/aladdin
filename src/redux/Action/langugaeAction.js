@@ -1,7 +1,7 @@
-import {LANGUGAE, SET_LANGUGAE} from '../Constant/constants';
-import {logistical} from '../../logistical';
-import {Alert} from 'react-native';
-import {RemoveToken} from './LoginAction';
+import { LANGUGAE, SET_LANGUGAE } from '../Constant/constants';
+import { logistical } from '../../logistical';
+import { Alert } from 'react-native';
+import { RemoveToken } from './LoginAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { GetServices } from "./ServiceAction";
 // import { DashboardBooking, GetBookingList } from "./bookingAction";
@@ -35,14 +35,14 @@ export const AllLangugae = navigation => dispatch => {
         payload: false,
       });
     } else {
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>lan');
+
       reject(response);
     }
   });
 };
 
 export const ParticularLangugae = (data, navigation) => dispatch => {
-  console.log(data, navigation);
+
   dispatch({
     type: 'LOADING',
     payload: true,
@@ -79,7 +79,7 @@ export const ParticularLangugae = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>pannn');
+
       reject(response);
     }
   });

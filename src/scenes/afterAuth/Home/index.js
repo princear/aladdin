@@ -44,6 +44,7 @@ import { DrawerActions } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onALlBooking } from '../../../redux/Action/BookingAction';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 
 export default function Home({ props, navigation }) {
@@ -104,7 +105,7 @@ export default function Home({ props, navigation }) {
 
   const checkStatus = async () => {
     const status = await AsyncStorage.getItem('long');
-    // console.log('=======dddd=======>', status);
+
     setCheckstatus(status);
 
     if (status) {
@@ -113,15 +114,14 @@ export default function Home({ props, navigation }) {
   }
 
   const GetServiceData = (statusEnText, statusText) => {
-    console.log(statusText, 'PPPPPPPPPPPPPPP');
     if (statusEnText == 'Cancelled') {
       dispatch(onALlBooking('canceled', statusText, navigation));
     } else {
       dispatch(onALlBooking(statusEnText, statusText, navigation));
     }
-   
+
   };
-  
+
 
 
   useEffect(() => {
@@ -141,6 +141,7 @@ export default function Home({ props, navigation }) {
   };
 
   const showMode = currentMode => {
+
     setShow(true);
     setShowFix(false);
   };
@@ -151,6 +152,7 @@ export default function Home({ props, navigation }) {
 
   const showDatepicker = () => {
     showMode('date');
+
   };
 
   const showDatepicker2 = () => {
@@ -250,7 +252,7 @@ export default function Home({ props, navigation }) {
         </TouchableOpacity>
 
         {show && (
-          <DateTimePicker
+          <RNDateTimePicker
             testID="dateTimePicker"
             value={new Date()}
             mode="date"
@@ -259,7 +261,7 @@ export default function Home({ props, navigation }) {
           />
         )}
         {showfix && (
-          <DateTimePicker
+          <RNDateTimePicker
             testID="dateTimePicker"
             value={new Date()}
             minimumDate={date}
@@ -280,7 +282,6 @@ export default function Home({ props, navigation }) {
           }>
           <View>
             <FlatList
-
               // data={bookings}
               data={bookingCount.countData}
               keyExtractor={(item, index) => index}

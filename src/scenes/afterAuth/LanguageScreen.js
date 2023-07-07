@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,20 +11,20 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AllLangugae,
   ParticularLangugae,
 } from '../../redux/Action/langugaeAction';
-import {onCountBooking, RecentBookings} from '../../redux/Action/BookingAction';
-import {useTranslation} from 'react-i18next';
+import { onCountBooking, RecentBookings } from '../../redux/Action/BookingAction';
+import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LanguageScreen({props, navigation}) {
+export default function LanguageScreen({ props, navigation }) {
   const [radioSelected, setradioSelected] = useState('1');
   const [currentLanguage, setLanguage] = useState('en');
   const [checkstatus, setCheckstatus] = useState('false');
-  const {loading} = useSelector(state => state.UserReducers);
+  const { loading } = useSelector(state => state.UserReducers);
 
   const [type, setType] = useState();
   const changeLanguage = value => {
@@ -53,7 +53,7 @@ export default function LanguageScreen({props, navigation}) {
     setradioSelected(id);
     setType(id);
     changeLanguage(code);
-    dispatch(ParticularLangugae({language_id: id}, navigation));
+    dispatch(ParticularLangugae({ language_id: id }, navigation));
 
     dispatch(onCountBooking(navigation));
 
@@ -75,7 +75,7 @@ export default function LanguageScreen({props, navigation}) {
 
   async function updatecheckstatus() {
     const status = await AsyncStorage.getItem('long');
-    console.log('=======dddd=======>', status);
+
     setCheckstatus(status);
 
     if (status) {
@@ -83,7 +83,7 @@ export default function LanguageScreen({props, navigation}) {
     }
   }
 
-  console.log(checkstatus);
+
   useEffect(() => {
     updatecheckstatus();
   }, [currentLanguage]);
@@ -116,7 +116,7 @@ export default function LanguageScreen({props, navigation}) {
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image
               resizeMode="contain"
@@ -164,7 +164,7 @@ export default function LanguageScreen({props, navigation}) {
         </View>
       )}
 
-      <View style={{marginHorizontal: wp(5)}}>
+      <View style={{ marginHorizontal: wp(5) }}>
         <Image
           source={require('../../assets/images/translate.png')}
           style={styles.translateImage}
@@ -184,7 +184,7 @@ export default function LanguageScreen({props, navigation}) {
                 <Text style={styles.languageText}>
                   {item.language_name}({item.language_code})
                 </Text>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   <TouchableOpacity
                     key={item.id}
                     onPress={radioClick.bind(

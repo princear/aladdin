@@ -28,7 +28,7 @@ export default function API(variables, method, apiMethod, Authorization, formdat
           },
           body: JSON.stringify(variables),
         };
-  console.log('Hitting=>', baseUrl + method, init, variables);
+
   return fetch(baseUrl + method, init)
     .then((res) =>
       res.json().then((data) => {
@@ -36,12 +36,12 @@ export default function API(variables, method, apiMethod, Authorization, formdat
           status: res.status,
           data: data,
         };
-        // console.log('data->', JSON.stringify(data));
+
         return apiData;
       }),
     )
     .catch((err) => {
-      console.log('API ERR ->', err);
+
       var apiData = {
         status: 900,
         data: 'Server not responding. Please try again after some times.',

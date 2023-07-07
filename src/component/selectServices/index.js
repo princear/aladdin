@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -19,18 +19,18 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ARROW_WHITE, DOWN_ARROW} from '../../assets/icon';
-import {useDispatch, useSelector} from 'react-redux';
+import { ARROW_WHITE, DOWN_ARROW } from '../../assets/icon';
+import { useDispatch, useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
-import {BLACK, WHITE} from '../../scenes/styles/color';
+import { BLACK, WHITE } from '../../scenes/styles/color';
 import {
   editBooking,
   cancelBooking,
   deleteBooking,
 } from '../../redux/Action/BookingAction';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import CheckBox from '@react-native-community/checkbox';
-export default function SelectServices({route, navigation}) {
+export default function SelectServices({ route, navigation }) {
   const [data, setdata] = useState([]);
   const [services, setServices] = useState([
     {
@@ -64,7 +64,7 @@ export default function SelectServices({route, navigation}) {
       imageServices: require('../../assets/images/carservices.png'),
     },
   ]);
-  const {loading} = useSelector(state => state.UserReducers);
+  const { loading } = useSelector(state => state.UserReducers);
 
   useEffect(() => {
     setdata(servicesShowed);
@@ -88,7 +88,7 @@ export default function SelectServices({route, navigation}) {
     setdata(newdata);
   };
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View
         style={{
@@ -121,7 +121,7 @@ export default function SelectServices({route, navigation}) {
             offAnimationType="fade"
             // value={toggleCheckBox}
             onValueChange={() => onValueChange(item, index)}
-            // onValueChange={newValue => setToggleCheckBox(newValue)}
+          // onValueChange={newValue => setToggleCheckBox(newValue)}
           />
           <Text
             style={{
@@ -134,9 +134,9 @@ export default function SelectServices({route, navigation}) {
           </Text>
         </View>
         <Image
-          source={{uri: item.category_image_url}}
+          source={{ uri: item.category_image_url }}
           resizeMode="contain"
-          style={{height: hp(6), width: wp(14)}}
+          style={{ height: hp(6), width: wp(14) }}
         />
       </View>
     );
@@ -150,11 +150,11 @@ export default function SelectServices({route, navigation}) {
       // contentAlert = contentAlert + `${item.id}`;
       var headingtest = item.id;
       headingListId.push(headingtest);
-      console.log('headingListId', headingListId);
+
       navigation.navigate('Registation', {
         serviceslist: headingListId,
       });
-      // console.log('headingListId', headingListId);
+
     });
   };
 
@@ -163,7 +163,7 @@ export default function SelectServices({route, navigation}) {
       <View style={styles.headerWrapper}>
         <View style={styles.headerAligner}>
           <TouchableOpacity
-            style={{width: wp(10)}}
+            style={{ width: wp(10) }}
             onPress={() => navigation.goBack()}>
             <Image source={ARROW_WHITE} style={styles.headerLeftImage} />
           </TouchableOpacity>
@@ -212,7 +212,7 @@ export default function SelectServices({route, navigation}) {
         </Text>
         <Image
           source={require('../../assets/images/search.png')}
-          style={{height: hp(6), width: wp(6)}}
+          style={{ height: hp(6), width: wp(6) }}
         />
       </View>
       {loading && (
@@ -255,19 +255,19 @@ export default function SelectServices({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#F5F5F5'},
+  container: { flex: 1, backgroundColor: '#F5F5F5' },
   headerWrapper: {
     backgroundColor: '#9066e6',
     paddingVertical: hp(1.5),
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headerAligner: {flexDirection: 'row', alignItems: 'center'},
+  headerAligner: { flexDirection: 'row', alignItems: 'center' },
   headerLeftImage: {
     height: hp(4),
     width: wp(8),
     marginRight: wp(3),
     marginLeft: wp(2),
   },
-  headerCenterText: {fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD},
+  headerCenterText: { fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD },
 });

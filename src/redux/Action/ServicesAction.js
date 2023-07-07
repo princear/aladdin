@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 import {
   COUNT,
   BOOKINGLIST,
@@ -8,8 +8,8 @@ import {
   LOCATIONS,
   SERVICES,
 } from '../Constant/constants';
-import {logistical} from '../../logistical';
-import {RemoveToken} from './LoginAction';
+import { logistical } from '../../logistical';
+import { RemoveToken } from './LoginAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const onAllServices = navigation => dispatch => {
@@ -37,7 +37,7 @@ export const onAllServices = navigation => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+
       reject(response);
     }
   });
@@ -68,7 +68,7 @@ export const onAllLocation = navigation => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+
       reject(response);
     }
   });

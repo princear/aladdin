@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   TextInput,
@@ -21,16 +21,16 @@ import {
 // import Colors from '../Layout/Colors';
 // import Device from './Device';
 // import {sentOtp, verifyOtp} from '../Redux/Action/SendOtp';
-import {useDispatch, useSelector} from 'react-redux';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import CountDown from 'react-native-countdown-component';
-import {useTranslation} from 'react-i18next';
-import {sentOtp, verifyOtp} from '../../redux/Action/otpAction';
-import {WHITE} from '../styles/color';
-import {MONTSERRAT_BOLD} from '../styles/typography';
+import { useTranslation } from 'react-i18next';
+import { sentOtp, verifyOtp } from '../../redux/Action/otpAction';
+import { WHITE } from '../styles/color';
+import { MONTSERRAT_BOLD } from '../styles/typography';
 
-const OtpScreenShow = ({route}) => {
+const OtpScreenShow = ({ route }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const OtpScreenShow = ({route}) => {
     if (otpText === '') {
       Alert.alert('Please enter the OTP');
     } else {
-      dispatch(verifyOtp({otp: dataotp, mobile_otp_id: id}, navigation));
+      dispatch(verifyOtp({ otp: dataotp, mobile_otp_id: id }, navigation));
     }
   };
 
@@ -92,7 +92,7 @@ const OtpScreenShow = ({route}) => {
             alignItems: 'center',
           }}>
           <Text
-            style={{fontSize: 18, color: WHITE, fontFamily: MONTSERRAT_BOLD}}>
+            style={{ fontSize: 18, color: WHITE, fontFamily: MONTSERRAT_BOLD }}>
             Sign Up
           </Text>
         </View>
@@ -126,12 +126,12 @@ const OtpScreenShow = ({route}) => {
       {/* <Image style={styles.logo} source={require('../assets/otpheader.png')} /> */}
 
       <View style={styles.OTPContainer}>
-        <Text> {route.params.OTP}</Text>
-        <Text> {route.params.Id}</Text>
+        {/* <Text> {route.params.OTP}</Text>
+        <Text> {route.params.Id}</Text> */}
         <Text style={styles.HomeText}>
           {t('placeholders.auth.Otp_verification')}
         </Text>
-        <Text style={{paddingTop: 10, paddingBottom: 10}}>
+        <Text style={{ paddingTop: 10, paddingBottom: 10 }}>
           {t('placeholders.auth.time_password')} {'\n'}
           {t('placeholders.auth.thisNumber')}
         </Text>
@@ -139,11 +139,11 @@ const OtpScreenShow = ({route}) => {
 
       <View style={styles.tabViewContainer}>
         {/* <OTP/> */}
-        <Text style={{textAlign: 'center', padding: 25}}>
+        <Text style={{ textAlign: 'center', padding: 25 }}>
           {t('placeholders.auth.otpENter')}
         </Text>
         <OTPInputView
-          style={{width: '60%', height: 50, alignSelf: 'center'}}
+          style={{ width: '60%', height: 50, alignSelf: 'center' }}
           pinCount={4}
           keyboardType={'phone-pad'}
           code={otp} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
@@ -167,26 +167,16 @@ const OtpScreenShow = ({route}) => {
           until={counter}
           size={15}
           onFinish={() => setDisabled(() => false)}
-          separatorStyle={{color: 'black'}}
-          digitStyle={{backgroundColor: 'transparent'}}
-          digitTxtStyle={{color: 'black'}}
+          separatorStyle={{ color: 'black' }}
+          digitStyle={{ backgroundColor: 'transparent' }}
+          digitTxtStyle={{ color: 'black' }}
           timeToShow={['M', 'S']}
           showSeparator
-          timeLabels={{m: '', s: ''}}
+          timeLabels={{ m: '', s: '' }}
         />
       </View>
 
-      {/* <TouchableOpacity onPress={handleResend}>
-        <Text
-          style={{
-            color: '#9066e6',
-            textAlign: 'center',
-            fontFamily: 'Montserrat-Regular',
-            textDecorationLine: 'underline',
-          }}>
-          {t('placeholders.auth.resendOtp')}
-        </Text>
-      </TouchableOpacity> */}
+
 
       <TouchableOpacity style={styles.button} onPress={() => OTPVerify(otp)}>
         <Text style={styles.buttonText}>
@@ -263,7 +253,7 @@ const styles = StyleSheet.create({
   //   height: Device.height * 0.2,
   // },
 
-  maxHeight: {height: '100%'},
+  maxHeight: { height: '100%' },
 
   tabBar: {
     width: '100%',

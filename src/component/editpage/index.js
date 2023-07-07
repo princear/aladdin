@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -20,15 +20,15 @@ import {
   MONTSERRAT_REGULAR,
   MONTSERRAT_MEDIUM,
 } from '../../scenes/styles/typography';
-import {Rating, AirbnbRating} from 'react-native-ratings';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {ARROW_WHITE, DOWN_ARROW} from '../../assets/icon';
-import {useDispatch, useSelector} from 'react-redux';
+import { ARROW_WHITE, DOWN_ARROW } from '../../assets/icon';
+import { useDispatch, useSelector } from 'react-redux';
 import RNPickerSelect from 'react-native-picker-select';
-import {BLACK, WHITE} from '../../scenes/styles/color';
+import { BLACK, WHITE } from '../../scenes/styles/color';
 
 import {
   editBooking,
@@ -36,8 +36,8 @@ import {
   deleteBooking,
 } from '../../redux/Action/BookingAction';
 
-import {useTranslation} from 'react-i18next';
-import {ScrollView} from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   AvaerageRatingService,
   RatingServices,
@@ -45,7 +45,7 @@ import {
 
 let index = 0;
 
-export default function EditPage({route, navigation}) {
+export default function EditPage({ route, navigation }) {
 
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date(1598051730000));
@@ -105,34 +105,9 @@ export default function EditPage({route, navigation}) {
     },
   ];
 
-  console.log(state_list, 'ddsdsdsfAAAAAAAAAAAAA');
-  console.log('ababbaPRINCEEEEEEEEEEEEEEEE', route.params.b_id);
 
   const bookingid = route.params.b_id;
 
-  // const [arr, setArr] = useState([
-  //   {
-  //     index: index++,
-  //     servicePlaceholder: 'Service',
-  //     name: '',
-  //     ServiceName: serviceName,
-  //     ServiceValue: route.params.b_id,
-  //   },
-  //   {
-  //     index: index++,
-  //     servicePlaceholder: 'Material',
-  //     name: '',
-  //     ServiceName: serviceName,
-  //     ServiceValue: route.params.b_id,
-  //   },
-  //   {
-  //     index: index++,
-  //     servicePlaceholder: 'Visit',
-  //     name: '',
-  //     ServiceName: serviceName,
-  //     ServiceValue: route.params.b_id,
-  //   },
-  // ]);
 
   const Pendinglist = useSelector(
     state => state.COUNTBOOKINGREDUCER.particularList,
@@ -142,7 +117,7 @@ export default function EditPage({route, navigation}) {
     state => state.notificationReducer.Averagerating,
   );
 
-  console.log('averageRatingNEWWWWWWW', averageRating);
+
   const [serviceName, setserviceName] = useState([
     {
       index: index++,
@@ -161,8 +136,8 @@ export default function EditPage({route, navigation}) {
     },
   ]);
 
-  // console.log(serviceName, 'QQQQQQQQQQ');
-  const {loading} = useSelector(state => state.UserReducers);
+
+  const { loading } = useSelector(state => state.UserReducers);
   useEffect(() => {
     setLoader(true);
     if (Pendinglist && Pendinglist[0] && Pendinglist[0]?.estimates.length > 0) {
@@ -176,26 +151,22 @@ export default function EditPage({route, navigation}) {
   }, []);
 
   const ratingFunction = serviceId => {
-    console.log(
-      'serviceIdRATINGGGGGGGGGGGGGGG',
-      serviceId,
-      bookingid,
-    );
+
     dispatch(
       AvaerageRatingService(
-        {service_id: serviceId, booking_id: bookingid},
+        { service_id: serviceId, booking_id: bookingid },
         navigation,
       ),
     );
   };
   useEffect(() => {
-    console.log('ababbaPRINCEEEEEEEEEEEEEEEE', bookingid);
+
     const booking_id = route.params.b_id;
     setSaverate(Pendinglist[0]?.ServiceDetail?.id);
     dispatch(particularBookingId(booking_id, navigation)).then(res => {
-      console.log(res, 'resresresresres>>>>>>>>>>>>>');
+
       if (res.status == 1) {
-        console.log('Status1');
+
         ratingFunction(res.data[0]?.ServiceDetail?.id);
       }
     });
@@ -203,13 +174,13 @@ export default function EditPage({route, navigation}) {
 
 
   const ratingdisplay = rating => {
-    console.log("Ratinggggggg",rating)
-  
-      setShowRating(rating);
-    
- 
-    
-    
+
+
+    setShowRating(rating);
+
+
+
+
   };
   const ratingCompleted = () => {
     dispatch(
@@ -248,9 +219,7 @@ export default function EditPage({route, navigation}) {
     );
   };
 
-  //   const insertSomeThing = placeholder => {
-  //     setArr([...arr, {index: index++, placeholder: placeholder, name: ''}]);
-  //   };
+
 
   const EditBookingFunc = () => {
     setLoader(true);
@@ -258,19 +227,9 @@ export default function EditPage({route, navigation}) {
       setLoader(false);
     }, 2000);
 
-   
-   
-    // console.log(
-    //   state,
-    //   bookingid,
-    //   Names,
-    //   Description,
-    //   Qty,
-    //   UnitPrice,
-    //   Warrenty,
-   
-    //   'AKHLAQQQQQQQQQQQAKHLAQQQQQQQQQQQ',state,showRating
-    // );
+
+
+
 
     if (
       Names.some(
@@ -289,7 +248,7 @@ export default function EditPage({route, navigation}) {
     ) {
       Alert.alert('Please fill all fields');
     } else {
-     
+
       dispatch(
         editBooking(
           {
@@ -300,7 +259,7 @@ export default function EditPage({route, navigation}) {
             qty: Qty,
             unit_price: UnitPrice,
             warranty: Warrenty,
-            ratingValue:showRating
+            ratingValue: showRating
           },
           navigation,
         ),
@@ -310,7 +269,7 @@ export default function EditPage({route, navigation}) {
   const insertSomeThing = placeholder => {
     setserviceName([
       ...serviceName,
-      {index: index++, servicePlaceholder: placeholder},
+      { index: index++, servicePlaceholder: placeholder },
     ]);
   };
 
@@ -319,7 +278,7 @@ export default function EditPage({route, navigation}) {
   };
 
   const onchangeTextFunc = (i, text) => {
-    console.log('PRINCEEEEE', i, text);
+
     // let newFormValues = [...arr];
     let newFormValues = [...serviceName];
     newFormValues[i]['name'] = text;
@@ -329,7 +288,7 @@ export default function EditPage({route, navigation}) {
   };
 
   const onchangeTextDesc = (i, text) => {
-    console.log('PRINCEEEEE', i, text);
+
     // let newFormValues = [...arr];
     let newFormValues = [...serviceName];
     newFormValues[i]['description'] = text;
@@ -338,7 +297,7 @@ export default function EditPage({route, navigation}) {
   };
 
   const onchangeTextQty = (i, text) => {
-    console.log('PRINCEEEEE', i, text);
+
     //let newFormValues = [...arr];
     let newFormValues = [...serviceName];
     newFormValues[i]['qty'] = text;
@@ -347,7 +306,7 @@ export default function EditPage({route, navigation}) {
   };
 
   const onchangeTextUnit = (i, text) => {
-    console.log('PRINCEEEEE', i, text);
+
     //let newFormValues = [...arr];
     let newFormValues = [...serviceName];
     newFormValues[i]['unit_price'] = text;
@@ -356,7 +315,7 @@ export default function EditPage({route, navigation}) {
   };
 
   const onchangeTextWarrenty = (i, text) => {
-    console.log('PRINCEEEEE', i, text);
+
     // let newFormValues = [...arr];
     let newFormValues = [...serviceName];
     newFormValues[i]['warranty'] = text;
@@ -364,7 +323,7 @@ export default function EditPage({route, navigation}) {
     setserviceName(newFormValues);
   };
 
-  console.log(serviceName, 'All DATAAAAAAAA');
+
   var Names = [];
   var Description = [];
   var Qty = [];
@@ -382,14 +341,7 @@ export default function EditPage({route, navigation}) {
     UnitPrice.push(unit);
     Warrenty.push(warrenty);
   });
-  console.log(
-    Names,
-    Description,
-    Qty,
-    UnitPrice,
 
-    'NAME ARRAYYYTYTTTTTS',
-  );
 
   return (
 
@@ -469,29 +421,11 @@ export default function EditPage({route, navigation}) {
           </Text>
         </View>
 
-        {/* <Text style={[styles.headingSecondTextWrapp, { marginTop: hp(6) }]}>Booking Date</Text> */}
-
-        {/* <TouchableOpacity onPress={showDatepicker} style={styles.bookingDateWrapper}>
-
-                    <View>
-                        <Text style={styles.bookingText}>{moment(date).format("DD-MM-YYYY ")}</Text>
-                    </View>
-                    <Image source={require('../../assets/images/Downarrow.png')} resizeMode='contain' style={styles.downArrowImage} />
-                </TouchableOpacity>
-                {show && (
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        value={new Date()}
-                        mode='date'
-                        display="default"
-                        onChange={onChange}
-                    />
-                )} */}
 
         <Text style={[styles.headingSecondTextWrapp]}>
           {t('placeholders.bookingList.booking_status')}
 
-          {console.log(loading, 'loadsingloadsingloadsingloadsingloadsing')}
+
         </Text>
 
         <TouchableOpacity
@@ -505,35 +439,7 @@ export default function EditPage({route, navigation}) {
             elevation: 3,
             paddingVertical: hp(1),
           }}>
-          {/* {state == t('placeholders.editpage.bookingstatus') ? (
-            <RNPickerSelect
-              placeholder={{}}
-              onValueChange={value => setState(value)}
-              items={state_list}
-              value={state}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingHorizontal: wp(4),
-                }}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: '#000',
-                    fontFamily: 'Montserrat-Medium',
-                  }}>
-                  {state}
-                </Text>
 
-                <Image
-                  source={require('../../assets/images/Downarrow.png')}
-                  resizeMode="contain"
-                  style={{height: hp(3), width: wp(5)}}
-                />
-              </View>
-            </RNPickerSelect> */}
-          {/* ) : ( */}
           <RNPickerSelect
             placeholder={{}}
             onValueChange={value => setState(value)}
@@ -616,364 +522,17 @@ export default function EditPage({route, navigation}) {
                   {t('placeholders.settings.pending')}
                 </Text>
               )}
-              {/* {state_list.map(
-                  item =>
-                    item.value === state && (
-                      <Text
-                        key={item.value}
-                        style={{
-                          fontSize: 14,
-                          color: '#000',
-                          fontFamily: 'Montserrat-Medium',
-                        }}>
-                        {item.label}
-                      </Text>
-                    ),
-                )} */}
+
               <Image
                 source={require('../../assets/images/Downarrow.png')}
                 resizeMode="contain"
-                style={{height: hp(3), width: wp(5)}}
+                style={{ height: hp(3), width: wp(5) }}
               />
             </View>
           </RNPickerSelect>
-          {/* )} */}
-          {/* <RNPickerSelect
-            placeholder={{}}
-            onValueChange={value => setState(value)}
-            items={state_list}
-            value={state}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                paddingHorizontal: wp(4),
-              }}>
-              {state_list.map(
-                item =>
-                  item.value === state && (
-                    <Text
-                      key={item.value}
-                      style={{
-                        fontSize: 14,
-                        color: '#000',
-                        fontFamily: 'Montserrat-Medium',
-                      }}>
-                      {item.label}
-                    </Text>
-                  ),
-              )}
-              <Image
-                source={require('../../assets/images/Downarrow.png')}
-                resizeMode="contain"
-                style={{height: hp(3), width: wp(5)}}
-              />
-            </View>
-          </RNPickerSelect> */}
+
         </TouchableOpacity>
-        {/* {state == 'awaiting' ? (
-          <View>
-            <View
-              //  key={i}
-              style={{
-                backgroundColor: '#e5e5e5',
-                marginTop: hp(2),
-                justifyContent: 'space-between',
-                elevation: 10,
-                paddingVertical: hp(1),
-              }}>
-              <View
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeNameFunc(text)}
-                  placeholder="Service"
-                />
 
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextDesc(text)}
-                  placeholder="Description"
-                />
-              </View>
-              <View
-                //  key={i}
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  // borderWidth: 1,
-                  // borderRadius: 5,
-                  //borderColor: '#9066e6',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextQty(text)}
-                  placeholder="Qty"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextUnit(text)}
-                  placeholder="Unit Price"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextWarrenty(text)}
-                  placeholder="Warrenty"
-                />
-              </View>
-            </View>
-            <View
-              //  key={i}
-              style={{
-                backgroundColor: '#e5e5e5',
-                marginTop: hp(2),
-                justifyContent: 'space-between',
-                elevation: 10,
-                paddingVertical: hp(1),
-              }}>
-              <View
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeNameFunc(text)}
-                  placeholder="Material"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextDesc(text)}
-                  placeholder="Description"
-                />
-              </View>
-              <View
-                //  key={i}
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  // borderWidth: 1,
-                  // borderRadius: 5,
-                  //borderColor: '#9066e6',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextQty(text)}
-                  placeholder="Qty"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextUnit(text)}
-                  placeholder="Unit Price"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextWarrenty(text)}
-                  placeholder="Warrenty"
-                />
-              </View>
-            </View>
-            <View
-              //   key={i}
-              style={{
-                backgroundColor: '#e5e5e5',
-                marginTop: hp(2),
-                justifyContent: 'space-between',
-                elevation: 10,
-                paddingVertical: hp(1),
-              }}>
-              <View
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeNameFunc(text)}
-                  placeholder="Visit/Travel/Fuel"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(40),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextDesc(text)}
-                  placeholder="Description"
-                />
-              </View>
-              <View
-                //  key={i}
-                style={{
-                  backgroundColor: '#e5e5e5',
-                  // borderWidth: 1,
-                  // borderRadius: 5,
-                  //borderColor: '#9066e6',
-                  marginTop: hp(2),
-                  justifyContent: 'space-between',
-                  elevation: 10,
-                  flexDirection: 'row',
-                  paddingVertical: hp(1),
-                  paddingHorizontal: wp(2),
-                }}>
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextQty(text)}
-                  placeholder="Qty"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextUnit(text)}
-                  placeholder="Unit Price"
-                />
-
-                <TextInput
-                  style={{
-                    backgroundColor: '#fff',
-                    borderWidth: 1,
-                    width: wp(25),
-                    padding: 10,
-                    borderRadius: 5,
-                    borderColor: '#9066e6',
-                  }}
-                  onChangeText={text => onchangeTextWarrenty(text)}
-                  placeholder="Warrenty"
-                />
-              </View>
-            </View>
-          </View>
-        ) : (
-          <View />
-        )} */}
         {state == t('placeholders.editpage.awaiting') && (
           <View>
             {serviceName.map((r, i) => (
@@ -1029,22 +588,22 @@ export default function EditPage({route, navigation}) {
                 <View
                   //  key={i}
                   style={{
-                  
-                      backgroundColor: '#e5e5e5',
-                      marginTop: hp(2),
-                      justifyContent: 'space-between',
-                      elevation: 10,
-                      flexDirection: 'row',
-                      paddingVertical: hp(1),
-                      paddingHorizontal: wp(2),
-                    
+
+                    backgroundColor: '#e5e5e5',
+                    marginTop: hp(2),
+                    justifyContent: 'space-between',
+                    elevation: 10,
+                    flexDirection: 'row',
+                    paddingVertical: hp(1),
+                    paddingHorizontal: wp(2),
+
                   }}>
                   <TextInput
                     style={{
                       backgroundColor: '#fff',
                       borderWidth: 1,
                       width: i == 0 || i == 2 ? wp(40) : wp(25),
-                    
+
                       padding: 10,
                       borderRadius: 5,
                       borderColor: '#9066e6',
@@ -1052,7 +611,7 @@ export default function EditPage({route, navigation}) {
                     value={r.qty}
                     onChangeText={text => onchangeTextQty(i, text)}
                     placeholder={t('placeholders.editpage.Qty')}
-                    
+
                   />
 
                   <TextInput
@@ -1104,21 +663,21 @@ export default function EditPage({route, navigation}) {
         )}
 
         {state == t('placeholders.editpage.awaiting') ? (
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <TouchableOpacity
               onPress={() =>
                 insertSomeThing(t('placeholders.editpage.serviceText'))
               }
-              style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
-              <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
+              style={[styles.AddRow, { backgroundColor: '#2ea749' }]}>
+              <Text style={[styles.editTextWrapp, { color: '#fff' }]}>
                 {t('placeholders.editpage.addrow')}{' '}
               </Text>
             </TouchableOpacity>
             {serviceName.length > 3 && (
               <TouchableOpacity
                 onPress={() => removeSomeThing('add')}
-                style={[styles.AddRow, {backgroundColor: '#2ea749'}]}>
-                <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
+                style={[styles.AddRow, { backgroundColor: '#2ea749' }]}>
+                <Text style={[styles.editTextWrapp, { color: '#fff' }]}>
                   {t('placeholders.editpage.remove')}{' '}
                 </Text>
               </TouchableOpacity>
@@ -1141,19 +700,17 @@ export default function EditPage({route, navigation}) {
           <Text style={styles.productText}>
             {Pendinglist[0]?.ServiceDetail?.name}{' '}
           </Text>
-          {/* <View style={styles.servicesWrapper}>
-                        <Text style={styles.servicesTextWrapper}>Services</Text>
-                    </View> */}
+
         </View>
 
-        {state == t('placeholders.settings.completed')? (
-           
+        {state == t('placeholders.settings.completed') ? (
+
           <View>
-  <Text style={styles.headingTextRating}>{t('placeholders.editpage.Ratingmsg')}</Text>
+            <Text style={styles.headingTextRating}>{t('placeholders.editpage.Ratingmsg')}</Text>
             <Rating
-            //  tintColor="#dfdfdf"
-            
-            imageSize={25}
+              //  tintColor="#dfdfdf"
+
+              imageSize={25}
               minValue={0}
               startingValue={
                 Pendinglist[0]?.ratings == ''
@@ -1162,34 +719,14 @@ export default function EditPage({route, navigation}) {
               }
               // showRating
               onFinishRating={rating => ratingdisplay(rating)}
-             style={{paddingVertical: 0,}}
-             
-          
+              style={{ paddingVertical: 0, }}
+
+
 
             />
-            {/* <TouchableOpacity
-              onPress={() => ratingCompleted()}
-              style={{
-                height: hp(6),
-                marginTop: hp(2),
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 4,
-                width: wp(90),
-              //  marginLeft: wp(5),
-                backgroundColor: '#9066e6',
-              }}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#fff',
-                  fontFamily: 'Montserrat-Regular',
-                }}>
-                {t('placeholders.bookingList.submit')}
-              </Text>
-            </TouchableOpacity> */}
+
           </View>
-       ) : null} 
+        ) : null}
 
 
         <View style={styles.editDeleteWRapper}>
@@ -1201,26 +738,22 @@ export default function EditPage({route, navigation}) {
               {t('placeholders.rang.delete')}
             </Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.editWrapper} onPress={() => dispatch( cancelBooking( { booking_id: route.params.b_id, status: 'canceled' }, navigation ) )}>
-                        <Image source={require( '../../assets/images/whiteclose.png' )} resizeMode='contain' style={{ height: hp( 2 ), width: wp( 2 ) }} />
-                        <Text style={[styles.editTextWrapp, { color: '#fff' }]}>{t('placeholders.bookingList.cancel')}</Text>
-                    </TouchableOpacity> */}
 
-          {/* <Text> {state}</Text> */}
           <TouchableOpacity
-            style={[styles.editWrapper, {backgroundColor: '#2ea749'}]}
+            style={[styles.editWrapper, { backgroundColor: '#2ea749' }]}
             onPress={() => EditBookingFunc()}>
             {/* <Text style={[styles.deleteCrossWrapp, { color: '#fff' }]}>X</Text> */}
             <Image
               source={require('../../assets/images/right.png')}
               resizeMode="contain"
-              style={{height: hp(2), width: wp(3)}}
+              style={{ height: hp(2), width: wp(3) }}
             />
 
-            <Text style={[styles.editTextWrapp, {color: '#fff'}]}>
+            <Text style={[styles.editTextWrapp, { color: '#fff' }]}>
               {t('placeholders.bookingList.submit')}
             </Text>
           </TouchableOpacity>
+
         </View>
       </View>
     </ScrollView>
@@ -1228,21 +761,21 @@ export default function EditPage({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#fff'},
+  container: { flex: 1, backgroundColor: '#fff' },
   headerWrapper: {
     backgroundColor: '#9066e6',
     paddingVertical: hp(1.5),
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headerAligner: {flexDirection: 'row', alignItems: 'center'},
+  headerAligner: { flexDirection: 'row', alignItems: 'center' },
   headerLeftImage: {
     height: hp(4),
     width: wp(8),
     marginRight: wp(3),
     marginLeft: wp(2),
   },
-  headerCenterText: {fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD},
+  headerCenterText: { fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD },
 
   bodyWrapper: {
     marginHorizontal: wp(5),
@@ -1257,8 +790,8 @@ const styles = StyleSheet.create({
   headingTextRating: {
     fontSize: 13,
     color: '#000',
-    textAlign:'center',
-    paddingVertical:hp(2),
+    textAlign: 'center',
+    paddingVertical: hp(2),
     fontFamily: MONTSERRAT_BOLD,
   },
   headingSecondTextWrapp: {
@@ -1283,8 +816,8 @@ const styles = StyleSheet.create({
     paddingLeft: wp(2),
   },
 
-  bookingText: {fontFamily: MONTSERRAT_REGULAR, fontSize: 14, color: '#c2c2c2'},
-  bookingImage: {height: hp(2.5), width: wp(5), marginRight: wp(4)},
+  bookingText: { fontFamily: MONTSERRAT_REGULAR, fontSize: 14, color: '#c2c2c2' },
+  bookingImage: { height: hp(2.5), width: wp(5), marginRight: wp(4) },
   resetButtonWrapper: {
     paddingVertical: hp(1.5),
     width: wp(30),
@@ -1295,9 +828,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: wp(5),
   },
-  resetTextWrapper: {color: '#fff', fontFamily: MONTSERRAT_BOLD, fontSize: 13},
-  selectedHeading: {marginTop: hp(2), marginHorizontal: wp(5)},
-  selectedText: {fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: BLACK},
+  resetTextWrapper: { color: '#fff', fontFamily: MONTSERRAT_BOLD, fontSize: 13 },
+  selectedHeading: { marginTop: hp(2), marginHorizontal: wp(5) },
+  selectedText: { fontFamily: MONTSERRAT_BOLD, fontSize: 13, color: BLACK },
   statusChangeWrapper: {
     paddingVertical: hp(2),
     width: wp(35),
@@ -1309,7 +842,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: wp(5),
   },
-  statusChangeText: {color: '#fff', fontFamily: MONTSERRAT_BOLD, fontSize: 14},
+  statusChangeText: { color: '#fff', fontFamily: MONTSERRAT_BOLD, fontSize: 14 },
   downArrowImage: {
     height: hp(3),
     width: wp(5),
@@ -1327,7 +860,7 @@ const styles = StyleSheet.create({
     borderColor: '#9066e6',
     borderRadius: 5,
   },
-  bookingText: {fontFamily: MONTSERRAT_REGULAR, fontSize: 14, color: '#c2c2c2'},
+  bookingText: { fontFamily: MONTSERRAT_REGULAR, fontSize: 14, color: '#c2c2c2' },
   bookingWrapper: {
     backgroundColor: '#fff',
     paddingTop: hp(1),
@@ -1345,7 +878,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red',
     paddingLeft: wp(3),
   },
-  bookingLeftText: {fontSize: 12, fontFamily: 'Montserrat-Bold', color: '#000'},
+  bookingLeftText: { fontSize: 12, fontFamily: 'Montserrat-Bold', color: '#000' },
   bookingBottomText: {
     fontSize: 12,
     fontFamily: 'Montserrat-Medium',
@@ -1364,8 +897,8 @@ const styles = StyleSheet.create({
     marginLeft: wp(3),
     marginTop: hp(2),
   },
-  imageBox: {height: hp(7), width: wp(16)},
-  rightBoxWrapper: {paddingLeft: wp(2), width: wp(45), paddingTop: hp(1)},
+  imageBox: { height: hp(7), width: wp(16) },
+  rightBoxWrapper: { paddingLeft: wp(2), width: wp(45), paddingTop: hp(1) },
   serviesHeading: {
     backgroundColor: '#9066e6',
     paddingVertical: hp(1.5),
@@ -1433,6 +966,7 @@ const styles = StyleSheet.create({
     marginLeft: wp(3),
     justifyContent: 'center',
     backgroundColor: 'red',
+
   },
 
   AddRow: {
@@ -1452,7 +986,8 @@ const styles = StyleSheet.create({
   editDeleteWRapper: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    
+    marginBottom: hp(10),
+
 
     marginTop: hp(5),
   },

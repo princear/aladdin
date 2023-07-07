@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,7 +15,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import {WHITE} from '../../styles/color';
+import { WHITE } from '../../styles/color';
 import {
   LEFT_ARROW,
   USER_PROFILE,
@@ -34,16 +34,16 @@ import {
   MONTSERRAT_MEDIUM,
   MONTSERRAT_REGULAR,
 } from '../../styles/typography';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import {
   onAllLocation,
   onAllServices,
 } from '../../../redux/Action/ServicesAction';
-import {sentOtp} from '../../../redux/Action/otpAction';
+import { sentOtp } from '../../../redux/Action/otpAction';
 import ImagePicker from 'react-native-image-crop-picker';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import CheckBox from '@react-native-community/checkbox';
 import DocumentPicker from 'react-native-document-picker';
@@ -56,14 +56,14 @@ var selectedAreaTags = [];
 var unique = [];
 var areaunique = [];
 
-export default function Registation({props, route}) {
+export default function Registation({ props, route }) {
   const navigation = useNavigation();
 
-  // console.log('serviceslist', route.params.serviceslist);
+
   const dispatch = useDispatch();
   const mobileroute = route.params.mobileSave;
   const callingNumberCode = route.params.Callcode;
-  console.log('mobileroute', mobileroute, callingNumberCode);
+
   const [t] = useTranslation();
 
   const [services, setServices] = useState('');
@@ -118,7 +118,7 @@ export default function Registation({props, route}) {
             onPress: () => BackHandler.exitApp(),
           },
         ],
-        {cancelable: false},
+        { cancelable: false },
       );
       return true;
     }
@@ -161,7 +161,7 @@ export default function Registation({props, route}) {
     servicesType,
   ) => {
     // setLoading(true);
-    console.log(name, email, password, confirmPassword, servicesType);
+
     if (name == '') {
       // setLoading(false);
       seterror1('Please Enter the name');
@@ -216,20 +216,18 @@ export default function Registation({props, route}) {
         imagePath === ''
           ? formdata.append('image', null)
           : formdata.append('image', {
-              uri: imagePath.path,
-              type: imagePath.mime,
-              name: 'image/jpeg',
-            });
+            uri: imagePath.path,
+            type: imagePath.mime,
+            name: 'image/jpeg',
+          });
       }
 
-      console.log(formdata, 'lllllllllllllllllllllllll');
 
       axios.defaults.baseURL = 'https://aladdin.com.iq/api/';
 
       const api = axios.defaults.baseURL + 'vendor-register';
 
-      console.log(api);
-      console.log(formdata._parts);
+
       return fetch(api, {
         method: 'POST',
         headers: {
@@ -253,12 +251,12 @@ export default function Registation({props, route}) {
             selectedAreaTags.length = 0;
             setModalServices2(false);
           } else if (responseJson.status == '0') {
-            console.log('error');
+
             Alert.alert(responseJson.response[0]);
             setModalServices2(false);
             setLoading(false);
           } else {
-            console.log('smsksk');
+
             Alert.alert(responseJson.message);
             setModalServices2(false);
             setLoading(false);
@@ -286,7 +284,7 @@ export default function Registation({props, route}) {
   const imageUpload = imageData => {
     setModalServices(false);
 
-    console.log('imagePath', imagePath);
+
     setImagePath(imageData);
   };
 
@@ -312,7 +310,7 @@ export default function Registation({props, route}) {
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
+
       imagelist.push({
         filename: 'image/jpeg',
         path: image.path,
@@ -347,7 +345,7 @@ export default function Registation({props, route}) {
       // cropping: true,
     })
       .then(image => {
-        console.log(image);
+
         image.map(item => {
           imagelist.push({
             // filename: 'image/jpeg',
@@ -376,28 +374,28 @@ export default function Registation({props, route}) {
   };
   const [products, setProducts] = useState([]);
   const handleChange2 = (checkboxId, checkBoxname, isRequired) => {
-    console.log('checkBoxname', checkBoxname.name);
+
     let temp = data?.map(product => {
       if (checkboxId === product.id) {
-        console.log(checkboxId, product.id, !product.isChecked);
-        return {...product, isChecked: !product.isChecked};
+
+        return { ...product, isChecked: !product.isChecked };
       }
       return product;
     });
 
     if (!isExistInArray(selectedTags, checkboxId)) {
-      console.log('insert in array');
+
       selectedTags.push(checkboxId);
-      console.log('item?????????????????????????', checkboxId);
+
     } else {
-      console.log('remove');
+
       RemoveTempExercise(selectedTags, checkboxId);
     }
 
-    console.log('single item ', selectedTags);
+
     setProducts(temp);
   };
-  const renderItem = ({item, index}) => {
+  const renderItem = ({ item, index }) => {
     return (
       <View
         style={{
@@ -435,8 +433,8 @@ export default function Registation({props, route}) {
               onchecked(item.id, item);
             }}
 
-            // value={item.checked}
-            // onValueChange={newValue => setToggleCheckBox(newValue)}
+          // value={item.checked}
+          // onValueChange={newValue => setToggleCheckBox(newValue)}
           />
           <Text
             style={{
@@ -449,9 +447,9 @@ export default function Registation({props, route}) {
           </Text>
         </View>
         <Image
-          source={{uri: item.category_image_url}}
+          source={{ uri: item.category_image_url }}
           resizeMode="contain"
-          style={{height: hp(6), width: wp(14)}}
+          style={{ height: hp(6), width: wp(14) }}
         />
       </View>
     );
@@ -461,7 +459,7 @@ export default function Registation({props, route}) {
 
   const onchecked2 = (id, item) => {
     const areacheck = dataArea;
-    console.log(areacheck);
+
     const index = areacheck.findIndex(x => x.id === id);
     areacheck[index].checked = !areacheck[index].checked;
     setAreaState(areacheck);
@@ -470,33 +468,28 @@ export default function Registation({props, route}) {
   const handleChange3 = (id, checkBoxname, isRequired) => {
     let temp = dataArea?.map(area => {
       if (id === area.id) {
-        return {...area, isChecked: !area.isChecked};
+        return { ...area, isChecked: !area.isChecked };
       }
       return area;
     });
 
     if (!isExist2(selectedAreaTags, id)) {
-      console.log('insert area in array');
+
       selectedAreaTags.push(id);
-      console.log('item?????????????????????????', id);
+
     } else {
-      console.log('remove');
+
       RemoveAreaExercise2(selectedAreaTags, id);
     }
 
-    console.log('single area item ', selectedAreaTags);
+
     setAreaData(temp);
   };
   {
-    console.log(
-      'selectedAreaTags',
-      selectedAreaTags,
-      'selectedTags',
-      selectedTags,
-    );
+
   }
 
-  const renderItem2 = ({item, index}) => {
+  const renderItem2 = ({ item, index }) => {
     return (
       <View
         style={{
@@ -540,8 +533,8 @@ export default function Registation({props, route}) {
             onValueChange={() => {
               onchecked2(item.id, item);
             }}
-            // onValueChange={() => onValueChange2(item, index)}
-            // onValueChange={newValue => setToggleCheckBox(newValue)}
+          // onValueChange={() => onValueChange2(item, index)}
+          // onValueChange={newValue => setToggleCheckBox(newValue)}
           />
           <Text
             style={{
@@ -591,7 +584,6 @@ export default function Registation({props, route}) {
     return isExist;
   };
   const RemoveTempExercise = (Ex_array, Ex_value) => {
-    console.log('sudhanshuuuuuuuuuuuuuuuuuu', JSON.stringify(Ex_array));
 
     Ex_array.forEach(function (element, index) {
       if (Ex_array[index] && Ex_array[index] === Ex_value) {
@@ -646,7 +638,7 @@ export default function Registation({props, route}) {
             <Image
               source={LEFT_ARROW}
               resizeMode="contain"
-              style={{height: hp(3), width: wp(6), marginLeft: wp(2)}}
+              style={{ height: hp(3), width: wp(6), marginLeft: wp(2) }}
             />
           </TouchableOpacity>
           <View
@@ -656,7 +648,7 @@ export default function Registation({props, route}) {
               alignItems: 'center',
             }}>
             <Text
-              style={{fontSize: 18, color: WHITE, fontFamily: MONTSERRAT_BOLD}}>
+              style={{ fontSize: 18, color: WHITE, fontFamily: MONTSERRAT_BOLD }}>
               Registration
             </Text>
           </View>
@@ -677,7 +669,7 @@ export default function Registation({props, route}) {
               backgroundColor: '#9066e6',
               height: 80,
               width: 80,
-              zIndex: 999,
+              zIndex: 1111,
 
               borderRadius: 15,
             }}
@@ -686,7 +678,7 @@ export default function Registation({props, route}) {
           />
         </View>
       )}
-      <ScrollView>
+      <ScrollView >
         <View
           style={{
             width: wp(90),
@@ -696,7 +688,7 @@ export default function Registation({props, route}) {
             flexDirection: 'row',
             marginHorizontal: wp(5),
           }}>
-          <View style={{width: wp(30), alignItems: 'center'}}>
+          <View style={{ width: wp(30), alignItems: 'center' }}>
             <TouchableOpacity
               onPress={() => setModalServices(true)}
               style={{
@@ -732,7 +724,7 @@ export default function Registation({props, route}) {
                 </ImageBackground>
               ) : (
                 <Image
-                  source={{uri: imagePath.path}}
+                  source={{ uri: imagePath.path }}
                   style={{
                     height: Platform.OS == 'ios' ? 90 : 100,
                     width: Platform.OS == 'ios' ? 90 : 100,
@@ -742,7 +734,7 @@ export default function Registation({props, route}) {
               )}
             </TouchableOpacity>
           </View>
-          <View style={{width: wp(60), marginLeft: wp(3)}}>
+          <View style={{ width: wp(60), marginLeft: wp(3) }}>
             <Text
               style={{
                 color: '#000',
@@ -823,11 +815,11 @@ export default function Registation({props, route}) {
               seterror('');
               setMobile(text);
             }}
-            style={{width: wp(80), marginLeft: wp(2), color: '#c2c2c2'}}
+            style={{ width: wp(80), marginLeft: wp(2), color: '#c2c2c2' }}
           />
         </View>
         {error !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error}
           </Text>
         ) : null}
@@ -870,11 +862,11 @@ export default function Registation({props, route}) {
               setName(text);
               seterror1('');
             }}
-            style={{width: wp(80), marginLeft: wp(4)}}
+            style={{ width: wp(80), marginLeft: wp(4) }}
           />
         </View>
         {error1 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error1}
           </Text>
         ) : null}
@@ -919,11 +911,11 @@ export default function Registation({props, route}) {
             // value={inbuiltstate.name}
             // onChangeText={(text) => handlevalidate(text, 'name')}
             // errortext={inbuiltstate.nameError}
-            style={{width: wp(80), marginLeft: wp(4)}}
+            style={{ width: wp(80), marginLeft: wp(4) }}
           />
         </View>
         {error2 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error2}
           </Text>
         ) : null}
@@ -981,11 +973,11 @@ export default function Registation({props, route}) {
             // value={inbuiltstate.password}
             // onChangeText={(text) => handlevalidate(text, 'password')}
             // errortext={inbuiltstate.passwordError}
-            style={{width: wp(80), marginLeft: wp(4)}}
+            style={{ width: wp(80), marginLeft: wp(4) }}
           />
         </View>
         {error3 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error3}
           </Text>
         ) : null}
@@ -1025,13 +1017,13 @@ export default function Registation({props, route}) {
               setConfirmPassword(confirmPassword);
               seterror4('');
             }}
-            style={{width: wp(80), marginLeft: wp(4)}}
+            style={{ width: wp(80), marginLeft: wp(4) }}
           />
 
-          {console.log(password, confirmPassword)}
+
         </View>
         {error4 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error4}
           </Text>
         ) : null}
@@ -1053,8 +1045,7 @@ export default function Registation({props, route}) {
             Select Service You Provide
           </Text>
         </View>
-        {console.log('unique', unique, areaunique)}
-        {console.log('unique', unique.length, areaunique.length)}
+
         <View
           style={{
             backgroundColor: WHITE,
@@ -1092,13 +1083,13 @@ export default function Registation({props, route}) {
             <Image
               resizeMode="contain"
               source={require('../../../assets/images/rightarrowblack.png')}
-              style={{height: hp(2), width: wp(4)}}
+              style={{ height: hp(2), width: wp(4) }}
             />
           </TouchableOpacity>
         </View>
 
         {error5 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error5}
           </Text>
         ) : null}
@@ -1161,17 +1152,17 @@ export default function Registation({props, route}) {
             <Image
               resizeMode="contain"
               source={require('../../../assets/images/rightarrowblack.png')}
-              style={{height: hp(2), width: wp(4)}}
+              style={{ height: hp(2), width: wp(4) }}
             />
           </TouchableOpacity>
         </View>
 
         {error6 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error6}
           </Text>
         ) : null}
-        <View style={{marginTop: hp(1.5), marginLeft: wp(5)}}>
+        <View style={{ marginTop: hp(1.5), marginLeft: wp(5) }}>
           <Text
             style={{
               fontSize: 13,
@@ -1241,11 +1232,11 @@ export default function Registation({props, route}) {
           </TouchableOpacity>
         </View>
         {error7 !== '' ? (
-          <Text style={{marginLeft: wp(6), color: 'red', textAlign: 'left'}}>
+          <Text style={{ marginLeft: wp(6), color: 'red', textAlign: 'left' }}>
             {error7}
           </Text>
         ) : null}
-        <View style={{marginTop: hp(3.5), marginLeft: wp(5)}}>
+        <View style={{ marginTop: hp(3.5), marginLeft: wp(5) }}>
           <Text
             style={{
               fontSize: 13,
@@ -1319,7 +1310,7 @@ export default function Registation({props, route}) {
           mutipleFile.length > 0 &&
           mutipleFile?.map(item => {
             return (
-              <View key={item.mine} style={{marginLeft: wp(5)}}>
+              <View key={item.mine} style={{ marginLeft: wp(5) }}>
                 <Text
                   style={{
                     color: '#000',
@@ -1343,7 +1334,7 @@ export default function Registation({props, route}) {
           <View style={styles.modalWrapper}>
             <View style={styles.modalCont}>
               <View style={styles.panel}>
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: 'center' }}>
                   <Text style={styles.panelTitle}>
                     {t('placeholders.profile.upload')}
                   </Text>
@@ -1395,7 +1386,7 @@ export default function Registation({props, route}) {
           <View style={styles.modalWrapper}>
             <View style={styles.modalCont}>
               <View style={styles.panel}>
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: 'center' }}>
                   <Text style={styles.panelTitle}>
                     {t('placeholders.profile.upload')}
                   </Text>
@@ -1445,7 +1436,7 @@ export default function Registation({props, route}) {
                   <View style={styles.headerWrapper}>
                     <View style={styles.headerAligner}>
                       <TouchableOpacity
-                        style={{width: wp(10)}}
+                        style={{ width: wp(10) }}
                         onPress={
                           () => setModalListServices(false)
                           // navigation.goBack()
@@ -1529,7 +1520,7 @@ export default function Registation({props, route}) {
                       />
                     </View>
                   )}
-                  <View style={{paddingBottom: hp(20)}}>
+                  <View style={{ paddingBottom: hp(20) }}>
                     <FlatList
                       data={data}
                       renderItem={renderItem}
@@ -1555,12 +1546,12 @@ export default function Registation({props, route}) {
               {/* <SafeAreaView> */}
               {/* <View style={styles.panel2}> */}
               {/* <View style={styles.container}> */}
-              <View style={[styles.headerWrapper, {marginTop: hp(3)}]}>
+              <View style={[styles.headerWrapper, { marginTop: hp(3) }]}>
                 <View style={styles.headerAligner}>
                   <TouchableOpacity
-                    style={{width: wp(10)}}
+                    style={{ width: wp(10) }}
                     onPress={() => setModalListArea(false)}
-                    // navigation.goBack()}
+                  // navigation.goBack()}
                   >
                     <Image
                       source={ARROW_WHITE}
@@ -1616,7 +1607,7 @@ export default function Registation({props, route}) {
                   alignItems: 'center',
                 },
               ]}>
-              <Text style={{fontSize: 16}}>In Process...</Text>
+              <Text style={{ fontSize: 16 }}>In Process...</Text>
             </View>
           </View>
         </Modal>
@@ -1626,6 +1617,9 @@ export default function Registation({props, route}) {
             paddingVertical: hp(1),
             justifyContent: 'center',
             alignItems: 'center',
+            alignSelf: 'center',
+            borderRadius: 50,
+            width: wp(50),
             paddingVertical: hp(2),
             marginTop: hp(4),
           }}
@@ -1641,18 +1635,19 @@ export default function Registation({props, route}) {
             );
           }}>
           <Text
-            style={{color: '#fff', fontSize: 15, fontFamily: MONTSERRAT_BOLD}}>
+            style={{ color: '#fff', fontSize: 15, fontFamily: MONTSERRAT_BOLD }}>
             Register
           </Text>
         </TouchableOpacity>
+        <View style={{ marginTop: 20 }}></View>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#F5F5F5'},
-  containerText: {fontSize: 27, color: '#000'},
+  container: { flex: 1, backgroundColor: '#F5F5F5' },
+  containerText: { fontSize: 27, color: '#000' },
   pickerStyle: {
     color: 'red',
     fontSize: 12,
@@ -1700,7 +1695,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FFFFFF',
     shadowColor: '#333333',
-    shadowOffset: {width: -1, height: -3},
+    shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
     shadowOpacity: 0.4,
     // elevation: 5,
@@ -1801,12 +1796,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headerAligner: {flexDirection: 'row', alignItems: 'center'},
+  headerAligner: { flexDirection: 'row', alignItems: 'center' },
   headerLeftImage: {
     height: hp(4),
     width: wp(8),
     marginRight: wp(3),
     marginLeft: wp(2),
   },
-  headerCenterText: {fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD},
+  headerCenterText: { fontSize: 14, color: '#fff', fontFamily: MONTSERRAT_BOLD },
 });

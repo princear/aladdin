@@ -6,11 +6,11 @@ import {
   UPDATE_PROFILE_LOGIN,
   FORGET,
 } from '../Constant/constants';
-import {logistical} from '../../logistical';
+import { logistical } from '../../logistical';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert, ToastAndroid} from 'react-native';
-import {DrawerActions} from '@react-navigation/native';
-import {onCountBooking} from './BookingAction';
+import { Alert, ToastAndroid } from 'react-native';
+import { DrawerActions } from '@react-navigation/native';
+import { onCountBooking } from './BookingAction';
 
 export const RemoveToken = (data, navigation) => dispatch => {
   return new Promise(async (resolve, reject) => {
@@ -29,7 +29,6 @@ export const UserLogin = (data, navigation) => dispatch => {
     payload: true,
   });
 
-  console.log('login detail>>>>>>>>>>', data);
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/service-provider-login', data);
 
@@ -76,7 +75,6 @@ export const UserLogin = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
       reject(response);
     }
   });
@@ -120,7 +118,6 @@ export const ProfileData = navigation => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
       reject(response);
     }
   });
@@ -138,7 +135,6 @@ export const UpdateProfileData = (data, navigation) => dispatch => {
     });
     const response = await logistical.post('/update-provider-profile', data);
 
-    // console.log('====================================>', response)
     if (response.status == '1' && response.message == 'Successfully Response') {
       dispatch(ProfileData());
       // Alert.alert(response.response[0])
@@ -154,7 +150,7 @@ export const UpdateProfileData = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
+
       reject(response);
     }
   });
@@ -166,7 +162,6 @@ export const ForgetPassword = (data, navigation) => dispatch => {
     payload: true,
   });
 
-  console.log('login detail>>>>>>>>>>', data);
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/forget-password', data);
 
@@ -192,7 +187,6 @@ export const ForgetPassword = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>');
       reject(response);
     }
   });

@@ -1,11 +1,11 @@
 // import {CREATE_NOTIFY, LANGUGAE, NOTIFY, COUNT_NOTI} from './type';
-import {logistical} from '../../logistical';
-import {Alert} from 'react-native';
-import {GetServices} from './ServiceAction';
-import {DashboardBooking, GetBookingList} from './bookingAction';
+import { logistical } from '../../logistical';
+import { Alert } from 'react-native';
+import { GetServices } from './ServiceAction';
+import { DashboardBooking, GetBookingList } from './bookingAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {RESEND_OTP, VERIFY_OTP, SENDOTP} from '../Constant/constants';
-import {RemoveToken} from './LoginAction';
+import { RESEND_OTP, VERIFY_OTP, SENDOTP } from '../Constant/constants';
+import { RemoveToken } from './LoginAction';
 
 export const sentOtp = (data, navigation) => dispatch => {
   dispatch({
@@ -14,7 +14,7 @@ export const sentOtp = (data, navigation) => dispatch => {
   });
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/send-otp', data);
-    console.log('response????????', response, response.data);
+
     if (response.status == '1' && response.message == 'Mobile Number exist') {
       dispatch({
         type: 'LOADING',
@@ -53,7 +53,7 @@ export const sentOtp = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>', response);
+
       Alert.alert(response.message);
       reject(response);
     }
@@ -61,14 +61,14 @@ export const sentOtp = (data, navigation) => dispatch => {
 };
 
 export const verifyOtp = (data, navigation) => dispatch => {
-  console.log('Verify>>>>>>>>>>', data);
+
   dispatch({
     type: 'LOADING',
     payload: true,
   });
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/verify-otp', data);
-    console.log('response verify otp?', response);
+
 
     if (response.status == '1') {
       dispatch({

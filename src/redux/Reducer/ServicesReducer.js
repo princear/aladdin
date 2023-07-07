@@ -1,4 +1,4 @@
-import {SERVICES, LOCATIONS} from '../Constant/constants';
+import { SERVICES, LOCATIONS } from '../Constant/constants';
 
 const initialstate = {
   servicesListData: [],
@@ -7,12 +7,12 @@ const initialstate = {
 };
 
 const ServiceReducer = (state = initialstate, action) => {
- // console.log('>>>>>>>>>>>>>>>>Token from reducer.', action.type);
+
   switch (action.type) {
     case SERVICES:
-      return {...state, servicesListData: action.servicesListData};
+      return { ...state, servicesListData: action.servicesListData };
     case LOCATIONS:
-      return {...state, locationListData: action.locationListData};
+      return { ...state, locationListData: action.locationListData };
 
     case 'LOADING':
       if (action.payload) {
@@ -24,7 +24,7 @@ const ServiceReducer = (state = initialstate, action) => {
         };
       }
 
-      return {...state, loading: action.payload};
+      return { ...state, loading: action.payload };
   }
 
   return state;

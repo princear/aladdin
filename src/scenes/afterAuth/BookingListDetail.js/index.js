@@ -45,26 +45,16 @@ export default function BookingListDetail({ route, navigation }) {
     state => state.notificationReducer.Averagerating,
   );
 
-  console.log('averageRatingNEWWWWWWW', averageRating);
+
   const { loading } = useSelector(state => state.UserReducers);
   const [saverate, setSaverate] = useState('');
   const [t] = useTranslation();
-  console.log(
-    'Pendinglist[0]?.ServiceDetail?.id>>>>>>',
-    Pendinglist[0]?.estimates.id,
-  );
+
 
   const Invoice_Link = Pendinglist[0] && Pendinglist[0].invoice_link;
-  console.log(
-    Invoice_Link,
-    'Invoice_LinkInvoice_LinkInvoice_LinkInvoice_LinkInvoice_Link',
-  );
+
   const ratingFunction = serviceId => {
-    console.log(
-      'serviceIdRATINGGGGGGGGGGGGGGG',
-      serviceId,
-      route.params.bookingId,
-    );
+
     dispatch(
       AvaerageRatingService(
         { service_id: serviceId, booking_id: route.params.bookingId },
@@ -73,26 +63,19 @@ export default function BookingListDetail({ route, navigation }) {
     );
   };
   useEffect(() => {
-    console.log('ababba', route.params.bookingId);
+
     const booking_id = route.params.bookingId;
     setSaverate(Pendinglist[0]?.ServiceDetail?.id);
     dispatch(particularBookingId(booking_id, navigation)).then(res => {
-      console.log(res, 'resresresresres>>>>>>>>>>>>>');
+
       if (res.status == 1) {
-        console.log('Status1');
+
         ratingFunction(res.data[0]?.ServiceDetail?.id);
       }
     });
   }, []);
 
-  // useEffect(() => {
-  //     console.log('first')
 
-  // }, [Pendinglist, saverate])
-  // useEffect(() => {
-  //     dispatch(AvaerageRatingService({ service_id: Pendinglist[0]?.ServiceDetail?.id, booking_id: route.params.bookingId }, navigation))
-
-  // }, [Pendinglist])
 
   const deltebooking = () => {
     Alert.alert(
@@ -118,13 +101,7 @@ export default function BookingListDetail({ route, navigation }) {
   };
 
   const setTotalCount = actualprice => {
-    console.log(actualprice, 'actualpriceactualpriceactualprice');
-    // let actualprice1 = actualprice.toString();
-    //  console.log(actualprice[2], 'actualpriceactualpriceactualprice!!!!!!');
 
-    // if (actualprice1[0] === '$') {
-    //   actualprice1 = actualprice.substring(1);
-    // }
 
     if (Pendinglist[0] && Pendinglist[0]?.estimates.length > 0) {
       const initialValue = 0;
@@ -135,7 +112,7 @@ export default function BookingListDetail({ route, navigation }) {
             accumulator + currentValue.unit_price * currentValue.qty,
           initialValue,
         );
-      console.log(parseInt(actualprice), 'TOTALLLLLL');
+
       // return parseInt(actualprice) + sumWithInitial;
       return parseFloat(sumWithInitial);
     }
@@ -189,8 +166,6 @@ export default function BookingListDetail({ route, navigation }) {
   const [selectlonguitude, setSelectlonguitude] = useState('');
   const [showRating, setShowRating] = useState(0);
 
-  //console.log( Pendinglist[0]?.address,' Pendinglist[0]?.address Pendinglist[0]?.address Pendinglist[0]?.address')
-
 
   const [state, setstate] = useState({
     coordinate: {
@@ -212,7 +187,7 @@ export default function BookingListDetail({ route, navigation }) {
     const latitude = userLocation.latitude;
     const longitude = userLocation.longitude;
     setstate({ latitude, longitude });
-    console.log('mapRef', mapRef);
+
     mapRef.current.animateToRegion(
       {
         latitude: Number(selectlocation),
@@ -226,13 +201,13 @@ export default function BookingListDetail({ route, navigation }) {
 
   // ==================GET CURRENT POSITION =============================
   async function requestLocationPermission() {
-    console.log('lakalak');
+
     var response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
 
     if (response == 'granted') {
       await Geolocation.getCurrentPosition(
         ({ coords }) => {
-          console.log('coords', coords);
+
           setUserLocation(coords);
         },
         error => {
@@ -587,145 +562,8 @@ export default function BookingListDetail({ route, navigation }) {
             $ {Pendinglist[0]?.ServiceDetail?.converted_discounted_price} /hr
           </Text>
 
-          {/* <View style={styles.servicesWrapper}>
-                        <Text style={styles.servicesTextWrapper}>{t('placeholders.rang.service')}</Text>
-                    </View> */}
+
         </View>
-
-        {/* <View
-          style={{
-            marginHorizontal: wp(5),
-            marginTop: hp(2),
-            flexDirection: 'row',
-          }}>
-          {Pendinglist[0]?.attributes.length > 0 ? (
-            <View style={{width: wp(50)}}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Bold',
-                }}>
-                {Pendinglist[0]?.attributes[0]?.name}
-              </Text>
-            </View>
-          ) : null}
-
-          {Pendinglist[0]?.attributes?.length > 1 ? (
-            <View style={{width: wp(40)}}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Bold',
-                }}>
-                {Pendinglist[0]?.attributes[1]?.name}
-              </Text>
-            </View>
-          ) : null}
-        </View> */}
-
-        {/* <View
-          style={{
-            marginHorizontal: wp(5),
-            marginTop: hp(1),
-            flexDirection: 'row',
-          }}>
-          {Pendinglist[0]?.attribute_values.length > 0 ? (
-            <View style={{width: wp(50)}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Medium',
-                }}>
-                {Pendinglist[0].attribute_values[0].name}
-              </Text>
-            </View>
-          ) : null}
-
-          {Pendinglist[0]?.attribute_values.length > 1 ? (
-            <View style={{width: wp(40)}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Medium',
-                }}>
-                {Pendinglist[0].attribute_values[1].name}
-              </Text>
-            </View>
-          ) : null}
-        </View> */}
-        {/* <View
-          style={{
-            marginHorizontal: wp(5),
-            marginTop: hp(2),
-            flexDirection: 'row',
-          }}>
-          {Pendinglist[0]?.attributes.length > 3 ? (
-            <View style={{width: wp(50)}}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Bold',
-                }}>
-                {Pendinglist[0]?.attributes[3]?.name}
-              </Text>
-            </View>
-          ) : null}
-
-          {Pendinglist[0]?.attributes.length > 4 ? (
-            <View style={{width: wp(40)}}>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Bold',
-                }}>
-                {Pendinglist[0]?.attributes[4]?.name}
-              </Text>
-            </View>
-          ) : null}
-        </View> */}
-        {/* <View
-          style={{
-            marginHorizontal: wp(5),
-            marginTop: hp(1),
-            flexDirection: 'row',
-          }}>
-          {Pendinglist[0] && Pendinglist[0].attribute_values.length > 3 ? (
-            <View style={{width: wp(50)}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Medium',
-                }}>
-                {Pendinglist[0].attribute_values[3].name}
-              </Text>
-            </View>
-          ) : null}
-
-          {Pendinglist[0] && Pendinglist[0].attribute_values.length > 4 ? (
-            <View style={{width: wp(40)}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#000',
-                  fontFamily: 'Montserrat-Medium',
-                }}>
-                {Pendinglist[0].attribute_values[4].name}
-              </Text>
-            </View>
-          ) : null}
-        </View> */}
-
-        {/* {console.log(
-          Pendinglist[0] && Pendinglist[0].estimate_item.,
-          'PRINCEEEEEEEEEE',
-        )} */}
 
         {Pendinglist[0] &&
           Pendinglist[0]?.attribute_values_with_name.map(item => {
@@ -1013,11 +851,7 @@ export default function BookingListDetail({ route, navigation }) {
             </TouchableOpacity>
           </View>
         )}
-        {console.log(
-          Pendinglist[0]?.ratings,
-          'Pendinglist[0]?.ratings',
-          Pendinglist[0]?.ratings == '' ? 0 : Pendinglist[0]?.ratings[0].rating,
-        )}
+
         {Pendinglist[0]?.status === t('placeholders.settings.completed') ? (
           <View>
             <Rating

@@ -11,10 +11,10 @@ const initialstate = {
     forgetdata: '',
 }
 
-const UserReducers = ( state = initialstate, action ) => {
+const UserReducers = (state = initialstate, action) => {
 
-   // console.log( '>>>>>>>>>>>>>>>>Token from reducer.', action.type, action.payload );
-    switch ( action.type ) {
+
+    switch (action.type) {
 
         case GET_TOKEN:
 
@@ -34,7 +34,7 @@ const UserReducers = ( state = initialstate, action ) => {
 
         case 'LOADING':
 
-            if ( action.payload ) {
+            if (action.payload) {
 
                 return {
                     ...state,

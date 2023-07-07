@@ -15,19 +15,16 @@ const initialstate = {
 };
 
 const notificationReducer = (state = initialstate, action) => {
-  // console.log(
-  //   action.averageratingBooking,
-  //   'action.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBookingaction.averageratingBooking',
-  // );
+
   switch (action.type) {
     case NOTIFY:
-      return {...state, notiData: action.notiData};
+      return { ...state, notiData: action.notiData };
     case CREATE_NOTIFY:
-      return {...state, selectnotifyData: action.selectnotifyData};
+      return { ...state, selectnotifyData: action.selectnotifyData };
     case RATING:
-      return {...state, ratingBooking: action.ratingBooking};
+      return { ...state, ratingBooking: action.ratingBooking };
     case AVERAGE_RATING:
-      return {...state, Averagerating: action.averageratingBooking};
+      return { ...state, Averagerating: action.averageratingBooking };
     // case COUNT_NOTI:
     //   return {
     //     ...state,
@@ -44,7 +41,7 @@ const notificationReducer = (state = initialstate, action) => {
         };
       }
 
-      return {...state, loading: action.payload};
+      return { ...state, loading: action.payload };
   }
 
   return state;

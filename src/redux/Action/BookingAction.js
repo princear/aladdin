@@ -50,14 +50,13 @@ export const onCountBooking = (navigation) => dispatch => {
         payload: false,
       });
 
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>ocount1');
+
       reject(response);
     }
   });
 };
 
 export const onALlBooking = (statusEnText, statusText, navigation) => dispatch => {
-  // console.log(statusEnText, statusText, navigation,'responxceeeeXXXXXXXXXX');
 
   dispatch({
     type: 'LOADING',
@@ -68,7 +67,7 @@ export const onALlBooking = (statusEnText, statusText, navigation) => dispatch =
     const response = await logistical.get(
       '/get-provider-booking-details/' + statusEnText,
     );
-      console.log(response.data, 'responxceeeeXXXXXXXXXX');
+
     if (response.status == 1) {
       dispatch({
         type: BOOKINGLIST,
@@ -105,7 +104,7 @@ export const onALlBooking = (statusEnText, statusText, navigation) => dispatch =
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>11111');
+
       reject(response);
     }
   });
@@ -122,7 +121,7 @@ export const particularBookingId = (data, navigation) => dispatch => {
     );
 
     if (response.status == 1) {
-      console.log(response.data[0].address, 'PRINCE!!!!!!!!!!!!!');
+
       dispatch({
         type: BOOKING_LIST_ID,
         particularListData: response.data,
@@ -148,21 +147,21 @@ export const particularBookingId = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>Booking Id');
+
       reject(response);
     }
   });
 };
 
 export const editBooking = (data, navigation) => dispatch => {
-  console.log(data, 'BOOKING DATAAAAA');
+
   dispatch({
     type: 'LOADING',
     payload: true,
   });
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/get-provider-status-change', data);
-    console.log('responsePRICEEEEEEEEEEEEEE', response);
+
 
     if (
       response.status == 1
@@ -233,7 +232,7 @@ export const editBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>2222');
+
       reject(response);
     }
   });
@@ -245,13 +244,13 @@ export const cancelBooking = (data, navigation) => dispatch => {
     payload: true,
   });
 
-  console.log('cancellll booking >>>>>>>>>>', data);
+
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post(
       '/get-provider-booking-canceled',
       data,
     );
-    console.log('response', response);
+
 
     if (response.status == 1) {
       dispatch(onALlBooking());
@@ -312,7 +311,7 @@ export const cancelBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>88888');
+
       reject(response);
     }
   });
@@ -323,10 +322,10 @@ export const deleteBooking = (data, navigation) => dispatch => {
     payload: true,
   });
 
-  console.log('cancellll booking >>>>>>>>>>', data);
+
   return new Promise(async (resolve, reject) => {
     const response = await logistical.get('/booking-delete/' + data);
-    console.log('response', response);
+
 
     if (response.status == '1') {
       // const abvc = () => {
@@ -363,7 +362,7 @@ export const deleteBooking = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>44444');
+
       reject(response);
     }
   });
@@ -375,10 +374,9 @@ export const RecentBookings = (data, navigation) => dispatch => {
     payload: true,
   });
 
-  console.log('recenttt booking >>>>>>>>>>', data);
+
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/get-filter-bookings', data);
-    console.log('response', response);
 
     if (response.status == 1) {
       dispatch({
@@ -408,7 +406,7 @@ export const RecentBookings = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>55555');
+
       reject(response);
     }
   });

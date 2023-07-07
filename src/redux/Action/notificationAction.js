@@ -1,8 +1,8 @@
 // import {CREATE_NOTIFY, LANGUGAE, NOTIFY, COUNT_NOTI} from './type';
-import {logistical} from '../../logistical';
-import {Alert} from 'react-native';
-import {GetServices} from './ServiceAction';
-import {DashboardBooking, GetBookingList} from './bookingAction';
+import { logistical } from '../../logistical';
+import { Alert } from 'react-native';
+import { GetServices } from './ServiceAction';
+import { DashboardBooking, GetBookingList } from './bookingAction';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   NOTIFY,
@@ -10,12 +10,11 @@ import {
   RATING,
   AVERAGE_RATING,
 } from '../Constant/constants';
-import {RemoveToken} from './LoginAction';
+import { RemoveToken } from './LoginAction';
 
 export const AllNotification = navigation => dispatch => {
   return new Promise(async (resolve, reject) => {
     const response = await logistical.get('/push-notifications');
-    // console.log(response.data, '========================');
 
     if (response.status == 1) {
       dispatch({
@@ -29,14 +28,13 @@ export const AllNotification = navigation => dispatch => {
       AsyncStorage.removeItem('login');
       navigation.navigate('Login');
     } else {
-      console.log('errrrr language');
+
       reject(response);
     }
   });
 };
 
 export const ParticularNotification = (data, navigation) => dispatch => {
-  console.log(data, 'datata shoe ');
 
   return new Promise(async (resolve, reject) => {
     const response = await logistical.post('/save-push-notifications/', data);
@@ -62,7 +60,7 @@ export const ParticularNotification = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>not');
+
       reject(response);
     }
   });
@@ -79,13 +77,13 @@ export const RatingServices = (data, navigation) => dispatch => {
     type: 'LOADING',
     payload: true,
   });
-  console.log(data, 'hsjhsjhshsjshjh reststststts');
+
   return new Promise(async (resolve, reject) => {
-    console.log(' enter tehe hsjksjk', response);
+
     const response = await logistical.post('/create-rating', data);
-    console.log(response, 'rating ');
+
     if (response.status == 1) {
-      console.log('response.fata', response.data);
+
       dispatch({
         type: RATING,
         ratingBooking: response.data.ratings,
@@ -118,8 +116,7 @@ export const RatingServices = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>not1');
-      console.log('datattatatat');
+
       reject(response.data);
     }
   });
@@ -130,13 +127,13 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
     type: 'LOADING',
     payload: true,
   });
-  console.log(data, 'hsjhsjhshsjshjh reststststts', data);
+
   return new Promise(async (resolve, reject) => {
-    console.log(' enter tehe hsjksjk', response);
+
     const response = await logistical.post('/avarage-rating-customer', data);
-    console.log(response, 'ratingAAAAAAAAAAAAA ');
+
     if (response.status == 1) {
-      console.log('response.fata', response.data);
+
       dispatch({
         type: AVERAGE_RATING,
         averageratingBooking: response.data,
@@ -146,10 +143,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         payload: true,
       });
       resolve(response);
-      console.log(
-        response,
-        'RATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATINGRATING',
-      );
+
       // Alert.alert(response.message);
       // navigation.navigate('Booking');
       dispatch({
@@ -157,7 +151,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         payload: false,
       });
     }
-    
+
     // else if (response.message == 'Unauthenticated.') {
     //   Alert.alert('Session expired please login again ..');
     //   dispatch(RemoveToken('null'));
@@ -173,8 +167,7 @@ export const AvaerageRatingService = (data, navigation) => dispatch => {
         type: 'LOADING',
         payload: false,
       });
-      console.log('errrrrrrrrrrrrrrr>>>>>>>>>>>>>>>noti2');
-      console.log('datattatatat');
+
       reject(response.data);
     }
   });

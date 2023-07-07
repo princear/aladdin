@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,9 +17,9 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImgToBase64 from 'react-native-image-base64';
 import {
@@ -30,7 +30,7 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function ProfileScreen(props) {
   const navigation = useNavigation();
@@ -98,22 +98,21 @@ export default function ProfileScreen(props) {
       imagePath === ''
         ? formdata.append('image', fetchProfile?.user_image_url)
         : formdata.append('image', {
-            uri: imagePath.path,
-            type: imagePath.mime,
-            // // type: "image/jpeg",
-            // name:'imagename',
-            name: 'image/jpeg',
-            // filename: 'image/jpeg',
-            // type: 'image/jpeg',
-          });
+          uri: imagePath.path,
+          type: imagePath.mime,
+          // // type: "image/jpeg",
+          // name:'imagename',
+          name: 'image/jpeg',
+          // filename: 'image/jpeg',
+          // type: 'image/jpeg',
+        });
     }
 
     axios.defaults.baseURL = 'https://aladdin.com.iq/api/';
 
     const api = axios.defaults.baseURL + 'update-provider-profile';
 
-    console.log(api);
-    console.log(formdata._parts);
+
     return fetch(api, {
       method: 'POST',
       headers: {
@@ -150,7 +149,7 @@ export default function ProfileScreen(props) {
         } else {
           setLoading(false);
         }
-        // console.log('respon', responseJson)
+
       })
       .catch(function (error) {
         console.log(error);
@@ -175,7 +174,6 @@ export default function ProfileScreen(props) {
   const imageUpload = imageData => {
     setModalServices(false);
 
-    console.log('imagePath', imagePath);
     setImagePath(imageData);
   };
 
@@ -196,18 +194,14 @@ export default function ProfileScreen(props) {
     });
   };
 
-  // ImgToBase64.getBase64String( image )
-  //     .then( ( base64String ) => {
-  //         setShowImage( base64String )
-  //     } )
-  //     .catch( err => console.log( err ) );
+
 
   const [state, setState] = useState('+964');
 
   const state_list = [
-    {label: '+964', value: '+964'},
-    {label: '+91', value: '+91'},
-    {label: '+971', value: '+971'},
+    { label: '+964', value: '+964' },
+    { label: '+91', value: '+91' },
+    { label: '+971', value: '+971' },
   ];
 
   const [inputValue, setInputValue] = useState('');
@@ -218,20 +212,20 @@ export default function ProfileScreen(props) {
 
   const valueget = text => {
     setInputValue(text);
-    setSignIn({...signin, name: text});
+    setSignIn({ ...signin, name: text });
   };
   const valueget2 = text => {
     setInputValue2(text);
-    setSignIn({...signin, email: text});
+    setSignIn({ ...signin, email: text });
   };
   const valueget3 = text => {
     setInputValue3(text);
-    setSignIn({...signin, password: text});
+    setSignIn({ ...signin, password: text });
   };
 
   const valueget4 = text => {
     setInputValue4(text);
-    setSignIn({...signin, mobileNumber: text});
+    setSignIn({ ...signin, mobileNumber: text });
   };
 
   return (
@@ -276,17 +270,17 @@ export default function ProfileScreen(props) {
           />
         </View>
       ) : (
-        <ScrollView style={{paddingBottom: hp(10)}}>
+        <ScrollView style={{ paddingBottom: hp(10) }}>
           <View style={styles.centerImageWrapper}>
             {imagePath ? (
               <Image
-                source={{uri: imagePath.path}}
+                source={{ uri: imagePath.path }}
                 // resizeMode="contain"
                 style={styles.centerImage}
               />
             ) : (
               <Image
-                source={{uri: fetchProfile.user_image_url}}
+                source={{ uri: fetchProfile.user_image_url }}
                 style={styles.centerImage2}
               />
             )}
@@ -386,7 +380,7 @@ export default function ProfileScreen(props) {
 
             <TouchableOpacity
               onPress={() => setShowpassword(!showpassword)}
-              style={{alignItems: 'center', justifyContent: 'center'}}>
+              style={{ alignItems: 'center', justifyContent: 'center' }}>
               <Image
                 style={styles.searchIcon}
                 source={
@@ -451,7 +445,7 @@ export default function ProfileScreen(props) {
                   <Image
                     source={require('../../../assets/images/Downarrow.png')}
                     resizeMode="contain"
-                    style={{height: hp(3), width: wp(8)}}
+                    style={{ height: hp(3), width: wp(8) }}
                   />
                 </View>
               </RNPickerSelect>
@@ -481,15 +475,15 @@ export default function ProfileScreen(props) {
           ) : null}
 
           {inputValue == '' &&
-          inputValue2 == '' &&
-          inputValue3 == '' &&
-          inputValue4 == '' &&
-          imagePath == '' ? (
+            inputValue2 == '' &&
+            inputValue3 == '' &&
+            inputValue4 == '' &&
+            imagePath == '' ? (
             <TouchableOpacity
               disabled
               style={[
                 styles.updateWrapper,
-                {opacity: 0.4, backgroundColor: '#9066e6'},
+                { opacity: 0.4, backgroundColor: '#9066e6' },
               ]}>
               <Text style={styles.headerHeading}>
                 {' '}
@@ -518,7 +512,7 @@ export default function ProfileScreen(props) {
         <View style={styles.modalWrapper}>
           <View style={styles.modalCont}>
             <View style={styles.panel}>
-              <View style={{alignItems: 'center'}}>
+              <View style={{ alignItems: 'center' }}>
                 <Text style={styles.panelTitle}>
                   {t('placeholders.profile.upload')}
                 </Text>
@@ -558,7 +552,7 @@ export default function ProfileScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#f7f5f1'},
+  container: { flex: 1, backgroundColor: '#f7f5f1' },
   headerWrapper: {
     backgroundColor: '#9066e6',
     marginTop: Platform.OS == 'ios' ? -hp(2.5) : hp(0),
@@ -567,14 +561,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  headerRow: {flexDirection: 'row', alignItems: 'center'},
+  headerRow: { flexDirection: 'row', alignItems: 'center' },
   headerImage: {
     height: hp(3),
     width: wp(8),
     marginRight: wp(6),
     marginLeft: wp(2),
   },
-  headerHeading: {fontSize: 14, color: '#fff', fontFamily: 'Montserrat-Bold'},
+  headerHeading: { fontSize: 14, color: '#fff', fontFamily: 'Montserrat-Bold' },
   centerImageWrapper: {
     height: Platform.OS == 'ios' ? 100 : 100,
     zIndex: 99999,
@@ -612,14 +606,14 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
   },
-  cameraImage: {height: hp(4), width: wp(8)},
+  cameraImage: { height: hp(4), width: wp(8) },
   inputHeadingWrapper: {
     marginTop: hp(3),
     marginHorizontal: wp(5),
     flexDirection: 'row',
     alignItems: 'center',
   },
-  headingImage: {height: hp(3), width: wp(8)},
+  headingImage: { height: hp(3), width: wp(8) },
   headingTextInput: {
     fontSize: 14,
     fontFamily: 'Montserrat-Bold',
@@ -646,7 +640,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Montserrat-Medium',
   },
-  mobileImage: {height: hp(3.5), width: wp(7.5)},
+  mobileImage: { height: hp(3.5), width: wp(7.5) },
   updateWrapper: {
     marginHorizontal: wp(5),
     marginTop: hp(3),
@@ -684,7 +678,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FFFFFF',
     shadowColor: '#333333',
-    shadowOffset: {width: -1, height: -3},
+    shadowOffset: { width: -1, height: -3 },
     shadowRadius: 2,
     shadowOpacity: 0.4,
     // elevation: 5,
